@@ -1,0 +1,14 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 62.5%;
+}
+
+$color-primary: #64858b;
+$color-light: #e6e1d9;
+$color-tertiary: #d8a62f;
+$color-4: #c0654f;
+$color-text: #27104d;
+$color-dark: #333333;
