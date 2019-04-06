@@ -19,9 +19,9 @@ $font-primary: 'GT Walsheim Pro';
 $font-secondary: 'Founders Grotesk';
 
 h4 {
-    font-family: 'Founders Grotesk';
-    // font-style: italic;
-    font-size: 5rem;
+    font-family: 'GT Walsheim Pro';
+    font-style: italic;
+    font-weight: 200;
 }
 
 @font-face {
@@ -49,8 +49,9 @@ h4 {
 }
 
 @font-face {
-    font-family: "Founders Grotesk";
-    src: url("../fonts/Founders-Grotesk/FoundersGrotesk-LightItalic.woff") format('woff');
+    font-family: "GT Walsheim Pro";
+    src: url("../fonts/GT-Walsheim/GT-Walsheim-Light-Oblique.woff") format('woff');
+    font-weight: 300;
     font-style: italic;
 }
 
