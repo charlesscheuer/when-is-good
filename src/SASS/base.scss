@@ -9,13 +9,16 @@ body {
 // colors 
 $color-primary: #64858b;
 $color-light: #e6e1d9;
-$color-tertiary: #d8a62f;
+$color-secondary: #d8a62f;
 $color-4: #c0654f;
 $color-text: #27104d;
 $color-dark: #333333;
 
+//transitions 
+$trans-primary: cubic-bezier(0.075, 0.82, 0.165, 1);
+
 // fonts 
-$font-primary: 'GT Walsheim Pro';
+$font-primary: 'GT Walsheim Pro', 'Gill Sans', sans-serif;
 $font-secondary: 'Founders Grotesk';
 
 h4 {
