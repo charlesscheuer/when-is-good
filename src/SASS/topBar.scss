@@ -1,9 +1,40 @@
 .btn {
-    $color-light: #e6e1d9;
+    background-color: $color-light;
+    width: 8rem;
+    height: 2.3rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.25);
+    transition: all .4s $trans-primary;
+    font-size: 1.2rem;
+    font-family: $font-primary;
+    font-weight: 500;
+    color: $color-primary;
+    border: none;
+    &:hover {
+        cursor: pointer;
+        transform: translateY(-2px);
+    }
+    &:active {
+    box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
+    transform: translateY(1px);
+    }
 }
-
-.topbar {
-    &_title {
-        color: $color-primary;
+.container {
+    margin-top: 2rem;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    .topBar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 80vw;
+        
+        &_title {
+            color: $color-text;
+            text-transform: uppercase;
+            font-family: $font-primary;
+            font-size: 1.2rem;
+        }
     }
 }

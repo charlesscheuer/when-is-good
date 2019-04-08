@@ -9,6 +9,16 @@ class App extends Component {
     return (
       <div className="App">
         <topBar></topBar>
+        <div className="container">
+        <div className="topBar">
+        <button className="btn">15 mins</button>
+        <button className="btn">30 mins</button>
+        <p className="topBar_title">select time</p>
+        <button className="btn">45 mins</button>
+        <button className="btn">60 mins</button>
+        </div>
+        </div>
+        
         
       </div>
     );
