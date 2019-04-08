@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
-import Date from './date';
 
 export default class TimeSelect extends Component {
   render() {
+    // check the calendar.scss file for the styles here
     return (
-      <div>
-      <div className="dates">
-        <Date />
-        <Date />
-        <Date />
-        <Date />
-        <Date />
-        <Date />
-        <Date />
-      </div>
+      <div className="TimeSelect">
+        <div className="TimeSelect_containTitle">
+        <h1 className="TimeSelect_title">When is good?</h1>
+        </div>
+        <div className="TimeSelect_times"></div>
       </div>
     )
   }
 }
+
+

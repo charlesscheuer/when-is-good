@@ -1,0 +1,100 @@
+.week {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    margin-bottom: 1rem;
+    &_title {
+        font-family: $font-primary;
+        font-weight: 500;
+        font-size: 1.5rem;
+        margin-right: 2rem;
+        margin-left: 2rem;
+    }
+    &_arrow {
+        font-size: 1.5rem;
+        background-color: $color-secondary;
+        padding-top: .2rem;
+        padding-bottom: .2rem;
+        box-shadow: 0 2px 13px rgba(216, 166, 47, 0.68);
+        border: none;
+        border-radius: 50rem;
+        transition: all .4s $trans-primary;
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0 2px 20px rgba(216, 166, 47, 0.68);
+        }
+        &:active {
+            transform: scale(1.2);
+        }
+    }
+}
+
+.numberDate {
+    width: 5rem;
+    height: 3rem;
+    font-family: $font-primary;
+    background-color: cyan;
+    display: flex;
+
+    &_num {
+        // font-size: 3rem;
+        // height: 4.2rem;
+        background-color: red;
+        width: 60%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: top;
+        &-digit {
+            margin-top: 0;
+            font-size: 3rem;
+        }
+    }
+    &_th {
+        // font-size: 2rem;
+        // height: 2rem;
+        background-color: green;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        
+        &-letter {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: top;
+        }
+    }
+}
+
+.weekdays {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+
+.TimeSelect {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 30rem;
+    &_containTitle {
+            width: 6%;
+            height: 100%; 
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+    }
+    &_title {
+        transform: (rotate(-90deg));
+        width: 16rem;
+        font-family: $font-primary;
+        font-weight: 500;
+        text-align: center;
+    }
+    &_times {
+        width: 95%;
+        height: 100%;
+    }
+} 

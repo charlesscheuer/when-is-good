@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import weekSelect from './weekSelect/weekSelect';
-import timeSelect from './timeSelect/timeSelect';
+import WeekSelect from './WeekSelect/WeekSelect';
+import TimeSelect from './TimeSelect/TimeSelect';
 
-export default class calendar extends Component {
+export default class Calendar extends Component {
   render() {
+    // TimeSelect has the container for the 'when is good?' that is vertical on the page
     return (
       <div>
-        <weekSelect />
-        <timeSelect />
+        <WeekSelect />
+        <TimeSelect />
       </div>
     )
   }
