@@ -1,0 +1,9 @@
+.btn {
+    $color-light: #e6e1d9;
+}
+
+.topbar {
+    &_title {
+        color: $color-primary;
+    }
+}
