@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class date extends Component {
+export default class Date extends Component {
   render() {
     return (
       <div>

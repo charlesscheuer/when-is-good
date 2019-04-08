@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class timeButton extends Component {
+class TimeButton extends Component {
   render() {
     return (
       <div>
@@ -9,4 +9,4 @@ class timeButton extends Component {
     )
   }
 }
-export default timeButton;
+export default TimeButton;

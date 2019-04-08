@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import arrowButton from './arrowButton'
+import ArrowButton from './arrowButton'
 
-export default class weekSelect extends Component {
+export default class WeekSelect extends Component {
   render() {
     return (
       <div>
-        <arrowButton></arrowButton>
+        <ArrowButton></ArrowButton>
         <h4 className="week"></h4>
-        <arrowButton></arrowButton>
+        <ArrowButton></ArrowButton>
       </div>
     )
   }

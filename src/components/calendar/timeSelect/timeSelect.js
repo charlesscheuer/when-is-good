@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
-import date from './date';
+import Date from './date';
 
-export default class timeSelect extends Component {
+export default class TimeSelect extends Component {
   render() {
     return (
       <div>
       <div className="dates">
-        <date />
-        <date />
-        <date />
-        <date />
-        <date />
-        <date />
-        <date />
+        <Date />
+        <Date />
+        <Date />
+        <Date />
+        <Date />
+        <Date />
+        <Date />
       </div>
       </div>
     )
