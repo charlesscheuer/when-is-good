@@ -35,36 +35,10 @@
     width: 5rem;
     height: 3rem;
     font-family: $font-primary;
-    background-color: cyan;
+    font-size: 2rem;
     display: flex;
-
-    &_num {
-        // font-size: 3rem;
-        // height: 4.2rem;
-        background-color: red;
-        width: 60%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: top;
-        &-digit {
-            margin-top: 0;
-            font-size: 3rem;
-        }
-    }
-    &_th {
-        // font-size: 2rem;
-        // height: 2rem;
-        background-color: green;
-        width: 40%;
-        height: 100%;
-        display: flex;
-        
-        &-letter {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: top;
-        }
+    sup {
+        font-size: 1rem;
     }
 }
 
