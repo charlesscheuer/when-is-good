@@ -4,6 +4,7 @@
     align-items: center;
     width: 100vw;
     margin-bottom: 1rem;
+    transition: all .2s $trans-primary;
     &_title {
         font-family: $font-primary;
         font-weight: 500;
