@@ -2,7 +2,7 @@
   "name": "when-is-good",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://charlesscheuer.github.io/when-is-good",
+  "homepage": "http://charlesscheuer.github.io/when-is-good/",
   "dependencies": {
     "gh-deploy": "^0.2.3",
     "node-sass": "^4.11.0",
