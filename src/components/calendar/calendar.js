@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import WeekSelect from './WeekSelect/WeekSelect';
-import TimeSelect from './TimeSelect/TimeSelect';
+import WeekSelect from './weekSelect/weekSelect';
+import TimeSelect from './timeSelect/timeSelect';
 
 export default class Calendar extends Component {
   render() {
