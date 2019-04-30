@@ -79,7 +79,6 @@
     align-items: center;
     width: 100vw;
     height: 30rem;
-    
     @media screen and (max-width: 650px) {
         flex-direction: column;
     }
@@ -103,8 +102,38 @@
         margin-top: -10rem;
         text-align: center;
     }
-    &_times {
-        width: 95%;
-        height: 100%;
+}
+
+.TimeSlot {
+    width: 75%;
+    height: 100%;
+    margin-left: 5rem;
+    display: flex;
+    flex-direction: row;
+    &_col {
+        padding: 0 3rem;
+        display: flex;
+        flex-direction: column;
+        @media screen and (max-width: 1200px) {
+            padding: 0 1rem;
+        }
+        @media screen and (max-width: 650px) {
+            padding: 0 1rem;
+            font-size: 1.3rem;
+        }
+        @media screen and (max-width: 500px) {
+            font-size: 1rem;
+            padding: 0 .5rem;
+        }
     }
-} 
+    &_time {
+        font-family: $font-primary;
+        font-size: 1rem;
+        text-align: center;
+        background-color: #333333;
+        color: #e6e1d9;
+        margin-top: 0.5rem;
+        width: 62px;
+        height: 18px;
+    }
+}

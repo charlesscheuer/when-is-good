@@ -6,9 +6,171 @@ export default class TimeSelect extends Component {
     return (
       <div className="TimeSelect">
         <div className="TimeSelect_containTitle">
-        <h1 className="TimeSelect_title">When is good?</h1>
+          <h1 className="TimeSelect_title">When is good?</h1>
         </div>
-        <div className="TimeSelect_times"></div>
+        <table className="TimeSlot">
+          <tr className="TimeSlot_col">
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+          </tr>
+          <tr className="TimeSlot_col">
+          <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+          </tr>
+          <tr className="TimeSlot_col">
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+          </tr>
+          <tr className="TimeSlot_col">
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+          </tr>
+          <tr className="TimeSlot_col">
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+          </tr>
+          <tr className="TimeSlot_col">
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+          </tr>
+          <tr className="TimeSlot_col">
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+            <td className="TimeSlot_time">
+              :30
+            </td>
+            <td className="TimeSlot_time">
+              6am
+            </td>
+          </tr>
+        </table>
       </div>
     )
   }
