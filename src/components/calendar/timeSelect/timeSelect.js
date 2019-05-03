@@ -28,7 +28,7 @@ export default class TimeSelect extends Component {
   constructor(props){
     super(props)
     this.state = {
-      window: 15,
+      window: 0,
       dates: [
         "April 4, 18",
         "April 5, 18",
@@ -45,14 +45,15 @@ export default class TimeSelect extends Component {
       table: [
       ]
     }
+    this.windowHandler = this.windowHandler.bind(this)
   }
 
-  componentDidMount() {
+  windowHandler() {
     let table = []
     let dates = [...this.state.dates]
     let times = [...this.state.times]
-    dates.forEach((date) => {
-      times.forEach((time) => {
+    times.forEach((time) => {
+      dates.forEach((date) => {
         table.push(`${date} ${time}:00`)
         switch(this.state.window) {
           case 15:
@@ -71,6 +72,10 @@ export default class TimeSelect extends Component {
     this.setState({table: table})
   }
 
+  componentDidMount() {
+    this.windowHandler()
+  }
+
   render() {
     let times = [...this.state.table]
     return (
@@ -79,167 +84,21 @@ export default class TimeSelect extends Component {
           <h1 className="TimeSelect_title">When is good?</h1>
         </div>
         <table className="TimeSlot">
-          <tr className="TimeSlot_col">
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-          </tr>
-          <tr className="TimeSlot_col">
-          <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-          </tr>
-          <tr className="TimeSlot_col">
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-          </tr>
-          <tr className="TimeSlot_col">
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-          </tr>
-          <tr className="TimeSlot_col">
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-          </tr>
-          <tr className="TimeSlot_col">
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-          </tr>
-          <tr className="TimeSlot_col">
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-            <td className="TimeSlot_time">
-              :30
-            </td>
-            <td className="TimeSlot_time">
-              6am
-            </td>
-          </tr>
+          <tbody className="TimeSlot_col">
+            {times.map((datetime, index) => {
+              var dateTimeObj = new Date(datetime)
+              var hour = dateTimeObj.getHours()
+              var min = dateTimeObj.getMinutes()
+              var ampm = hour >= 12 ? 'pm' : 'am';
+              hour = hour % 12;
+              hour = hour ? hour : 12;
+              return <tr>
+                <td className="TimeSlot_time">
+                  {min === 0 ? `${hour}${ampm}`: `${hour}:${min}${ampm}`}
+                </td>
+              </tr>})
+            }
+          </tbody>
         </table>
       </div>
     )
