@@ -22,8 +22,6 @@ export default class TimeSelect extends Component {
       ],
       selected: [
       ],
-      display: [
-      ]
     }
     this.windowHandler = this.windowHandler.bind(this)
     this.displayHandler = this.displayHandler.bind(this)
@@ -97,6 +95,8 @@ export default class TimeSelect extends Component {
   }
 
   render() {
+    console.log("Selected:")
+    console.log(this.state.selected)
     let times = [...this.state.table]
     return (
       <div className="TimeSelect">
@@ -125,5 +125,3 @@ export default class TimeSelect extends Component {
     )
   }
 }
-
-
