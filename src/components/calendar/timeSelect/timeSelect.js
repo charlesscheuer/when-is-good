@@ -1,28 +1,4 @@
 import React, { Component } from 'react'
-
-const TableColumn = (props) => {
-  console.log(props.times)
-  return(
-  props.times.map((dateTime, index) => {
-    var dateTimeObj = new Date(dateTime)
-    var hour = dateTimeObj.getHours()
-    var min = dateTimeObj.getMinutes()
-    var ampm = hour >= 12 ? 'pm' : 'am';
-    hour = hour % 12;
-    hour = hour ? hour : 12;
-    return(
-    <tr className="TimeSlot_col">
-      <td className="TimeSlot_time" key={index}>
-        {`${hour}${ampm}`}
-      </td>
-      {(min !== 0) && 
-      <td className="TimeSlot_time" key={index+10}>
-        {`${min}`}
-      </td>}
-    </tr> )
-  }))
-}
-
 export default class TimeSelect extends Component {
 
   constructor(props){
@@ -43,9 +19,12 @@ export default class TimeSelect extends Component {
         14, 15, 16, 17, 18, 19, 20
       ],
       table: [
+      ],
+      selected: [
       ]
     }
     this.windowHandler = this.windowHandler.bind(this)
+    this.onClick = this.onClick.bind(this)
   }
 
   windowHandler() {
@@ -72,6 +51,18 @@ export default class TimeSelect extends Component {
     this.setState({table: table})
   }
 
+  onClick(e, datetime) {
+    e.preventDefault()
+    this.setState({
+      ...this.state,
+      selected: [
+        ...this.state.selected,
+        datetime
+      ]
+    })
+    console.log(this.state.selected)
+  }
+
   componentDidMount() {
     this.windowHandler()
   }
@@ -92,8 +83,8 @@ export default class TimeSelect extends Component {
               var ampm = hour >= 12 ? 'pm' : 'am';
               hour = hour % 12;
               hour = hour ? hour : 12;
-              return <tr>
-                <td className="TimeSlot_time">
+              return <tr key={index}>
+                <td draggable="true" onClick={(e) => this.onClick(e, datetime)} className="TimeSlot_time" key={index}>
                   {min === 0 ? `${hour}${ampm}`: `${hour}:${min}${ampm}`}
                 </td>
               </tr>})
