@@ -1,15 +1,18 @@
-import React, { Component } from 'react'
+import React from 'react'
 import WeekSelect from './weekSelect/weekSelect';
 import TimeSelect from './timeSelect/timeSelect';
 
-export default class Calendar extends Component {
-  render() {
-    // TimeSelect has the container for the 'when is good?' that is vertical on the page
-    return (
+const Calendar = (props) => {
+  return (
       <div>
         <WeekSelect />
-        <TimeSelect />
+        <TimeSelect
+          selected={props.selected}
+          table={props.table}
+          onClick={props.onClick}
+        />
       </div>
-    )
-  }
+  )
 }
+
+export default Calendar
