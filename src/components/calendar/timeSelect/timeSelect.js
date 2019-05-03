@@ -4,7 +4,7 @@ export default class TimeSelect extends Component {
   constructor(props){
     super(props)
     this.state = {
-      window: 0,
+      window: 60,
       dates: [
         "April 4, 18",
         "April 5, 18",
@@ -21,46 +21,75 @@ export default class TimeSelect extends Component {
       table: [
       ],
       selected: [
+      ],
+      display: [
       ]
     }
     this.windowHandler = this.windowHandler.bind(this)
+    this.displayHandler = this.displayHandler.bind(this)
     this.onClick = this.onClick.bind(this)
+  }
+
+  displayHandler(datetime) {
+    var dateTimeObj = new Date(datetime)
+    var hour = dateTimeObj.getHours()
+    var min = dateTimeObj.getMinutes()
+    var ampm = hour >= 12 ? 'pm' : 'am';
+    hour = hour % 12;
+    hour = hour ? hour : 12;
+    if(min === 0)
+      return `${hour}${ampm}`
+    return `${hour}:${min}${ampm}`
   }
 
   windowHandler() {
     let table = []
+    let timewindows = []
     let dates = [...this.state.dates]
     let times = [...this.state.times]
     times.forEach((time) => {
-      dates.forEach((date) => {
-        table.push(`${date} ${time}:00`)
-        switch(this.state.window) {
-          case 15:
-            table.push(`${date} ${time}:15`)
-            table.push(`${date} ${time}:30`)
-            table.push(`${date} ${time}:45`)
-            break;
-          case 30:
-            table.push(`${date} ${time}:30`)
-            break;
-          default:
-            break;
-        }
-      })
+      timewindows.push(`${time}:00`)
+      switch(this.state.window) {
+        case 15:
+          timewindows.push(`${time}:15`)
+          timewindows.push(`${time}:30`)
+          timewindows.push(`${time}:45`)
+          break;
+        case 30:
+          timewindows.push(`${time}:30`)
+          break;
+        default:
+          break;
+      }
     })
-    this.setState({table: table})
+    timewindows.forEach((time) => {
+      var row = []
+      dates.forEach((date) => {
+        row.push([`${date} ${time}`, false])
+      })
+      table.push(row)
+    })
+    this.setState({
+      table: table
+    })
   }
 
-  onClick(e, datetime) {
+  onClick(e, x, y) {
     e.preventDefault()
+    var table = this.state.table
     this.setState({
       ...this.state,
       selected: [
         ...this.state.selected,
-        datetime
+        table[x][y][0]
       ]
     })
-    console.log(this.state.selected)
+    var newvar = table[x][y]
+    newvar[1] = !newvar[1]
+    table[x][y] = newvar
+    this.setState({
+      table: table
+    })
   }
 
   componentDidMount() {
@@ -76,18 +105,19 @@ export default class TimeSelect extends Component {
         </div>
         <table className="TimeSlot">
           <tbody className="TimeSlot_col">
-            {times.map((datetime, index) => {
-              var dateTimeObj = new Date(datetime)
-              var hour = dateTimeObj.getHours()
-              var min = dateTimeObj.getMinutes()
-              var ampm = hour >= 12 ? 'pm' : 'am';
-              hour = hour % 12;
-              hour = hour ? hour : 12;
-              return <tr key={index}>
-                <td draggable="true" onClick={(e) => this.onClick(e, datetime)} className="TimeSlot_time" key={index}>
-                  {min === 0 ? `${hour}${ampm}`: `${hour}:${min}${ampm}`}
-                </td>
-              </tr>})
+            {times.map((row, x) => {
+              return <tr key={x}> 
+                {row.map((datetime, y) => {
+                  return <td className="TimeSlot_time"
+                             draggable="true"
+                             onClick={(e) => this.onClick(e, x, y)}
+                             key={x+y}>
+                          {this.displayHandler(datetime[0])}
+                         </td>
+                  })
+                }
+                </tr>
+              })
             }
           </tbody>
         </table>
