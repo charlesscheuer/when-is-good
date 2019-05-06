@@ -28,7 +28,9 @@ const TimeSelect = props => {
                       onClick={e => props.onClick(e, x, y)}
                       key={x + y}
                     >
-                      {displayHandler(datetime[0])}
+                      <p className="TimeSlot_time_value">
+                        {displayHandler(datetime[0])}
+                      </p>
                     </button>
                   )
                 })}

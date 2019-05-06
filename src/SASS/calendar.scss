@@ -40,6 +40,9 @@
   text-align: center;
   margin-bottom: 0;
   @media screen and (max-width: 1200px) {
+    padding: 0 3.5rem;
+  }
+  @media screen and (max-width: 1092px) {
     padding: 0 3.2rem;
   }
   @media screen and (max-width: 1039px) {
@@ -117,6 +120,9 @@
         button {
           border-bottom-left-radius: 2rem;
           border-bottom-right-radius: 2rem;
+          p {
+            transform: translateY(-0.5rem);
+          }
         }
       }
     }
@@ -124,21 +130,29 @@
   &_time {
     font-family: $font-primary;
     font-size: 1.4rem;
-    font-weight: 500;
     text-align: center;
     background-color: $color-dark;
     padding: 1.5rem;
     color: $color-light;
-    margin-top: 0.5rem;
-    width: 7rem;
+    width: 7.5rem;
     border: none;
-    margin: 0.3rem 1.4rem;
+    margin: 0.3rem 1.2rem;
     transition: all 0.2s $trans-primary;
-    @media screen and (max-width: 1200px) {
+    border-radius: 0.4rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+    @media screen and (max-width: 1205px) {
       padding: 1rem;
       margin: 0.3rem 0.7rem;
     }
-    @media screen and (max-width: 1039px) {
+    @media screen and (max-width: 1092px) {
+      margin: 0.2rem 0.9rem;
+      width: 6.5rem;
+    }
+
+    @media screen and (max-width: 1034px) {
       font-size: 1.2rem;
       padding: 0.2rem 0rem;
       width: 5.4rem;
@@ -158,11 +172,6 @@
     @media screen and (max-width: 730px) {
       margin: 0.2rem 0.3rem;
       width: 4.1rem;
-    }
-
-    border-radius: 0.4rem;
-    &:hover {
-      cursor: pointer;
     }
   }
 }
