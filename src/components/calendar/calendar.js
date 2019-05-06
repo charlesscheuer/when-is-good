@@ -1,17 +1,17 @@
 import React from 'react'
-import WeekSelect from './weekSelect/weekSelect';
-import TimeSelect from './timeSelect/timeSelect';
+import WeekSelect from './WeekSelect/WeekSelect'
+import TimeSelect from '../Calendar/TimeSelect/TimeSelect'
 
-const Calendar = (props) => {
+const Calendar = props => {
   return (
-      <div>
-        <WeekSelect />
-        <TimeSelect
-          selected={props.selected}
-          table={props.table}
-          onClick={props.onClick}
-        />
-      </div>
+    <div>
+      <WeekSelect />
+      <TimeSelect
+        selected={props.selected}
+        table={props.table}
+        onClick={props.onClick}
+      />
+    </div>
   )
 }
 

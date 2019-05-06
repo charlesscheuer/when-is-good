@@ -2,11 +2,6 @@
     box-sizing: border-box;
 }
 
-body {
-    font-size: 62.5%;
-    margin: 0;
-    padding: 0;
-}
 
 // colors 
 $color-primary: #64858b;
@@ -15,6 +10,14 @@ $color-secondary: #d8a62f;
 $color-4: #c0654f;
 $color-text: #27104d;
 $color-dark: #333333;
+
+
+body {
+    font-size: 62.5%;
+    margin: 0;
+    padding: 0;
+    background-color: $color-light;
+}
 
 //transitions 
 $trans-primary: cubic-bezier(0.075, 0.82, 0.165, 1);
