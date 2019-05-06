@@ -1,0 +1,29 @@
+.TimeSelect {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: auto;
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+  }
+  &_containTitle {
+    width: 6%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  &_title {
+    transform: (rotate(-90deg));
+    @media screen and (max-width: 650px) {
+      transform: (rotate(0));
+    }
+    width: 16rem;
+    font-family: $font-primary;
+    color: $color-text;
+    font-weight: 500;
+    margin-top: -50rem;
+    text-align: center;
+  }
+}

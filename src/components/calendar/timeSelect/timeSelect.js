@@ -15,31 +15,28 @@ const TimeSelect = props => {
   let times = [...props.table]
   return (
     <div className="TimeSelect">
-      <div className="TimeSelect_containTitle">
-        <h1 className="TimeSelect_title">When is good?</h1>
-      </div>
-      <table className="TimeSlot">
-        <tbody className="TimeSlot_col">
+      <div className="TimeSlot">
+        <div className="TimeSlot_col">
           {times.map((row, x) => {
             return (
-              <tr key={x}>
+              <div className="TimeSlot_col_row" key={x}>
                 {row.map((datetime, y) => {
                   return (
-                    <td
+                    <button
                       className="TimeSlot_time"
                       draggable="true"
                       onClick={e => props.onClick(e, x, y)}
                       key={x + y}
                     >
                       {displayHandler(datetime[0])}
-                    </td>
+                    </button>
                   )
                 })}
-              </tr>
+              </div>
             )
           })}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   )
 }

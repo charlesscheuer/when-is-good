@@ -1,139 +1,155 @@
 .week {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    margin-bottom: 1rem;
-    transition: all .2s $trans-primary;
-    &_title {
-        font-family: $font-primary;
-        font-weight: 500;
-        font-size: 1.5rem;
-        margin-right: 2rem;
-        margin-left: 2rem;
-        color: $color-text;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  margin-bottom: 1rem;
+  transition: all 0.2s $trans-primary;
+  &_title {
+    font-family: $font-primary;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    color: $color-text;
+  }
+  &_arrow {
+    font-size: 1.5rem;
+    background-color: $color-secondary;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    box-shadow: 0 2px 13px rgba(216, 166, 47, 0.68);
+    border: none;
+    border-radius: 50rem;
+    transition: all 0.4s $trans-primary;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 2px 20px rgba(216, 166, 47, 0.68);
     }
-    &_arrow {
-        font-size: 1.5rem;
-        background-color: $color-secondary;
-        padding-top: .2rem;
-        padding-bottom: .2rem;
-        box-shadow: 0 2px 13px rgba(216, 166, 47, 0.68);
-        border: none;
-        border-radius: 50rem;
-        transition: all .4s $trans-primary;
-        &:hover {
-            cursor: pointer;
-            box-shadow: 0 2px 20px rgba(216, 166, 47, 0.68);
-        }
-        &:active {
-            transform: scale(1.2);
-        }
+    &:active {
+      transform: scale(1.2);
     }
+  }
 }
 
 .numberDate {
-    padding: 0 4rem;
-    font-family: $font-primary;
-    font-size: 1.7rem;
-    display: flex;
-    text-align: center;
-    margin-bottom: 0;
-    @media screen and (max-width: 1200px) {
-        padding: 0 2rem;
-    }
-    @media screen and (max-width: 650px) {
-        padding: 0 1rem;
-        font-size: 1.3rem;
-    }
-    @media screen and (max-width: 500px) {
-        font-size: 1rem;
-        padding: 0 .5rem;
-    }
-    sup {
-        font-size: 1rem;
-    }
-    
+  padding: 0 4rem;
+  font-family: $font-primary;
+  font-size: 1.7rem;
+  display: flex;
+  text-align: center;
+  margin-bottom: 0;
+  @media screen and (max-width: 1200px) {
+    padding: 0 3.2rem;
+  }
+  @media screen and (max-width: 1039px) {
+    padding: 0 2.9rem;
+  }
+  // old ones
+  @media screen and (max-width: 974px) {
+    padding: 0 2.5rem;
+  }
+  @media screen and (max-width: 887px) {
+    padding: 0 2.2rem;
+  }
+  @media screen and (max-width: 813px) {
+    padding: 0 1.8rem;
+  }
+  @media screen and (max-width: 730px) {
+    font-size: 1.4rem;
+    padding: 0 1.5rem;
+  }
+  //   @media screen and (max-width: 500px) {
+  //     font-size: 1rem;
+  //     padding: 0 0.5rem;
+  //   }
+  sup {
+    font-size: 1rem;
+  }
 }
 
 .weekdays {
-    display: flex;
-    justify-content: center;
-    width: 100vw;
-    &_day {
-        .wordDate {
-            text-align: center;
-            font-family: $font-primary;
-            font-style: italic;
-            font-size: 1.4rem;
-            @media screen and (max-width: 650px) {
-                font-size: .9rem;
-            }
-        }
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  &_day {
+    .wordDate {
+      text-align: center;
+      font-family: $font-primary;
+      font-style: italic;
+      font-size: 1.4rem;
+      @media screen and (max-width: 650px) {
+        font-size: 0.9rem;
+      }
     }
-    
+  }
 }
 
 .TimeSelect {
-    display: flex;
-    align-items: center;
-    width: 100vw;
-    height: 30rem;
-    @media screen and (max-width: 650px) {
-        flex-direction: column;
-    }
-    &_containTitle {
-            width: 6%;
-            height: 100%; 
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-    }
-    &_title {
-        transform: (rotate(-90deg));
-        @media screen and (max-width: 650px) {
-            transform: (rotate(0));
-        }
-        width: 16rem;
-        font-family: $font-primary;
-        color: $color-text;
-        font-weight: 500;
-        margin-top: -10rem;
-        text-align: center;
-    }
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: auto;
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+  }
 }
 
 .TimeSlot {
-    width: 75%;
-    height: 100%;
-    margin-left: 5rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: red;
+  margin-bottom: 4rem;
+  &_col {
+    padding: 0 3rem;
     display: flex;
-    flex-direction: row;
-    &_col {
-        padding: 0 3rem;
-        display: flex;
-        flex-direction: column;
-        @media screen and (max-width: 1200px) {
-            padding: 0 1rem;
-        }
-        @media screen and (max-width: 650px) {
-            padding: 0 1rem;
-            font-size: 1.3rem;
-        }
-        @media screen and (max-width: 500px) {
-            font-size: 1rem;
-            padding: 0 .5rem;
-        }
+    flex-direction: column;
+    &_row {
+      margin: 0rem 0rem;
     }
-    &_time {
-        font-family: $font-primary;
-        font-size: 1rem;
-        text-align: center;
-        background-color: #333333;
-        color: #e6e1d9;
-        margin-top: 0.5rem;
-        width: 62px;
-        height: 18px;
+  }
+  &_time {
+    font-family: $font-primary;
+    font-size: 1.4rem;
+    text-align: center;
+    background-color: $color-dark;
+    padding: 1.5rem;
+    color: $color-light;
+    margin-top: 0.5rem;
+    width: 7rem;
+    border: none;
+    margin: 0.3rem 1.4rem;
+    transition: all 0.2s $trans-primary;
+    @media screen and (max-width: 1200px) {
+      padding: 1rem;
+      margin: 0.3rem 0.7rem;
     }
+    @media screen and (max-width: 1039px) {
+      font-size: 1.2rem;
+      padding: 0.2rem 0rem;
+      width: 5.4rem;
+      margin: 0.2rem 1.2rem;
+    }
+    @media screen and (max-width: 974px) {
+      margin: 0.2rem 0.8rem;
+    }
+    @media screen and (max-width: 887px) {
+      margin: 0.2rem 0.5rem;
+    }
+    @media screen and (max-width: 813px) {
+      font-size: 1rem;
+      margin: 0.2rem 0.4rem;
+      width: 4.8rem;
+    }
+    @media screen and (max-width: 730px) {
+      margin: 0.2rem 0.3rem;
+      width: 4.1rem;
+    }
+    border-radius: 0.4rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
