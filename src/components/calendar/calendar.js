@@ -1,6 +1,6 @@
 import React from 'react'
 import WeekSelect from './WeekSelect/WeekSelect'
-import TimeSelect from '../Calendar/TimeSelect/TimeSelect'
+import TimeSelect from './TimeSelect/TimeSelect'
 
 const Calendar = props => {
   return (
