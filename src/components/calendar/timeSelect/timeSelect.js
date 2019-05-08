@@ -12,12 +12,12 @@ const displayHandler = datetime => {
 }
 
 const TimeSelect = props => {
-  let times = [...props.table]
+  let table = [...props.table]
   return (
     <div className="TimeSelect">
       <div className="TimeSlot">
         <div className="TimeSlot_col">
-          {times.map((row, x) => {
+          {table.map((row, x) => {
             return (
               <div className="TimeSlot_col_row" key={x}>
                 {row.map((datetime, y) => {
