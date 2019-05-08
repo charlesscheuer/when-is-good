@@ -8,7 +8,7 @@ const displayHandler = datetime => {
   hour = hour % 12
   hour = hour ? hour : 12
   if (min === 0) return `${hour}${ampm}`
-  return `${hour}:${min}${ampm}`
+  return `:${min}`
 }
 
 const TimeSelect = props => {
