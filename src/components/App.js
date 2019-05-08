@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import TopBar from './topBar/topBar'
 import Calendar from './Calendar/Calendar'
+import Creds from './Creds'
 import '../SASS/main.scss'
+import CalendarIcon from './Calendar/CalendarIcon'
 
 class App extends Component {
   constructor(props) {
@@ -89,17 +91,23 @@ class App extends Component {
     return (
       <div className="App">
         <TopBar onSelectWindow={this.onSelectWindow} />
+        <div className="bar">
+          <div className="brand">
+            <CalendarIcon />
+            <div className="brand-title">
+              <h1 className="brand-title-text">I'm Free FYI</h1>
+            </div>
+          </div>
+        </div>
         <Calendar
           selected={this.state.selected}
           table={this.state.table}
           onClick={this.onClick}
         />
+        <Creds />
       </div>
     )
   }
 }
 
 export default App
-// <div className="TimeSelect_containTitle">
-//           <h1 className="TimeSelect_title">When is good?</h1>
-// </div>

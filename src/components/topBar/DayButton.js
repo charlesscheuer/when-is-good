@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class TimeButton extends Component {
+class DayButton extends Component {
   // constructor(props) {
   //   super(props);
   // }
@@ -13,13 +13,13 @@ class TimeButton extends Component {
     return (
       <div>
         <button
-          className={this.props.isActive ? 'btn-active' : 'btn'}
+          className={this.props.isActive ? 'btn-active-day' : 'btn-day'}
           onClick={this.props.clicked}
         >
-          {this.props.mins} min
+          Full Day
         </button>
       </div>
     )
   }
 }
-export default TimeButton
+export default DayButton
