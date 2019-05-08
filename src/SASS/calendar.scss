@@ -143,54 +143,9 @@
     margin: 0.3rem 1.2rem;
     transition: all 0.4s $trans-primary;
     border-radius: 0.4rem;
-
-    &:hover {
-      cursor: pointer;
+    &_selected {
+      background-color: $color-primary;
     }
-    @media screen and (max-width: 1205px) {
-      padding: 1rem;
-      margin: 0.3rem 0.7rem;
-    }
-    @media screen and (max-width: 1092px) {
-      margin: 0.2rem 0.9rem;
-      width: 6.5rem;
-    }
-
-    @media screen and (max-width: 1034px) {
-      font-size: 1.2rem;
-      padding: 0.2rem 0rem;
-      width: 5.4rem;
-      margin: 0.2rem 1.2rem;
-    }
-    @media screen and (max-width: 974px) {
-      margin: 0.2rem 0.8rem;
-    }
-    @media screen and (max-width: 887px) {
-      margin: 0.2rem 0.5rem;
-    }
-    @media screen and (max-width: 813px) {
-      font-size: 1rem;
-      margin: 0.2rem 0.4rem;
-      width: 4.8rem;
-    }
-    @media screen and (max-width: 730px) {
-      margin: 0.2rem 0.3rem;
-      width: 4.1rem;
-    }
-  }
-
-  &_time_selected {
-    font-family: $font-primary;
-    font-size: 1.4rem;
-    text-align: center;
-    background-color: $color-secondary;
-    padding: 1.5rem;
-    color: $color-light;
-    width: 7.5rem;
-    border: none;
-    margin: 0.3rem 1.2rem;
-    transition: all 0.4s $trans-primary;
-    border-radius: 0.4rem;
 
     &:hover {
       cursor: pointer;

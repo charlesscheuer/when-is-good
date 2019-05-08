@@ -71,12 +71,11 @@ class App extends Component {
     e.preventDefault()
     var table = this.state.table
     var selected = this.state.selected
-    if (!isSelected){
+    if (!isSelected) {
       selected.push(table[x][y][0])
-    }
-    else {
-      selected = selected.filter((elem) => {
-        return (elem !== table[x][y][0])
+    } else {
+      selected = selected.filter(elem => {
+        return elem !== table[x][y][0]
       })
     }
     this.setState({

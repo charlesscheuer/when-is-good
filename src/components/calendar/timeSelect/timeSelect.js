@@ -23,7 +23,11 @@ const TimeSelect = props => {
                 {row.map((datetime, y) => {
                   return (
                     <button
-                      className={datetime[1] ? 'TimeSlot_time_selected' : 'TimeSlot_time'}
+                      className={
+                        datetime[1]
+                          ? 'TimeSlot_time TimeSlot_time_selected'
+                          : 'TimeSlot_time'
+                      }
                       draggable="true"
                       onClick={e => props.onClick(e, x, y, datetime[1])}
                       key={x + y}
