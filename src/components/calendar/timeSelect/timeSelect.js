@@ -8,24 +8,24 @@ const displayHandler = datetime => {
   hour = hour % 12
   hour = hour ? hour : 12
   if (min === 0) return `${hour}${ampm}`
-  return `${hour}:${min}${ampm}`
+  return `:${min}`
 }
 
 const TimeSelect = props => {
-  let times = [...props.table]
+  let table = [...props.table]
   return (
     <div className="TimeSelect">
       <div className="TimeSlot">
         <div className="TimeSlot_col">
-          {times.map((row, x) => {
+          {table.map((row, x) => {
             return (
               <div className="TimeSlot_col_row" key={x}>
                 {row.map((datetime, y) => {
                   return (
                     <button
-                      className="TimeSlot_time"
+                      className={datetime[1] ? 'TimeSlot_time_selected' : 'TimeSlot_time'}
                       draggable="true"
-                      onClick={e => props.onClick(e, x, y)}
+                      onClick={e => props.onClick(e, x, y, datetime[1])}
                       key={x + y}
                     >
                       <p className="TimeSlot_time_value">
