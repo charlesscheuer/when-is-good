@@ -4,6 +4,8 @@ import Calendar from './Calendar/Calendar'
 import Creds from './Creds'
 import '../SASS/main.scss'
 import CalendarIcon from './Calendar/CalendarIcon'
+import WeekDays from './Calendar/WeekSelect/WeekDays/WeekDays'
+import WeekSelect from './Calendar/WeekSelect/WeekSelect'
 
 class App extends Component {
   constructor(props) {
@@ -107,6 +109,8 @@ class App extends Component {
             </div>
           </div>
         </div>
+        <WeekSelect />
+        <WeekDays />
         <Calendar
           selected={this.state.selected}
           table={this.state.table}
