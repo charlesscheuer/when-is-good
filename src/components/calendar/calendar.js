@@ -1,11 +1,9 @@
 import React from 'react'
-import WeekSelect from './WeekSelect/WeekSelect'
 import TimeSelect from '../Calendar/TimeSelect/TimeSelect'
 
 const Calendar = props => {
   return (
     <div>
-      <WeekSelect />
       <TimeSelect
         selected={props.selected}
         table={props.table}

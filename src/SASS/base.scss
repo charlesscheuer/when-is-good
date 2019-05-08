@@ -1,9 +1,10 @@
-*, *::before, *::after {
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-
-// colors 
+// colors
 $color-primary: #64858b;
 $color-light: #e6e1d9;
 $color-secondary: #d8a62f;
@@ -11,57 +12,99 @@ $color-4: #c0654f;
 $color-text: #27104d;
 $color-dark: #333333;
 
-
 body {
-    font-size: 62.5%;
-    margin: 0;
-    padding: 0;
-    background-color: $color-light;
+  font-size: 62.5%;
+  margin: 0;
+  padding: 0;
+  background-color: $color-light;
+  position: relative;
 }
 
-//transitions 
+//transitions
 $trans-primary: cubic-bezier(0.075, 0.82, 0.165, 1);
 
-// fonts 
+// fonts
 $font-primary: 'GT Walsheim Pro', 'Gill Sans', sans-serif;
 $font-secondary: 'Founders Grotesk';
 
 h4 {
-    font-family: 'GT Walsheim Pro';
-    font-style: italic;
-    font-weight: 200;
+  font-family: 'GT Walsheim Pro';
+  font-style: italic;
+  font-weight: 200;
+}
+.bar {
+  position: fixed;
+  top: 2rem;
+  left: -2.9rem;
+  //   background-color: red;
+  padding-bottom: 8rem;
+  .brand {
+    display: flex;
+    width: 12rem;
+    height: 30rem;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    color: $color-text;
+    &-title {
+      &-text {
+        font-size: 2.2rem;
+        font-family: $font-primary;
+        color: $color-text;
+        font-weight: 500;
+        transform: rotate(-90deg);
+        @media screen and (max-width: 1220px) {
+          font-weight: 400;
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
 }
 
-@font-face {
-    font-family: "GT Walsheim Pro";
-    src: url("../fonts/GT-Walsheim/GT-Walsheim-Pro-Regular.woff") format('woff');
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: "GT Walsheim Pro";
-    src: url("../fonts/GT-Walsheim/GT-Walsheim-Pro-Black.woff") format('woff');
-    font-weight: 600;
-}
-
-@font-face {
-    font-family: "GT Walsheim Pro";
-    src: url("../fonts/GT-Walsheim/GT-Walsheim-Pro-Light.woff") format('woff');
+.credits {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  &_text {
+    font-family: $font-primary;
+    font-size: 1.4rem;
     font-weight: 300;
+    color: $color-text;
+    & a:active,
+    a:visited {
+      color: $color-text;
+    }
+  }
 }
 
 @font-face {
-    font-family: "GT Walsheim Pro";
-    src: url("../fonts/GT-Walsheim/GT-Walsheim-Pro-Medium.woff") format('woff');
-    font-weight: 500;
+  font-family: 'GT Walsheim Pro';
+  src: url('../fonts/GT-Walsheim/GT-Walsheim-Pro-Regular.woff') format('woff');
+  font-weight: 400;
 }
 
 @font-face {
-    font-family: "GT Walsheim Pro";
-    src: url("../fonts/GT-Walsheim/GT-Walsheim-Light-Oblique.woff") format('woff');
-    font-weight: 300;
-    font-style: italic;
+  font-family: 'GT Walsheim Pro';
+  src: url('../fonts/GT-Walsheim/GT-Walsheim-Pro-Black.woff') format('woff');
+  font-weight: 600;
 }
 
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('../fonts/GT-Walsheim/GT-Walsheim-Pro-Light.woff') format('woff');
+  font-weight: 300;
+}
 
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('../fonts/GT-Walsheim/GT-Walsheim-Pro-Medium.woff') format('woff');
+  font-weight: 500;
+}
 
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('../fonts/GT-Walsheim/GT-Walsheim-Light-Oblique.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+}

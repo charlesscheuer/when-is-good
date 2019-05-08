@@ -1,95 +1,190 @@
+.topbar {
+  background-color: $color-light;
+  position: fixed;
+}
 .btn {
-    background-color: $color-light;
-    width: 8rem;
-    height: 2.3rem;
-    border-radius: 2rem;
-    box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.25);
-    transition: all .4s $trans-primary;
-    font-size: 1.2rem;
-    font-family: $font-primary;
-    font-weight: 500;
-    color: $color-primary;
-    border: none;
-    padding: .5rem;
-    &:hover {
-        cursor: pointer;
-        transform: translateY(-2px);
-    }
-    &:active {
+  background-color: $color-light;
+  width: 8rem;
+  height: 2.3rem;
+  border-radius: 2rem;
+  box-shadow: 0 2px 13px 0 rgba($color-text, 0.08);
+  transition: all 0.4s $trans-primary;
+  font-size: 1.2rem;
+  font-family: $font-primary;
+  font-weight: 500;
+  color: $color-primary;
+  border: none;
+  padding: 0.5rem;
+
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+  }
+  &:active {
     box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
     transform: translateY(1px);
+  }
+  @media screen and (max-width: 940px) {
+    margin: 0 1rem;
+    width: 6rem;
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 650px) {
+    margin: 2rem 0;
+    width: 8rem;
+    font-size: 1.2rem;
+  }
+  &-day {
+    background-color: $color-text;
+    width: 8rem;
+    height: 1.8rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.25);
+    transition: all 0.4s $trans-primary;
+    font-size: 1rem;
+    font-family: $font-primary;
+    font-weight: 500;
+    color: $color-secondary;
+    border: none;
+    padding: 0.5rem 0.5rem;
+    padding-bottom: 1.5rem;
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-2px);
+    }
+    &:active {
+      box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
+      transform: translateY(1px);
     }
     @media screen and (max-width: 940px) {
-        margin: 0 1rem;
-        width: 6rem;
-        font-size: 1rem;
+      margin: 0 1rem;
+      width: 6rem;
+      font-size: 1rem;
     }
     @media screen and (max-width: 650px) {
-        margin: 1rem 0;
-        width: 8rem;
-        font-size: 1.2rem;
+      margin: 2rem 0;
+      width: 8rem;
+      font-size: 1.2rem;
     }
+  }
 }
 
 .btn-active {
-    background-color: $color-primary;
-    
-    color: $color-light;
+  background-color: $color-primary;
+  color: $color-light;
+  width: 8rem;
+  height: 2.3rem;
+  border-radius: 2rem;
+  box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.25);
+  transition: all 0.4s $trans-primary;
+  font-size: 1.2rem;
+  font-family: $font-primary;
+  font-weight: 500;
+  border: none;
+  padding: 0.5rem;
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+  }
+  &:active {
+    box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
+    transform: translateY(1px);
+  }
+  @media screen and (max-width: 940px) {
+    margin: 0 1rem;
+    width: 6rem;
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 650px) {
+    margin: 2rem 0;
     width: 8rem;
-    height: 2.3rem;
+    font-size: 1.2rem;
+  }
+  &-day {
+    background-color: $color-secondary;
+    color: $color-text;
+    width: 8rem;
+    height: 1.8rem;
     border-radius: 2rem;
     box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.25);
-    transition: all .4s $trans-primary;
-    font-size: 1.2rem;
+    transition: all 0.4s $trans-primary;
+    font-size: 1rem;
     font-family: $font-primary;
     font-weight: 500;
     border: none;
-    padding: .5rem;
+    padding: 0.5rem 0.5rem;
+    padding-bottom: 1.5rem;
     &:hover {
-        cursor: pointer;
-        transform: translateY(-2px);
+      cursor: pointer;
+      transform: translateY(-2px);
     }
     &:active {
-    box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
-    transform: translateY(1px);
+      box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
+      transform: translateY(1px);
     }
     @media screen and (max-width: 940px) {
-        margin: 0 1rem;
-        width: 6rem;
-        font-size: 1rem;
+      margin: 0 1rem;
+      width: 6rem;
+      font-size: 1rem;
     }
     @media screen and (max-width: 650px) {
-        margin: 1rem 0;
-        width: 8rem;
-        font-size: 1.2rem;
+      margin: 2rem 0;
+      width: 8rem;
+      font-size: 1.2rem;
     }
+  }
 }
 
 .container {
-    margin-top: 2rem;
-    width: 100vw;
+  margin-top: 2rem;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  .topBar {
     display: flex;
-    justify-content: center;
-    .topBar {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 80vw;
-        @media screen and (max-width: 940px) {
-            width: 100vw;
-        }
-        @media screen and (max-width: 650px) {
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        &_title {
-            color: $color-text;
-            text-transform: uppercase;
-            font-family: $font-primary;
-            font-size: 1.2rem;
-            @media screen and (max-width: 790px) {
-                font-size: 1rem;
-            }
-        }
+    justify-content: space-around;
+    align-items: center;
+    width: 80vw;
+    @media screen and (max-width: 940px) {
+      width: 100vw;
     }
+    @media screen and (max-width: 650px) {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    &_center {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      font-family: $font-primary;
+      color: $color-text;
+      &_title {
+        text-transform: uppercase;
+        font-size: 1.6rem;
+        margin-top: 0;
+        margin-bottom: 0rem;
+        @media screen and (max-width: 790px) {
+          font-size: 1.4rem;
+        }
+      }
+      &_day {
+        font-family: inherit;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 300;
+        @media screen and (max-width: 790px) {
+          font-size: 0.6rem;
+        }
+        span {
+          border-bottom: 1.5px solid $color-text;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
 }
