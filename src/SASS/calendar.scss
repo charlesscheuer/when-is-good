@@ -76,6 +76,9 @@
   justify-content: center;
   width: 100vw;
   margin-top: 0;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 2rem;
   &_day {
     .wordDate {
       text-align: center;
@@ -100,7 +103,6 @@
 }
 
 .TimeSlot {
-  margin-top: 24rem;
   width: 100%;
   height: 100%;
   display: flex;

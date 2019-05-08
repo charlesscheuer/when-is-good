@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import TimeButton from './TimeButton'
 import DayButton from './DayButton'
-import WeekSelect from '../Calendar/WeekSelect/WeekSelect'
 export default class TopBar extends Component {
   constructor() {
     super()
@@ -74,7 +73,6 @@ export default class TopBar extends Component {
             />
           </div>
         </div>
-        <WeekSelect />
       </div>
     )
   }
