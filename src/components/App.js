@@ -67,12 +67,21 @@ class App extends Component {
     this.windowHandler(value)
   }
 
-  onClick(e, x, y) {
+  onClick(e, x, y, isSelected) {
     e.preventDefault()
     var table = this.state.table
+    var selected = this.state.selected
+    if (!isSelected){
+      selected.push(table[x][y][0])
+    }
+    else {
+      selected = selected.filter((elem) => {
+        return (elem !== table[x][y][0])
+      })
+    }
     this.setState({
       ...this.state,
-      selected: [...this.state.selected, table[x][y][0]]
+      selected: selected
     })
     var newvar = table[x][y]
     newvar[1] = !newvar[1]
