@@ -13,7 +13,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      window: 60,
+      window: 30,
       dates: [
         'April 4, 18',
         'April 5, 18',
@@ -28,33 +28,20 @@ class App extends Component {
       selected: [],
       viewportWidth: 800
     }
-    this.windowHandler = this.windowHandler.bind(this)
     this.onClick = this.onClick.bind(this)
     this.onSelectWindow = this.onSelectWindow.bind(this)
   }
 
-  windowHandler(window) {
+  fillCurrentTimes() {
     let table = []
     let timewindows = []
     let dates = [...this.state.dates]
     let times = [...this.state.times]
     times.forEach(time => {
       timewindows.push(`${time}:00`)
-      switch (window) {
-        case 15:
-          timewindows.push(`${time}:15`)
-          timewindows.push(`${time}:30`)
-          timewindows.push(`${time}:45`)
-          break
-        case 30:
-          timewindows.push(`${time}:30`)
-          break
-        case 45:
-          timewindows.push(`${time}:45`)
-          break
-        default:
-          break
-      }
+      timewindows.push(`${time}:15`)
+      timewindows.push(`${time}:30`)
+      timewindows.push(`${time}:45`)
     })
     timewindows.forEach(time => {
       var row = []
@@ -69,35 +56,38 @@ class App extends Component {
   }
 
   onSelectWindow(value) {
-    this.windowHandler(value)
-  }
-
-  onClick(e, x, y, isSelected) {
-    e.preventDefault()
-    var table = this.state.table
-    var selected = this.state.selected
-    if (!isSelected) {
-      selected.push(table[x][y][0])
-    } else {
-      selected = selected.filter(elem => {
-        return elem !== table[x][y][0]
-      })
-    }
     this.setState({
       ...this.state,
-      selected: selected
+      window: value
     })
-    var newvar = table[x][y]
-    newvar[1] = !newvar[1]
-    table[x][y] = newvar
+  }
+
+  onClick(e, x, y) {
+    e.preventDefault()
+    var table = this.state.table
+    var newTable = []
+    if (this.state.window === 1) {
+      table.forEach((row, xx) => {
+        var newRow = []
+        row.forEach((datetime, yy) => {
+          if (yy === y) newRow.push([datetime[0], true])
+          else newRow.push([datetime[0], datetime[1]])
+        })
+        newTable.push(newRow)
+      })
+    } else {
+      newTable = table
+      var newvar = table[x][y]
+      newvar[1] = !newvar[1]
+      newTable[x][y] = newvar
+    }
     this.setState({
-      table: table
+      table: newTable
     })
-    console.log(this.state.selected)
   }
 
   componentWillMount() {
-    this.windowHandler(this.state.window)
+    this.fillCurrentTimes()
   }
 
   componentDidMount() {
@@ -133,7 +123,7 @@ class App extends Component {
         <WeekSelect />
         <WeekDays vw={this.state.viewportWidth} className="stickyScroll" />
         <Calendar
-          selected={this.state.selected}
+          window={this.state.window}
           table={this.state.table}
           onClick={this.onClick}
           vw={this.state.viewportWidth}

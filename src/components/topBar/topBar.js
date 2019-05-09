@@ -24,9 +24,7 @@ export default class TopBar extends Component {
     this.setState({
       active: 'days'
     })
-    // this.props.onSelectWindow()
-    //  👆not sure what you want to pass in here to change it to days so i'll leave it
-    // this is a handler for if user clicks the button for days
+    this.props.onSelectWindow(1)
   }
 
   render() {
