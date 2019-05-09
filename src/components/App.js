@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { throttle } from 'throttle-debounce'
 import TopBar from './topBar/topBar'
 import Calendar from './Calendar/Calendar'
 import Creds from './Creds'
@@ -10,6 +11,7 @@ import WeekSelect from './Calendar/WeekSelect/WeekSelect'
 class App extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       window: 60,
       dates: [
@@ -23,7 +25,8 @@ class App extends Component {
       ],
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
-      selected: []
+      selected: [],
+      viewportWidth: 800
     }
     this.windowHandler = this.windowHandler.bind(this)
     this.onClick = this.onClick.bind(this)
@@ -97,9 +100,27 @@ class App extends Component {
     this.windowHandler(this.state.window)
   }
 
+  componentDidMount() {
+    this.updateViewportWidth()
+    window.addEventListener('resize', this.updateViewportWidth)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateViewportWidth)
+  }
+
+  initWindow() {
+    // updates the viewport width
+    this.setState({ viewportWidth: window.innerWidth })
+  }
+
+  updateViewportWidth = () => {
+    throttle(this.initWindow(), 500)
+  }
+
   render() {
     return (
-      <div className="App">
+      <div ref={this.viewportWidthRef} className="App">
         <div className="bar">
           <div className="brand">
             <CalendarIcon />
@@ -110,11 +131,12 @@ class App extends Component {
         </div>
         <TopBar onSelectWindow={this.onSelectWindow} />
         <WeekSelect />
-        <WeekDays className="stickyScroll" />
+        <WeekDays vw={this.state.viewportWidth} className="stickyScroll" />
         <Calendar
           selected={this.state.selected}
           table={this.state.table}
           onClick={this.onClick}
+          vw={this.state.viewportWidth}
         />
         <Creds />
       </div>

@@ -8,6 +8,7 @@ const Calendar = props => {
         selected={props.selected}
         table={props.table}
         onClick={props.onClick}
+        vw={props.vw}
       />
     </div>
   )
