@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      window: 1,
+      window: 30,
       dates: [
         'April 4, 18',
         'April 5, 18',
