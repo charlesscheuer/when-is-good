@@ -90,7 +90,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TopBar onSelectWindow={this.onSelectWindow} />
         <div className="bar">
           <div className="brand">
             <CalendarIcon />
@@ -99,6 +98,7 @@ class App extends Component {
             </div>
           </div>
         </div>
+        <TopBar onSelectWindow={this.onSelectWindow} />
         <WeekSelect />
         <WeekDays className="stickyScroll" />
         <Calendar

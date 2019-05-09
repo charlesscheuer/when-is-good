@@ -36,9 +36,17 @@ h4 {
   position: fixed;
   top: 2rem;
   left: -2.9rem;
-  //   background-color: red;
   padding-bottom: 8rem;
   z-index: 1000;
+  @media screen and (max-width: 1127px) {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding-bottom: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
   .brand {
     display: flex;
     width: 12rem;
@@ -47,7 +55,11 @@ h4 {
     flex-direction: column;
     align-items: center;
     color: $color-text;
-
+    @media screen and (max-width: 1127px) {
+      width: 85%;
+      flex-direction: row-reverse;
+      height: auto;
+    }
     &-title {
       &-text {
         font-size: 2.2rem;
@@ -55,6 +67,9 @@ h4 {
         color: $color-text;
         font-weight: 500;
         transform: rotate(-90deg);
+        @media screen and (max-width: 1127px) {
+          transform: rotate(0deg);
+        }
         @media screen and (max-width: 1220px) {
           font-weight: 400;
           font-size: 1.5rem;
