@@ -110,7 +110,7 @@ class App extends Component {
           </div>
         </div>
         <WeekSelect />
-        <WeekDays />
+        <WeekDays className="stickyScroll" />
         <Calendar
           selected={this.state.selected}
           table={this.state.table}

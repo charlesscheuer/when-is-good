@@ -39,9 +39,7 @@
   display: flex;
   text-align: center;
   margin-bottom: 0;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0.1rem;
+
   @media screen and (max-width: 1200px) {
     padding: 0 3.5rem;
   }
@@ -79,7 +77,10 @@
   justify-content: center;
   width: 100vw;
   margin-top: 0;
-
+  position: sticky;
+  position: -webkit-sticky;
+  background-color: $color-light;
+  top: 0rem;
   &_day {
     .wordDate {
       text-align: center;

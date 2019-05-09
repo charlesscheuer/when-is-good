@@ -38,6 +38,7 @@ h4 {
   left: -2.9rem;
   //   background-color: red;
   padding-bottom: 8rem;
+  z-index: 1000;
   .brand {
     display: flex;
     width: 12rem;
@@ -46,6 +47,7 @@ h4 {
     flex-direction: column;
     align-items: center;
     color: $color-text;
+
     &-title {
       &-text {
         font-size: 2.2rem;
