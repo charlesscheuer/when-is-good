@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { throttle } from 'throttle-debounce'
-import TopBar from './topBar/topBar'
+import TopBar from './TopBar/TopBar'
 import Calendar from './Calendar/Calendar'
 import Creds from './Creds'
 import '../SASS/main.scss'
