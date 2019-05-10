@@ -9,9 +9,12 @@
     font-family: $font-primary;
     font-weight: 500;
     font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
     margin-right: 2rem;
     margin-left: 2rem;
     color: $color-text;
+    width: 12rem;
   }
   &_arrow {
     font-size: 1.5rem;
@@ -63,6 +66,9 @@
     font-size: 1.4rem;
     padding: 0 1.5rem;
   }
+  @media screen and (max-width: 624px) {
+    display: none;
+  }
   //   @media screen and (max-width: 500px) {
   //     font-size: 1rem;
   //     padding: 0 0.5rem;
@@ -87,8 +93,9 @@
       font-family: $font-primary;
       font-style: italic;
       font-size: 1.4rem;
-      @media screen and (max-width: 650px) {
-        font-size: 0.9rem;
+      @media screen and (max-width: 624px) {
+        font-size: 1.9rem;
+        margin-top: 0;
       }
     }
   }

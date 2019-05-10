@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { throttle } from 'throttle-debounce'
+import { Route } from 'react-router-dom'
 import TopBar from './topBar/TopBar'
 import Calendar from './calendar/Calendar'
 import Creds from './Creds'
@@ -26,7 +27,9 @@ class App extends Component {
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
       selected: [],
-      viewportWidth: 800
+      viewportWidth: 800,
+      dow: 0
+      // 👆provides day of week for the single column mobile view
     }
     this.onClick = this.onClick.bind(this)
     this.onSelectWindow = this.onSelectWindow.bind(this)
@@ -86,6 +89,11 @@ class App extends Component {
     })
   }
 
+  initWindow() {
+    // updates the viewport width
+    this.setState({ viewportWidth: window.innerWidth })
+  }
+
   componentWillMount() {
     this.fillCurrentTimes()
   }
@@ -99,37 +107,65 @@ class App extends Component {
     window.removeEventListener('resize', this.updateViewportWidth)
   }
 
-  initWindow() {
-    // updates the viewport width
-    this.setState({ viewportWidth: window.innerWidth })
-  }
-
   updateViewportWidth = () => {
     throttle(this.initWindow(), 500)
   }
 
+  dayNextHandler = () => {
+    let { dow } = this.state
+    if (dow >= 0 && dow < 6) {
+      this.setState({ dow: dow + 1 })
+    } else if (dow === 6) {
+      this.setState({ dow: 0 })
+    }
+  }
+
+  dayPrevHandler = () => {
+    let { dow } = this.state
+    if (dow > 0 && dow <= 6) {
+      this.setState({ dow: dow - 1 })
+    } else if (dow === 0) {
+      this.setState({ dow: 6 })
+    }
+  }
+
   render() {
+    // console.log(this.state.viewportWidth)
     return (
-      <div ref={this.viewportWidthRef} className="App">
-        <div className="bar">
-          <div className="brand">
-            <CalendarIcon />
-            <div className="brand-title">
-              <h1 className="brand-title-text">I'm Free FYI</h1>
+      <Route
+        path="/"
+        exact
+        render={() => (
+          <div ref={this.viewportWidthRef} className="App">
+            <div className="bar">
+              <div className="brand">
+                <CalendarIcon />
+                <div className="brand-title">
+                  <h1 className="brand-title-text">I'm Free FYI</h1>
+                </div>
+              </div>
             </div>
+            <TopBar onSelectWindow={this.onSelectWindow} />
+            <WeekSelect
+              dayNext={this.dayNextHandler}
+              dayPrev={this.dayPrevHandler}
+              vw={this.state.viewportWidth}
+            />
+            <WeekDays
+              vw={this.state.viewportWidth}
+              dow={this.state.dow}
+              className="stickyScroll"
+            />
+            <Calendar
+              window={this.state.window}
+              table={this.state.table}
+              onClick={this.onClick}
+              vw={this.state.viewportWidth}
+            />
+            <Creds />
           </div>
-        </div>
-        <TopBar onSelectWindow={this.onSelectWindow} />
-        <WeekSelect />
-        <WeekDays vw={this.state.viewportWidth} className="stickyScroll" />
-        <Calendar
-          window={this.state.window}
-          table={this.state.table}
-          onClick={this.onClick}
-          vw={this.state.viewportWidth}
-        />
-        <Creds />
-      </div>
+        )}
+      />
     )
   }
 }
