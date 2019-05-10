@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { throttle } from 'throttle-debounce'
-import TopBar from './TopBar/TopBar'
-import Calendar from './Calendar/Calendar'
+import TopBar from './topBar/TopBar'
+import Calendar from './calendar/Calendar'
 import Creds from './Creds'
 import '../SASS/main.scss'
-import CalendarIcon from './Calendar/CalendarIcon'
-import WeekDays from './Calendar/WeekSelect/WeekDays/WeekDays'
-import WeekSelect from './Calendar/WeekSelect/WeekSelect'
+import CalendarIcon from './calendar/CalendarIcon'
+import WeekDays from './calendar/weekSelect/weekDays/WeekDays'
+import WeekSelect from './calendar/weekSelect/WeekSelect'
 
 class App extends Component {
   constructor(props) {

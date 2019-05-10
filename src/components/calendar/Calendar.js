@@ -1,5 +1,5 @@
 import React from 'react'
-import TimeSelect from './TimeSelect/TimeSelect'
+import TimeSelect from './timeSelect/TimeSelect'
 
 const Calendar = props => {
   return (
