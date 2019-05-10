@@ -66,8 +66,37 @@ export default class WeekSelect extends Component {
   }
 
   weekPrevious = () => {
-    // let { startDate } = this.state
-    // let { endDate } = this.state
+    let { startDate } = this.state
+    let { endDate } = this.state
+    let minus = (endDate - 7) * -1
+    let newEnd = 31 - minus
+    if (startDate - 7 >= 1 && endDate - 7 >= 1) {
+      this.setState({
+        startDate: startDate - 7,
+        endDate: endDate - 7
+      })
+    } else if (startDate - 7 >= 1 && endDate - 7 < 1) {
+      this.setState({
+        startDate: startDate - 7,
+        endDate: newEnd
+      })
+    } else if (startDate - 7 < 1) {
+      // new month here
+      // go from 1
+      let subtract = (startDate - 7) * -1
+      let newDate = 31 - subtract
+      if (endDate - 7 > 0) {
+        this.setState({
+          startDate: newDate,
+          endDate: endDate - 7
+        })
+      } else {
+        this.setState({
+          startDate: newDate,
+          endDate: newEnd
+        })
+      }
+    }
     this.props.dayPrev()
   }
 
