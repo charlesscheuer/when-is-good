@@ -15,13 +15,13 @@ class App extends Component {
     this.state = {
       window: 30,
       dates: [
-        'April 4, 18',
-        'April 5, 18',
-        'April 6, 18',
-        'April 7, 18',
-        'April 8, 18',
-        'April 9, 18',
-        'April 10, 18'
+        'April 4, 19',
+        'April 5, 19',
+        'April 6, 19',
+        'April 7, 19',
+        'April 8, 19',
+        'April 9, 19',
+        'April 10, 19'
       ],
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
@@ -144,7 +144,9 @@ class App extends Component {
         </div>
         <TopBar onSelectWindow={this.onSelectWindow} />
         <WeekSelect />
-        <WeekDays vw={this.state.viewportWidth} className="stickyScroll" />
+        <WeekDays vw={this.state.viewportWidth}
+                  dates={this.state.dates}
+                  className="stickyScroll" />
         <Calendar
           window={this.state.window}
           table={this.state.table}

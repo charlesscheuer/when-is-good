@@ -4,36 +4,29 @@ import WordDate from './WordDate'
 
 export default class Weekdays extends Component {
   render() {
+    var map = {
+      1: 'Mon',
+      2: 'Tue',
+      3: 'Wed',
+      4: 'Thu',
+      5: 'Fri',
+      6: 'Sat',
+      0: 'Sun',
+    }
+    var days = this.props.dates.map((datetime) => {
+      var dateTimeObj = new Date(datetime)
+      return [dateTimeObj.getDate(), map[dateTimeObj.getDay()]]
+    })
     return (
       <div className="weekdays">
-        <div className="weekdays_day">
-          <NumberDate num={'4'} />
-          <WordDate className="weekLetter" date={'Mon'} />
-        </div>
-        <div className="weekdays_day">
-          <NumberDate num={'5'} />
-          <WordDate className="weekLetter" date={'Tue'} />
-        </div>
-        <div className="weekdays_day">
-          <NumberDate num={'6'} />
-          <WordDate className="weekLetter" date={'Wed'} />
-        </div>
-        <div className="weekdays_day">
-          <NumberDate num={'7'} />
-          <WordDate className="weekLetter" date={'Thu'} />
-        </div>
-        <div className="weekdays_day">
-          <NumberDate num={'8'} />
-          <WordDate className="weekLetter" date={'Fri'} />
-        </div>
-        <div className="weekdays_day">
-          <NumberDate num={'9'} />
-          <WordDate className="weekLetter" date={'Sat'} />
-        </div>
-        <div className="weekdays_day">
-          <NumberDate num={'10'} />
-          <WordDate className="weekLetter" date={'Sun'} />
-        </div>
+        {days.map(day => {
+          return(
+            <div className="weekdays_day">
+              <NumberDate num={day[0]} />
+              <WordDate className="weekLetter" date={day[1]} />
+            </div>
+          )
+        })}
       </div>
     )
   }
