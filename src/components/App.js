@@ -30,6 +30,7 @@ class App extends Component {
     }
     this.onClick = this.onClick.bind(this)
     this.onSelectWindow = this.onSelectWindow.bind(this)
+    this.resetSelection = this.resetSelection.bind(this)
   }
 
   fillCurrentTimes() {
@@ -55,11 +56,33 @@ class App extends Component {
     })
   }
 
-  onSelectWindow(value) {
-    this.setState({
-      ...this.state,
-      window: value
+  resetSelection(table) {
+    table.map((row) => {
+      row.map((datetime) => {
+        datetime[1] = false
+        return datetime
+      })
+      return row
     })
+    return table
+  }
+
+  onSelectWindow(value) {
+    if(value === 1) {
+      var table = this.state.table
+      table = this.resetSelection(table)
+      this.setState({
+        ...this.state,
+        table: table,
+        window: value
+      })
+    }
+    else {
+      this.setState({
+        ...this.state,
+        window: value
+      })
+    }
   }
 
   onClick(e, x, y) {
