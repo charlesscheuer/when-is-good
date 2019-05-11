@@ -1,21 +1,37 @@
 import React, { Component } from 'react'
 import Toggle from 'react-toggle'
+import Slider from 'rc-slider'
+
 import EmailIncluded from './EmailIncluded'
 import CalendarIcon from '../calendar/CalendarIcon'
 import Creds from '../Creds'
 
+const Range = Slider.Range
 export default class CreateEvent extends Component {
   constructor(props) {
     super(props)
     this.state = {
       shouldEmail: false,
       numPeople: 2,
-      theirEmails: ['']
+      theirEmails: [''],
+      value: [0, 100]
     }
   }
 
   handleEmailToggle = () => {
     this.setState({ shouldEmail: !this.state.shouldEmail })
+  }
+
+  onLowerBoundChange = e => {
+    this.setState({ lowerBound: +e.target.value })
+  }
+  onUpperBoundChange = e => {
+    this.setState({ upperBound: +e.target.value })
+  }
+  onSliderChange = value => {
+    this.setState({
+      value
+    })
   }
 
   render() {
@@ -34,6 +50,17 @@ export default class CreateEvent extends Component {
           We just need a little bit of information from you before we get
           started:
         </p>
+        <p className="create_subtext">
+          This meeting will occur between 9am and 5pm. Drag the slider below to
+          adjust the times you would like to meet between.
+        </p>
+        <div className="create_range">
+          <Range
+            allowCross={false}
+            value={this.state.value}
+            onChange={this.onSliderChange}
+          />
+        </div>
         <div className="create_shouldEmail">
           <p className="create_shouldEmail_label">
             Do you want to email the group with a link to the best times? If
