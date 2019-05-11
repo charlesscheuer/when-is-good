@@ -13,7 +13,6 @@ import WeekSelect from './calendar/weekSelect/WeekSelect'
 class App extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       window: 30,
       dates: [
