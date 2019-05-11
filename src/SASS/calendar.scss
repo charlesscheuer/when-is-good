@@ -5,6 +5,11 @@
   width: 100vw;
   transition: all 0.2s $trans-primary;
   margin-top: 2rem;
+  @media screen and (max-width: 624px) {
+    position: sticky;
+    top: 0rem;
+    height: 4rem;
+  }
   &_title {
     font-family: $font-primary;
     font-weight: 500;
@@ -90,6 +95,10 @@
   position: -webkit-sticky;
   background-color: $color-light;
   top: 0rem;
+  @media screen and (max-width: 624px) {
+    height: 3.8rem;
+    align-items: center;
+  }
   &_day {
     .wordDate {
       text-align: center;
@@ -98,7 +107,6 @@
       font-size: 1.4rem;
       @media screen and (max-width: 624px) {
         font-size: 1.9rem;
-        margin-top: 0;
       }
     }
   }

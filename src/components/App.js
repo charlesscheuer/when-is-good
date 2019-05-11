@@ -7,6 +7,7 @@ import Creds from './Creds'
 import '../SASS/main.scss'
 import CalendarIcon from './calendar/CalendarIcon'
 import WeekDays from './calendar/weekSelect/weekDays/WeekDays'
+import CreateEvent from './OtherRoutes/CreateEvent'
 import WeekSelect from './calendar/weekSelect/WeekSelect'
 
 class App extends Component {
@@ -132,40 +133,43 @@ class App extends Component {
   render() {
     // console.log(this.state.viewportWidth)
     return (
-      <Route
-        path="/"
-        exact
-        render={() => (
-          <div ref={this.viewportWidthRef} className="App">
-            <div className="bar">
-              <div className="brand">
-                <CalendarIcon />
-                <div className="brand-title">
-                  <h1 className="brand-title-text">I'm Free FYI</h1>
+      <div>
+        <Route path="/create" exact render={() => <CreateEvent />} />
+        <Route
+          path="/"
+          exact
+          render={() => (
+            <div ref={this.viewportWidthRef} className="App">
+              <div className="bar">
+                <div className="brand">
+                  <CalendarIcon />
+                  <div className="brand-title">
+                    <h1 className="brand-title-text">I'm Free FYI</h1>
+                  </div>
                 </div>
               </div>
+              <TopBar onSelectWindow={this.onSelectWindow} />
+              <WeekSelect
+                dayNext={this.dayNextHandler}
+                dayPrev={this.dayPrevHandler}
+                vw={this.state.viewportWidth}
+              />
+              <WeekDays
+                vw={this.state.viewportWidth}
+                dow={this.state.dow}
+                className="stickyScroll"
+              />
+              <Calendar
+                window={this.state.window}
+                table={this.state.table}
+                onClick={this.onClick}
+                vw={this.state.viewportWidth}
+              />
+              <Creds />
             </div>
-            <TopBar onSelectWindow={this.onSelectWindow} />
-            <WeekSelect
-              dayNext={this.dayNextHandler}
-              dayPrev={this.dayPrevHandler}
-              vw={this.state.viewportWidth}
-            />
-            <WeekDays
-              vw={this.state.viewportWidth}
-              dow={this.state.dow}
-              className="stickyScroll"
-            />
-            <Calendar
-              window={this.state.window}
-              table={this.state.table}
-              onClick={this.onClick}
-              vw={this.state.viewportWidth}
-            />
-            <Creds />
-          </div>
-        )}
-      />
+          )}
+        />
+      </div>
     )
   }
 }

@@ -44,6 +44,9 @@
     border: none;
     padding: 0.5rem 0.5rem;
     padding-bottom: 1.5rem;
+    @media screen and (max-width: 624px) {
+      padding-bottom: 2rem;
+    }
 
     &:hover {
       cursor: pointer;

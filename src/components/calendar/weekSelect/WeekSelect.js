@@ -107,24 +107,22 @@ export default class WeekSelect extends Component {
     // let {startDate} = this.state;
     // let {endDate} = this.state;
     return (
-      <div>
-        <div className="week">
-          <LeftArrowButton clicked={this.weekPrevious} />
-          <div className="week_title">
-            {this.props.vw < 624 ? (
-              <p className="week_title">
-                {this.state.month[this.state.currentMonth]}{' '}
-                {this.state.currentDate}
-              </p>
-            ) : (
-              <p className="week_title">
-                {this.state.month[this.state.currentMonth]}{' '}
-                {this.state.startDate}–{this.state.endDate}
-              </p>
-            )}
-          </div>
-          <RightArrowButton clicked={this.weekNext} />
+      <div className="week">
+        <LeftArrowButton clicked={this.weekPrevious} />
+        <div className="week_title">
+          {this.props.vw < 624 ? (
+            <p className="week_title">
+              {this.state.month[this.state.currentMonth]}{' '}
+              {this.state.currentDate}
+            </p>
+          ) : (
+            <p className="week_title">
+              {this.state.month[this.state.currentMonth]} {this.state.startDate}
+              –{this.state.endDate}
+            </p>
+          )}
         </div>
+        <RightArrowButton clicked={this.weekNext} />
       </div>
     )
   }

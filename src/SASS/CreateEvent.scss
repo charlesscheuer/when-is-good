@@ -1,0 +1,420 @@
+.create {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-family: $font-primary;
+  font-size: 1.7rem;
+  color: $color-text;
+  //   @media screen and (max-width: 1190px) {
+  //     font-size: 1.5rem;
+  //   }
+  //   @media screen and (max-width: 990px) {
+  //     font-size: 1.2rem;
+  //   }
+  &_brand {
+    padding: 0rem 20rem;
+    margin-bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: moveInBottom 2s $trans-primary;
+    h1 {
+      font-weight: 400;
+    }
+    @media screen and (max-width: 1310px) {
+      padding: 0rem 15rem;
+    }
+    @media screen and (max-width: 1190px) {
+      padding: 0rem 10rem;
+    }
+    @media screen and (max-width: 990px) {
+      padding: 0rem 7.5rem;
+    }
+  }
+  &_title {
+    color: $color-4;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  &_subtext {
+    margin-top: 0;
+    padding: 0rem 20rem;
+    @media screen and (max-width: 1310px) {
+      padding: 0rem 15rem;
+    }
+    @media screen and (max-width: 1190px) {
+      padding: 0rem 10rem;
+    }
+    @media screen and (max-width: 990px) {
+      padding: 0rem 7.5rem;
+    }
+  }
+  &_instruction {
+    color: $color-4;
+    margin-top: 0;
+    padding: 0rem 20rem;
+    text-align: left;
+    @media screen and (max-width: 1310px) {
+      padding: 0rem 15rem;
+    }
+    @media screen and (max-width: 1190px) {
+      padding: 0rem 10rem;
+    }
+    @media screen and (max-width: 990px) {
+      padding: 0rem 7.5rem;
+    }
+  }
+  &_shouldEmail {
+    padding: 0rem 20rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media screen and (max-width: 1310px) {
+      padding: 0rem 15rem;
+    }
+    @media screen and (max-width: 1190px) {
+      padding: 0rem 10rem;
+    }
+    @media screen and (max-width: 990px) {
+      padding: 0rem 7.5rem;
+    }
+    &_label {
+      width: 40rem;
+      text-align: left;
+      margin-right: 2rem;
+    }
+    .react-toggle {
+      touch-action: pan-x;
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+      padding: 0;
+
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .react-toggle-screenreader-only {
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    .react-toggle--disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      -webkit-transition: opacity 0.25s;
+      transition: opacity 0.25s;
+    }
+
+    .react-toggle-track {
+      width: 50px;
+      height: 24px;
+      padding: 0;
+      border-radius: 30px;
+      background-color: $color-text;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+    }
+
+    .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+      background-color: $color-4;
+    }
+
+    .react-toggle--checked .react-toggle-track {
+      background-color: $color-primary;
+    }
+
+    .react-toggle--checked:hover:not(.react-toggle--disabled)
+      .react-toggle-track {
+      background-color: #128d15;
+    }
+
+    .react-toggle-track-check {
+      position: absolute;
+      width: 14px;
+      height: 10px;
+      top: 0px;
+      bottom: 0px;
+      margin-top: auto;
+      margin-bottom: auto;
+      line-height: 0;
+      left: 8px;
+      opacity: 0;
+      -webkit-transition: opacity 0.25s ease;
+      -moz-transition: opacity 0.25s ease;
+      transition: opacity 0.25s ease;
+    }
+
+    .react-toggle--checked .react-toggle-track-check {
+      opacity: 1;
+      -webkit-transition: opacity 0.25s ease;
+      -moz-transition: opacity 0.25s ease;
+      transition: opacity 0.25s ease;
+    }
+
+    .react-toggle-track-x {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      top: 0px;
+      bottom: 0px;
+      margin-top: auto;
+      margin-bottom: auto;
+      line-height: 0;
+      right: 10px;
+      opacity: 1;
+      -webkit-transition: opacity 0.25s ease;
+      -moz-transition: opacity 0.25s ease;
+      transition: opacity 0.25s ease;
+    }
+
+    .react-toggle--checked .react-toggle-track-x {
+      opacity: 0;
+    }
+
+    .react-toggle-thumb {
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      width: 22px;
+      height: 22px;
+      //   border: 1px solid #4d4d4d;
+      border-radius: 50%;
+      background-color: #fafafa;
+
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+
+      -webkit-transition: all 0.25s ease;
+      -moz-transition: all 0.25s ease;
+      transition: all 0.25s ease;
+    }
+
+    .react-toggle--checked .react-toggle-thumb {
+      left: 27px;
+      //   border-color: transparent;
+    }
+  }
+  &_numPeople {
+    padding: 0rem 20rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: moveInBottom 2s $trans-primary;
+    @media screen and (max-width: 1310px) {
+      padding: 0rem 15rem;
+    }
+    @media screen and (max-width: 1190px) {
+      padding: 0rem 10rem;
+    }
+    @media screen and (max-width: 990px) {
+      padding: 0rem 7.5rem;
+    }
+    &_counter {
+      display: flex;
+      justify-content: center;
+      &_value {
+        color: $color-text;
+        text-align: center;
+        font-family: $font-primary;
+        font-size: 1.2rem;
+        width: 3rem;
+        outline: none;
+        border: none;
+        background-color: $color-light;
+      }
+
+      &_up {
+        transform: rotate(90deg);
+        font-size: 1.5rem;
+        background-color: $color-secondary;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        box-shadow: 0 2px 13px rgba(216, 166, 47, 0.68);
+        border: none;
+        border-radius: 50rem;
+        transition: all 0.4s $trans-primary;
+        &:hover {
+          cursor: pointer;
+          box-shadow: 0 2px 20px rgba(216, 166, 47, 0.68);
+        }
+        &:active {
+          transform: scale(1.2) rotate(90deg);
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      &_down {
+        transform: rotate(-90deg);
+        font-size: 1.5rem;
+        background-color: $color-secondary;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        box-shadow: 0 2px 13px rgba(216, 166, 47, 0.68);
+        border: none;
+        border-radius: 50rem;
+        transition: all 0.4s $trans-primary;
+        &:hover {
+          cursor: pointer;
+          box-shadow: 0 2px 20px rgba(216, 166, 47, 0.68);
+        }
+        &:active {
+          transform: scale(1.2) rotate(-90deg);
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  &_emails {
+    padding: 0rem 20rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    animation: moveInBottom 2s $trans-primary;
+    @media screen and (max-width: 1310px) {
+      padding: 0rem 15rem;
+    }
+    @media screen and (max-width: 1190px) {
+      padding: 0rem 10rem;
+    }
+    @media screen and (max-width: 990px) {
+      padding: 0rem 7.5rem;
+    }
+    &_form {
+      width: 18rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: top;
+      flex-direction: column;
+      @media screen and (max-width: 900px) {
+        width: 12rem;
+        font-size: 1.2rem;
+      }
+      &_input {
+        text-align: center;
+        padding: 0.9rem;
+        font-size: 1.3rem;
+        border-radius: 0.5rem;
+        border: none;
+        border-bottom: 2px solid $color-text;
+        transition: all 0.3s;
+        @media screen and (max-width: 900px) {
+          font-size: 0.8rem;
+        }
+        &::-webkit-input-placeholder {
+          color: $color-text;
+        }
+        &:placeholder-shown ~ label {
+          opacity: 0;
+          visibility: hidden;
+          position: relative;
+          // transform: translateY(4rem);
+        }
+
+        &:focus {
+          outline: none;
+          box-shadow: 0 1rem 2rem rgba(#000, 0.1);
+          border-bottom: 2px solid #27c352;
+          &:invalid {
+            border-bottom: 2px solid red;
+          }
+        }
+        &_label {
+          font-size: 1.2rem;
+          margin-top: 0.5rem;
+          margin-bottom: 0.5rem;
+          @media screen and (max-width: 900px) {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+  &_labels {
+    padding: 0rem 20rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: moveInBottom 2s $trans-primary;
+    @media screen and (max-width: 1310px) {
+      padding: 0rem 15rem;
+    }
+    @media screen and (max-width: 1190px) {
+      padding: 0rem 10rem;
+    }
+    @media screen and (max-width: 990px) {
+      padding: 0rem 7.5rem;
+    }
+  }
+  &_event {
+    background-color: $color-4;
+    width: 10rem;
+    height: 2.3rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 13px 0 rgba($color-text, 0.08);
+    transition: all 0.4s $trans-primary;
+    font-size: 1.2rem;
+    font-family: $font-primary;
+    font-weight: 500;
+    color: $color-text;
+    border: none;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-2px);
+    }
+    &:active {
+      box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
+      transform: translateY(1px) scale(1.1);
+    }
+    @media screen and (max-width: 940px) {
+      margin: 0 1rem;
+      font-size: 1rem;
+    }
+    @media screen and (max-width: 650px) {
+      margin: 2rem 0;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    translate: transformY(8rem);
+  }
+  100% {
+    opacity: 1;
+    translate: transformY(0);
+  }
+}
