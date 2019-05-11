@@ -6,6 +6,7 @@
   "dependencies": {
     "gh-deploy": "^0.2.3",
     "node-sass": "^4.11.0",
+    "rc-slider": "^8.6.9",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",

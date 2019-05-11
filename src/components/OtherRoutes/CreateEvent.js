@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import Toggle from 'react-toggle'
 import EmailIncluded from './EmailIncluded'
+import Slider from 'rc-slider'
 import CalendarIcon from '../calendar/CalendarIcon'
 import Creds from '../Creds'
+const Range = Slider.Range
 
 export default class CreateEvent extends Component {
   constructor(props) {
@@ -10,8 +12,15 @@ export default class CreateEvent extends Component {
     this.state = {
       shouldEmail: false,
       numPeople: 2,
-      theirEmails: ['']
+      theirEmails: [''],
+      value: [0, 100]
     }
+  }
+
+  onSliderChange = value => {
+    this.setState({
+      value
+    })
   }
 
   handleEmailToggle = () => {
@@ -34,6 +43,13 @@ export default class CreateEvent extends Component {
           We just need a little bit of information from you before we get
           started:
         </p>
+        <div className="create_range">
+          <Range
+            allowCross={false}
+            value={this.state.value}
+            onChange={this.onSliderChange}
+          />
+        </div>
         <div className="create_shouldEmail">
           <p className="create_shouldEmail_label">
             Do you want to email the group with a link to the best times? If
