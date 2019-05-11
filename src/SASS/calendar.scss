@@ -5,13 +5,24 @@
   width: 100vw;
   transition: all 0.2s $trans-primary;
   margin-top: 2rem;
+  @media screen and (max-width: 624px) {
+    position: sticky;
+    top: 0rem;
+    height: 4rem;
+  }
   &_title {
     font-family: $font-primary;
     font-weight: 500;
     font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
     margin-right: 2rem;
     margin-left: 2rem;
     color: $color-text;
+    width: 12rem;
+    @media screen and (max-width: 624px) {
+      width: 8rem;
+    }
   }
   &_arrow {
     font-size: 1.5rem;
@@ -63,6 +74,9 @@
     font-size: 1.4rem;
     padding: 0 1.5rem;
   }
+  @media screen and (max-width: 624px) {
+    display: none;
+  }
   //   @media screen and (max-width: 500px) {
   //     font-size: 1rem;
   //     padding: 0 0.5rem;
@@ -81,14 +95,18 @@
   position: -webkit-sticky;
   background-color: $color-light;
   top: 0rem;
+  @media screen and (max-width: 624px) {
+    height: 3.8rem;
+    align-items: center;
+  }
   &_day {
     .wordDate {
       text-align: center;
       font-family: $font-primary;
       font-style: italic;
       font-size: 1.4rem;
-      @media screen and (max-width: 650px) {
-        font-size: 0.9rem;
+      @media screen and (max-width: 624px) {
+        font-size: 1.9rem;
       }
     }
   }
