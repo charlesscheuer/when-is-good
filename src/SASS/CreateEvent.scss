@@ -41,6 +41,7 @@
   }
   &_subtext {
     margin-top: 0;
+    margin-bottom: 1.5rem;
     padding: 0rem 20rem;
     @media screen and (max-width: 1310px) {
       padding: 0rem 15rem;
@@ -70,6 +71,7 @@
   &_range {
     width: 100%;
     padding: 0rem 20rem;
+    margin-bottom: 1rem;
     @media screen and (max-width: 1310px) {
       padding: 0rem 15rem;
     }
