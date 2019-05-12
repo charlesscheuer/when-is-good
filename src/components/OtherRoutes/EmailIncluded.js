@@ -5,7 +5,9 @@ export default class EmailIncluded extends Component {
     super(props)
     this.state = {
       numPeople: 2,
-      theirEmails: ['']
+      theirEmails: [''],
+      theirEmail: '',
+      yourEmail: ''
     }
   }
 
@@ -13,6 +15,7 @@ export default class EmailIncluded extends Component {
     let num = this.state.numPeople + 1
     this.state.theirEmails.push('')
     this.setState({ numPeople: num })
+    window.scrollTo(0, 800)
   }
 
   downHandler = () => {
@@ -23,7 +26,19 @@ export default class EmailIncluded extends Component {
     }
   }
 
+  yourEmailHandler = e => {
+    this.setState({ yourEmail: e.target.value })
+  }
+
+  theirEmailHandler = (e, index) => {
+    let emailsCopy = [...this.state.theirEmails]
+    emailsCopy[0] = e.target.value
+    // if i use index instead of 0 this doesn't work
+    this.setState({ theirEmails: emailsCopy })
+  }
+
   render() {
+    console.log(this.state.theirEmails)
     return (
       <div className="create">
         <div className="create_numPeople">
@@ -60,7 +75,7 @@ export default class EmailIncluded extends Component {
                 className="create_emails_form_input"
                 placeholder="Your email"
                 id="email"
-                onChange={this.onEmailChange}
+                onChange={this.yourEmailHandler}
                 required
                 type="text"
               />
@@ -71,13 +86,14 @@ export default class EmailIncluded extends Component {
           </div>
           <div className="create_emails_yours">
             {this.state.theirEmails.map((element, index) => {
+              console.log(index)
               return (
-                <form className="create_emails_form">
+                <form className="create_emails_form" key={index}>
                   <input
                     className="create_emails_form_input"
                     placeholder={'Person ' + (index + 2) + "'s email"}
                     id="email"
-                    onChange={this.onEmailChange}
+                    onChange={index => this.theirEmailHandler}
                     required
                     type="text"
                   />

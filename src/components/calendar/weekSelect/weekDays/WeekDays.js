@@ -27,9 +27,9 @@ export default class Weekdays extends Component {
       4: 'Thu',
       5: 'Fri',
       6: 'Sat',
-      0: 'Sun',
+      0: 'Sun'
     }
-    var days = this.props.dates.map((datetime) => {
+    var days = this.props.dates.map(datetime => {
       var dateTimeObj = new Date(datetime)
       return [dateTimeObj.getDate(), map[dateTimeObj.getDay()]]
     })
@@ -45,16 +45,17 @@ export default class Weekdays extends Component {
             />
           </div>
         ) : (
-        <div className="weekdays">
-          {days.map(day => {
-            return (
-              <div className="weekdays_day">
-                <NumberDate num={day[0]} />
-                <WordDate className="weekLetter" date={day[1]} />
-              </div> )
-          })}
-        </div>
-      )}
+          <div className="weekdays">
+            {days.map(day => {
+              return (
+                <div key={day} className="weekdays_day">
+                  <NumberDate num={day[0]} />
+                  <WordDate className="weekLetter" date={day[1]} />
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }
