@@ -29,6 +29,8 @@ class App extends Component {
       selected: [],
       viewportWidth: 800,
       dow: 0,
+      // dow and weekStartDate are for the days of the week values and should be set to current week by default
+      weekStartDate: 1,
       // the stuff below here is being set by the range from '/create'
       // it should be passed here to be used in TimeSelect.js
       value: [22, 62],
@@ -254,26 +256,27 @@ class App extends Component {
     throttle(this.initWindow(), 500)
   }
 
-  dayNextHandler = () => {
+  dayNextHandler = startDate => {
     let { dow } = this.state
     if (dow >= 0 && dow < 6) {
       this.setState({ dow: dow + 1 })
     } else if (dow === 6) {
       this.setState({ dow: 0 })
     }
+    this.setState({ weekStartDate: startDate })
   }
 
-  dayPrevHandler = () => {
+  dayPrevHandler = startDate => {
     let { dow } = this.state
     if (dow > 0 && dow <= 6) {
       this.setState({ dow: dow - 1 })
     } else if (dow === 0) {
       this.setState({ dow: 6 })
     }
+    this.setState({ weekStartDate: startDate })
   }
 
   render() {
-    // console.log(this.state.viewportWidth)
     return (
       <div>
         <Route
@@ -311,6 +314,7 @@ class App extends Component {
                 vw={this.state.viewportWidth}
                 dow={this.state.dow}
                 dates={this.state.dates}
+                startDate={this.state.weekStartDate}
                 className="stickyScroll"
               />
               <Calendar

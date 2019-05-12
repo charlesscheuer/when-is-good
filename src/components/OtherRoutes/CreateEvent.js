@@ -19,6 +19,11 @@ export default class CreateEvent extends Component {
 
   handleEmailToggle = () => {
     this.setState({ shouldEmail: !this.state.shouldEmail })
+    setTimeout(() => {
+      if (this.state.shouldEmail) {
+        window.scrollTo(0, 1000)
+      }
+    }, 100)
   }
 
   render() {

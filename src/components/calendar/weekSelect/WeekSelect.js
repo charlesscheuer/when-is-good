@@ -29,6 +29,9 @@ export default class WeekSelect extends Component {
 
   // edge case: start date + 7 was less than 31 and end date + 7 > 31
   weekNext = () => {
+    setTimeout(() => {
+      this.props.dayNext(this.state.startDate)
+    }, 100)
     let { startDate } = this.state
     let { endDate } = this.state
     if (endDate + 7 <= 31 && startDate + 7 <= 31) {
@@ -62,10 +65,12 @@ export default class WeekSelect extends Component {
         endDate: endDate
       })
     }
-    this.props.dayNext()
   }
 
   weekPrevious = () => {
+    setTimeout(() => {
+      this.props.dayNext(this.state.startDate)
+    }, 100)
     let { startDate } = this.state
     let { endDate } = this.state
     let minus = (endDate - 7) * -1
@@ -97,7 +102,6 @@ export default class WeekSelect extends Component {
         })
       }
     }
-    this.props.dayPrev()
   }
 
   // class for the arrow buttons is set on the components and is week_arrow
