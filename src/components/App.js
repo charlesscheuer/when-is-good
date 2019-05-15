@@ -9,6 +9,8 @@ import CalendarIcon from './calendar/CalendarIcon'
 import WeekDays from './calendar/weekSelect/weekDays/WeekDays'
 import CreateEvent from './OtherRoutes/CreateEvent'
 import WeekSelect from './calendar/weekSelect/WeekSelect'
+import { getPreviousNextWeek,
+         convertToAppDates } from '../lib/library.js'
 
 class App extends Component {
   constructor(props) {
@@ -16,21 +18,18 @@ class App extends Component {
     this.state = {
       window: 30,
       dates: [
-        'April 4, 19',
-        'April 5, 19',
-        'April 6, 19',
-        'April 7, 19',
-        'April 8, 19',
-        'April 9, 19',
-        'April 10, 19'
+        'April 4, 2019',
+        'April 5, 2019',
+        'April 6, 2019',
+        'April 7, 2019',
+        'April 8, 2019',
+        'April 9, 2019',
+        'April 10, 2019'
       ],
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
       selected: [],
       viewportWidth: 800,
-      dow: 0,
-      // dow and weekStartDate are for the days of the week values and should be set to current week by default
-      weekStartDate: 1,
       // the stuff below here is being set by the range from '/create'
       // it should be passed here to be used in TimeSelect.js
       value: [22, 62],
@@ -189,7 +188,6 @@ class App extends Component {
     this.setState({
       value
     })
-    console.log(value)
     this.betweenTimes(value)
   }
 
@@ -256,24 +254,18 @@ class App extends Component {
     throttle(this.initWindow(), 500)
   }
 
-  dayNextHandler = startDate => {
-    let { dow } = this.state
-    if (dow >= 0 && dow < 6) {
-      this.setState({ dow: dow + 1 })
-    } else if (dow === 6) {
-      this.setState({ dow: 0 })
-    }
-    this.setState({ weekStartDate: startDate })
-  }
-
-  dayPrevHandler = startDate => {
-    let { dow } = this.state
-    if (dow > 0 && dow <= 6) {
-      this.setState({ dow: dow - 1 })
-    } else if (dow === 0) {
-      this.setState({ dow: 6 })
-    }
-    this.setState({ weekStartDate: startDate })
+  weekButtonHandler = nextWeek => {
+    var start = this.state.dates[0]
+    var end = this.state.dates[6]
+    if(nextWeek)
+      var week = getPreviousNextWeek(end, nextWeek)
+    else
+      week = getPreviousNextWeek(start, nextWeek)
+    week = convertToAppDates(week)
+    this.setState({
+      dates: week
+    })
+    console.log(this.state.dates)
   }
 
   render() {
@@ -306,15 +298,13 @@ class App extends Component {
               </div>
               <TopBar onSelectWindow={this.onSelectWindow} />
               <WeekSelect
-                dayNext={this.dayNextHandler}
-                dayPrev={this.dayPrevHandler}
+                dates={this.state.dates}
+                weekButtonHandler={this.weekButtonHandler}
                 vw={this.state.viewportWidth}
               />
               <WeekDays
                 vw={this.state.viewportWidth}
-                dow={this.state.dow}
                 dates={this.state.dates}
-                startDate={this.state.weekStartDate}
                 className="stickyScroll"
               />
               <Calendar

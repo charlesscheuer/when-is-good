@@ -38,7 +38,6 @@ export default class EmailIncluded extends Component {
   }
 
   render() {
-    console.log(this.state.theirEmails)
     return (
       <div className="create">
         <div className="create_numPeople">
@@ -86,7 +85,6 @@ export default class EmailIncluded extends Component {
           </div>
           <div className="create_emails_yours">
             {this.state.theirEmails.map((element, index) => {
-              console.log(index)
               return (
                 <form className="create_emails_form" key={index}>
                   <input

@@ -3,22 +3,6 @@ import NumberDate from './NumberDate'
 import WordDate from './WordDate'
 
 export default class Weekdays extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      number: 4,
-      days: [
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday'
-      ]
-    }
-  }
-
   render() {
     var map = {
       1: 'Mon',
@@ -38,10 +22,10 @@ export default class Weekdays extends Component {
       <div className="weekdays">
         {vw < 624 ? (
           <div className="weekdays_day">
-            <NumberDate num={this.state.number} />
+            <NumberDate num={days[0][0]} />
             <WordDate
               className="weekLetter"
-              date={this.state.days[this.props.dow]}
+              date={days[0][1]}
             />
           </div>
         ) : (
