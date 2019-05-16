@@ -1,30 +1,30 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import Toggle from 'react-toggle'
-import EmailIncluded from './EmailIncluded'
-import Slider from 'rc-slider'
-import CalendarIcon from '../calendar/CalendarIcon'
-import Creds from '../Creds'
-const Range = Slider.Range
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Toggle from 'react-toggle';
+import EmailIncluded from './EmailIncluded';
+import Slider from 'rc-slider';
+import CalendarIcon from '../calendar/CalendarIcon';
+import Creds from '../Creds';
+const Range = Slider.Range;
 
 export default class CreateEvent extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       shouldEmail: false,
       numPeople: 2,
       theirEmails: ['']
-    }
+    };
   }
 
   handleEmailToggle = () => {
-    this.setState({ shouldEmail: !this.state.shouldEmail })
+    this.setState({ shouldEmail: !this.state.shouldEmail });
     setTimeout(() => {
       if (this.state.shouldEmail) {
-        window.scrollTo(0, 1000)
+        window.scrollTo(0, 1000);
       }
-    }, 100)
-  }
+    }, 100);
+  };
 
   render() {
     return (
@@ -69,10 +69,12 @@ export default class CreateEvent extends Component {
         </div>
         {this.state.shouldEmail ? <EmailIncluded /> : null}
         <Link to="/">
-          <button className="create_event">Create Event</button>
+          <button onClick={this.props.isCreator} className="create_event">
+            Create Event
+          </button>
         </Link>
         <Creds />
       </div>
-    )
+    );
   }
 }

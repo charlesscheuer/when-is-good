@@ -19,6 +19,8 @@
   &:active {
     box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
     transform: translateY(1px) scale(1.1);
+    border: none;
+    outline: none;
   }
   @media screen and (max-width: 940px) {
     margin: 0 1rem;
@@ -55,6 +57,8 @@
     &:active {
       box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
       transform: translateY(1px) scale(1.1);
+      border: none;
+      outline: none;
     }
     @media screen and (max-width: 940px) {
       margin: 0 1rem;
@@ -89,6 +93,8 @@
   &:active {
     box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
     transform: translateY(1px);
+    border: none;
+    outline: none;
   }
   @media screen and (max-width: 940px) {
     margin: 0 1rem;
@@ -121,6 +127,8 @@
     &:active {
       box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.18);
       transform: translateY(1px) scale(1.1);
+      border: none;
+      outline: none;
     }
     @media screen and (max-width: 940px) {
       margin: 0 1rem;
