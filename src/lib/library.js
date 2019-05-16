@@ -25,18 +25,25 @@ var months = {
   11: 'December',
 }
 
+function getInitDate() {
+  var startOfWeek = new Date()
+  var endOfWeek = addDays(startOfWeek, 6)
+  var week = getDates(startOfWeek, endOfWeek)
+  return convertToAppDates(week)
+}
+
 function getDates(startDate, stopDate) {
- var dateArray = [];
+ var dateArray = []
  var currentDate = startDate;
  while (currentDate <= stopDate) {
    dateArray.push(currentDate)
-   currentDate = currentDate.addDays(1);
+   currentDate = addDays(currentDate, 1);
  }
  return dateArray
 }
 
 function getPreviousNextWeek(date, next) {
-  var weekArray = [];
+  var weekArray = []
   var count = 1
   while (count <= 7) {    
     if(next) {
@@ -61,4 +68,4 @@ function convertToAppDates(stdDates) {
   })
 }
 
-export { getPreviousNextWeek, getDates, convertToStdDates, convertToAppDates }
+export { getPreviousNextWeek, getDates, convertToStdDates, convertToAppDates, getInitDate }

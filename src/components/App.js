@@ -10,7 +10,8 @@ import WeekDays from './calendar/weekSelect/weekDays/WeekDays'
 import CreateEvent from './OtherRoutes/CreateEvent'
 import WeekSelect from './calendar/weekSelect/WeekSelect'
 import { getPreviousNextWeek,
-         convertToAppDates } from '../lib/library.js'
+         convertToAppDates,
+         getInitDate } from '../lib/library.js'
 
 class App extends Component {
   constructor(props) {
@@ -239,6 +240,10 @@ class App extends Component {
 
   componentWillMount() {
     this.fillCurrentTimes()
+    var dates = getInitDate()
+    this.setState({
+      dates: dates
+    })
   }
 
   componentDidMount() {
