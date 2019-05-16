@@ -396,6 +396,7 @@
       padding: 0;
       border-radius: 30px;
       background-color: $color-text;
+      box-shadow: 0 2px 20px rgba($color-text, 0.18);
       -webkit-transition: all 0.2s ease;
       -moz-transition: all 0.2s ease;
       transition: all 0.2s ease;
@@ -403,6 +404,7 @@
 
     .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
       background-color: $color-4;
+      box-shadow: 0 2px 20px rgba($color-4, 0.68);
     }
 
     .react-toggle--checked .react-toggle-track {
@@ -412,6 +414,7 @@
     .react-toggle--checked:hover:not(.react-toggle--disabled)
       .react-toggle-track {
       background-color: $color-dark;
+      box-shadow: 0 2px 20px rgba($color-dark, 0.28);
     }
 
     .react-toggle-track-check {
