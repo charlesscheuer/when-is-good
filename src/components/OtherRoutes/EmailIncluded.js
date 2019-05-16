@@ -32,7 +32,7 @@ export default class EmailIncluded extends Component {
 
   theirEmailHandler = (e, index) => {
     let emailsCopy = [...this.state.theirEmails]
-    emailsCopy[0] = e.target.value
+    emailsCopy.splice(0, 1)
     // if i use index instead of 0 this doesn't work
     this.setState({ theirEmails: emailsCopy })
   }
