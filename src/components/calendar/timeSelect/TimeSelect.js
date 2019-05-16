@@ -14,15 +14,18 @@ const displayHandler = (datetime, window) => {
   return `:${min}`
 }
 
-const displayTableHandler = (table, window) => {
+const displayTableHandler = (table, dates, window) => {
   let displayTable = []
   for (let row of table) {
     var displayRow = []
+    var index = 0 //FIXME: Ugly hack
     for (let datetime of row) {
       var dateTimeObj = new Date(datetime[0])
       if (window === 1) {
-        var date = dateTimeObj.getDate()
+        var dTObject = new Date(dates[index])
+        var date = dTObject.getDate()
         displayRow.push([date, datetime[1]])
+        index++
       } else {
         var min = dateTimeObj.getMinutes()
         if (min % window === 0) displayRow.push([datetime[0], datetime[1]])
@@ -38,8 +41,9 @@ const displayTableHandler = (table, window) => {
 
 const TimeSelect = props => {
   let table = [...props.table]
+  let dates = [...props.dates]
   let window = props.window
-  let displayTable = displayTableHandler(table, window)
+  let displayTable = displayTableHandler(table, dates, window)
   return (
     <div className="TimeSelect">
       {props.vw < 624 ? (

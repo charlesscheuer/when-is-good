@@ -308,6 +308,7 @@ class App extends Component {
                 className="stickyScroll"
               />
               <Calendar
+                dates={this.state.dates}
                 window={this.state.window}
                 table={this.state.table}
                 onClick={this.onClick}
