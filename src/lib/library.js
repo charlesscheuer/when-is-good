@@ -55,6 +55,7 @@ function getPreviousNextWeek(date, next) {
     weekArray.push(newdate)
     count += 1
   }
+  if(next === false) weekArray.reverse()
   return weekArray
 }
 
