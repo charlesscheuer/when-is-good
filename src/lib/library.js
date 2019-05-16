@@ -26,10 +26,17 @@ var months = {
 }
 
 function getInitDate() {
-  var startOfWeek = new Date()
+  var startOfWeek = getMondayOftheWeek()
   var endOfWeek = addDays(startOfWeek, 6)
   var week = getDates(startOfWeek, endOfWeek)
   return convertToAppDates(week)
+}
+
+function getMondayOftheWeek() {
+  var date = new Date();
+  var day = date.getDay()
+  var diff = date.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
+  return new Date(date.setDate(diff));
 }
 
 function getDates(startDate, stopDate) {
@@ -69,4 +76,9 @@ function convertToAppDates(stdDates) {
   })
 }
 
-export { getPreviousNextWeek, getDates, convertToStdDates, convertToAppDates, getInitDate }
+export { getPreviousNextWeek,
+         getDates,
+         convertToStdDates,
+         convertToAppDates,
+         getInitDate,
+         getMondayOftheWeek }
