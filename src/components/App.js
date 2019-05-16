@@ -29,7 +29,7 @@ class App extends Component {
       startTime: '9 am',
       endTime: '5 pm',
       // 👆provides day of week for the single column mobile view
-      creator: false
+      creator: true
     };
     this.onClick = this.onClick.bind(this);
     this.onSelectWindow = this.onSelectWindow.bind(this);
