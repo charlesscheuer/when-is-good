@@ -18,15 +18,7 @@ class App extends Component {
     super(props)
     this.state = {
       window: 30,
-      dates: [
-        'April 4, 2019',
-        'April 5, 2019',
-        'April 6, 2019',
-        'April 7, 2019',
-        'April 8, 2019',
-        'April 9, 2019',
-        'April 10, 2019'
-      ],
+      dates: [],
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
       selected: [],
@@ -46,7 +38,7 @@ class App extends Component {
   fillCurrentTimes() {
     let table = []
     let timewindows = []
-    let dates = [...this.state.dates]
+    let dates = getInitDate()
     let times = [...this.state.times]
     times.forEach(time => {
       timewindows.push(`${time}:00`)
@@ -62,6 +54,7 @@ class App extends Component {
       table.push(row)
     })
     this.setState({
+      dates: dates,
       table: table
     })
   }
@@ -240,10 +233,6 @@ class App extends Component {
 
   componentWillMount() {
     this.fillCurrentTimes()
-    var dates = getInitDate()
-    this.setState({
-      dates: dates
-    })
   }
 
   componentDidMount() {
