@@ -1,41 +1,41 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class EmailIncluded extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       numPeople: 2,
       theirEmails: [''],
       theirEmail: '',
       yourEmail: ''
-    }
+    };
   }
 
   upHandler = () => {
-    let num = this.state.numPeople + 1
-    this.state.theirEmails.push('')
-    this.setState({ numPeople: num })
-    window.scrollTo(0, 800)
-  }
+    let num = this.state.numPeople + 1;
+    this.state.theirEmails.push('');
+    this.setState({ numPeople: num });
+    window.scrollTo(0, 800);
+  };
 
   downHandler = () => {
-    let num = this.state.numPeople - 1
+    let num = this.state.numPeople - 1;
     if (this.state.numPeople > 2) {
-      this.state.theirEmails.splice(this.state.theirEmails.length - 1, 1)
-      this.setState({ numPeople: num })
+      this.state.theirEmails.splice(this.state.theirEmails.length - 1, 1);
+      this.setState({ numPeople: num });
     }
-  }
+  };
 
   yourEmailHandler = e => {
-    this.setState({ yourEmail: e.target.value })
-  }
+    this.setState({ yourEmail: e.target.value });
+  };
 
   theirEmailHandler = (e, index) => {
-    let emailsCopy = [...this.state.theirEmails]
-    emailsCopy.splice(0, 1)
-    // if i use index instead of 0 this doesn't work
-    this.setState({ theirEmails: emailsCopy })
-  }
+    let emailsCopy = [...this.state.theirEmails];
+    emailsCopy.splice(0, 1);
+    // if using index instead of 0 this doesn't work
+    this.setState({ theirEmails: emailsCopy });
+  };
 
   render() {
     return (
@@ -102,11 +102,11 @@ export default class EmailIncluded extends Component {
                     Enter email for person {index + 2}
                   </label>
                 </form>
-              )
+              );
             })}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
