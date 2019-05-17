@@ -13,8 +13,10 @@ export default class CreateEvent extends Component {
     this.state = {
       shouldEmail: false,
       numPeople: 2,
-      theirEmails: ['']
+      theirEmails: [''],
+      timezone: 'EST'
     };
+    this.selectChange = this.selectChange.bind(this);
   }
 
   handleEmailToggle = () => {
@@ -26,7 +28,12 @@ export default class CreateEvent extends Component {
     }, 100);
   };
 
+  selectChange(event) {
+    this.setState({ timezone: event.target.value });
+  }
+
   render() {
+    console.log(this.state.timezone);
     return (
       <div className="create">
         <div className="create_brand">
@@ -54,7 +61,26 @@ export default class CreateEvent extends Component {
             onChange={this.props.onSliderChange}
           />
         </div>
-
+        <div className="create_timezone">
+          <p className="create_timezone_label">
+            What time zone would you like the times to be displayed in?
+          </p>
+          <select
+            className="create_timezone_selection"
+            onChange={this.selectChange}
+            value={this.state.timezone}
+          >
+            <option className="create_timezone_selection-option" value="PST">
+              PST
+            </option>
+            <option className="create_timezone_selection-option" value="MST">
+              MST
+            </option>
+            <option className="create_timezone_selection-option" value="EST">
+              EST
+            </option>
+          </select>
+        </div>
         <div className="create_shouldEmail">
           <p className="create_shouldEmail_label">
             Do you want to email the group with a link to the best times? If
@@ -69,7 +95,10 @@ export default class CreateEvent extends Component {
         </div>
         {this.state.shouldEmail ? <EmailIncluded /> : null}
         <Link to="/">
-          <button onClick={this.props.isCreator} className="create_event">
+          <button
+            onClick={() => this.props.isCreator(this.state.timezone)}
+            className="create_event"
+          >
             Create Event
           </button>
         </Link>

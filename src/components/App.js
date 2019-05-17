@@ -1,17 +1,19 @@
-import React, { Component } from 'react'
-import { throttle } from 'throttle-debounce'
-import { Route } from 'react-router-dom'
-import TopBar from './topBar/TopBar'
-import Calendar from './calendar/Calendar'
-import Creds from './Creds'
-import '../SASS/main.scss'
-import CalendarIcon from './calendar/CalendarIcon'
-import WeekDays from './calendar/weekSelect/weekDays/WeekDays'
-import CreateEvent from './OtherRoutes/CreateEvent'
-import WeekSelect from './calendar/weekSelect/WeekSelect'
-import { getPreviousNextWeek,
-         convertToAppDates,
-         getInitDate } from '../lib/library.js'
+import React, { Component } from 'react';
+import { throttle } from 'throttle-debounce';
+import { Route } from 'react-router-dom';
+import TopBar from './topBar/TopBar';
+import Calendar from './calendar/Calendar';
+import Creds from './Creds';
+import '../SASS/main.scss';
+import CalendarIcon from './calendar/CalendarIcon';
+import WeekDays from './calendar/weekSelect/weekDays/WeekDays';
+import CreateEvent from './OtherRoutes/CreateEvent';
+import WeekSelect from './calendar/weekSelect/WeekSelect';
+import {
+  getPreviousNextWeek,
+  convertToAppDates,
+  getInitDate
+} from '../lib/library.js';
 
 class App extends Component {
   constructor(props) {
@@ -29,7 +31,9 @@ class App extends Component {
       startTime: '9 am',
       endTime: '5 pm',
       // 👆provides day of week for the single column mobile view
-      creator: true
+      creator: true,
+      timezone: 'EST'
+      // this is the timezone they chose when creating the event
     };
     this.onClick = this.onClick.bind(this);
     this.onSelectWindow = this.onSelectWindow.bind(this);
@@ -37,10 +41,10 @@ class App extends Component {
   }
 
   fillCurrentTimes() {
-    let table = []
-    let timewindows = []
-    let dates = getInitDate()
-    let times = [...this.state.times]
+    let table = [];
+    let timewindows = [];
+    let dates = getInitDate();
+    let times = [...this.state.times];
     times.forEach(time => {
       timewindows.push(`${time}:00`);
       timewindows.push(`${time}:15`);
@@ -93,21 +97,21 @@ class App extends Component {
       '80-86': '9 pm',
       '87-94': '10 pm',
       '95-100': '11 pm'
-    }
-    for(var key in timesMap) {
-      var range = key.split('-')
-      var val = timesMap[key]
-      if(value[0] >= range[0] && value[0] < range[1]) {
-        this.setState({ startTime: val})
+    };
+    for (var key in timesMap) {
+      var range = key.split('-');
+      var val = timesMap[key];
+      if (value[0] >= range[0] && value[0] < range[1]) {
+        this.setState({ startTime: val });
       }
-      if(value[1] >= range[0] && value[1] < range[1]) {
-        this.setState({ endTime: val})
+      if (value[1] >= range[0] && value[1] < range[1]) {
+        this.setState({ endTime: val });
       }
     }
-  }
+  };
 
   onSliderChange = value => {
-    console.log(value)
+    console.log(value);
     // this changes the state of the value array when user drags the range component from '/create'
     this.setState({
       value
@@ -190,8 +194,8 @@ class App extends Component {
     console.log(this.state.dates);
   };
 
-  createdEvent = () => {
-    this.setState({ creator: true });
+  createdEvent = timezone => {
+    this.setState({ creator: true, timezone: timezone });
   };
 
   render() {

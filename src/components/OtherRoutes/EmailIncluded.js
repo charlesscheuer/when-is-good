@@ -15,7 +15,6 @@ export default class EmailIncluded extends Component {
     let num = this.state.numPeople + 1;
     this.state.theirEmails.push('');
     this.setState({ numPeople: num });
-    window.scrollTo(0, 800);
   };
 
   downHandler = () => {
