@@ -24,7 +24,6 @@ class App extends Component {
       dates: [],
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
-      selected: [],
       viewportWidth: 800,
       // the stuff below here is being set by the range from '/create'
       // it should be passed here to be used in TimeSelect.js
