@@ -198,7 +198,7 @@ class App extends Component {
     return (
       <div>
         <Route
-          path="/create"
+          path="/"
           exact
           render={() => (
             <CreateEvent
@@ -211,7 +211,7 @@ class App extends Component {
           )}
         />
         <Route
-          path="/"
+          path="/create"
           exact
           render={() => (
             <div ref={this.viewportWidthRef} className="App">
