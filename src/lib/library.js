@@ -32,6 +32,23 @@ function getInitDate() {
   return convertToAppDates(week)
 }
 
+function getInitTimes(start, end) {
+  var startTime = start.split(' ')
+  var endTime = end.split(' ')
+  if(startTime[1] === "pm" && startTime[0]<12) start = Number(startTime[0])+12
+  else if(startTime[1] === "am" && startTime[0]===12) start = Number(startTime[0])-12
+  else start = Number(startTime[0])
+  if(endTime[1] === "pm" && endTime[0]<12) end = Number(endTime[0])+12
+  else if(endTime[1] === "am" && endTime[0]===12) end = Number(endTime[0])-12
+  else end = Number(endTime[0])
+  var times = []
+  while(start <= end) {
+    times.push(start)
+    start++
+  }
+  return times
+}
+
 function getMondayOftheWeek() {
   var date = new Date();
   var day = date.getDay()
@@ -81,4 +98,5 @@ export { getPreviousNextWeek,
          convertToStdDates,
          convertToAppDates,
          getInitDate,
+         getInitTimes,
          getMondayOftheWeek }

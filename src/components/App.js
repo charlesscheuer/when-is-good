@@ -12,7 +12,8 @@ import WeekSelect from './calendar/weekSelect/WeekSelect';
 import {
   getPreviousNextWeek,
   convertToAppDates,
-  getInitDate
+  getInitDate,
+  getInitTimes,
 } from '../lib/library.js';
 
 class App extends Component {
@@ -44,7 +45,7 @@ class App extends Component {
     let table = [];
     let timewindows = [];
     let dates = getInitDate();
-    let times = [...this.state.times];
+    var times = getInitTimes(this.state.startTime, this.state.endTime)
     times.forEach(time => {
       timewindows.push(`${time}:00`);
       timewindows.push(`${time}:15`);
@@ -60,7 +61,8 @@ class App extends Component {
     });
     this.setState({
       dates: dates,
-      table: table
+      table: table,
+      times: times,
     });
   }
 
@@ -69,14 +71,17 @@ class App extends Component {
       row.map(datetime => {
         datetime[1] = false;
         return datetime;
-      });
+      })
       return row;
-    });
+    })
     return table;
   }
 
-  betweenTimes = value => {
-    // this function determines the times to show the user as they set using the range input
+  onSliderChange = value => {
+    // this changes the state of the value array when user drags the range component from '/create'
+    this.setState({
+      value
+    })
     let timesMap = {
       '0-4': '5 am',
       '5-9': '6 am',
@@ -97,7 +102,7 @@ class App extends Component {
       '80-86': '9 pm',
       '87-94': '10 pm',
       '95-100': '11 pm'
-    };
+    }
     for (var key in timesMap) {
       var range = key.split('-');
       var val = timesMap[key];
@@ -108,16 +113,7 @@ class App extends Component {
         this.setState({ endTime: val });
       }
     }
-  };
-
-  onSliderChange = value => {
-    console.log(value);
-    // this changes the state of the value array when user drags the range component from '/create'
-    this.setState({
-      value
-    });
-    this.betweenTimes(value);
-  };
+  }
 
   onSelectWindow(value) {
     if (value === 1) {
@@ -166,7 +162,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.fillCurrentTimes();
+    this.fillCurrentTimes()
   }
 
   componentDidMount() {
@@ -179,8 +175,8 @@ class App extends Component {
   }
 
   updateViewportWidth = () => {
-    throttle(this.initWindow(), 500);
-  };
+    throttle(this.initWindow(), 500)
+  }
 
   weekButtonHandler = nextWeek => {
     var start = this.state.dates[0];
@@ -191,10 +187,10 @@ class App extends Component {
     this.setState({
       dates: week
     });
-    console.log(this.state.dates);
   };
 
   createdEvent = timezone => {
+    this.fillCurrentTimes()
     this.setState({ creator: true, timezone: timezone });
   };
 
@@ -210,7 +206,7 @@ class App extends Component {
               endTime={this.state.endTime}
               value={this.state.value}
               onSliderChange={this.onSliderChange}
-              isCreator={this.createdEvent}
+              createdEvent={this.createdEvent}
             />
           )}
         />

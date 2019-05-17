@@ -33,7 +33,6 @@ export default class CreateEvent extends Component {
   }
 
   render() {
-    console.log(this.state.timezone);
     return (
       <div className="create">
         <div className="create_brand">
@@ -96,7 +95,7 @@ export default class CreateEvent extends Component {
         {this.state.shouldEmail ? <EmailIncluded /> : null}
         <Link to="/">
           <button
-            onClick={() => this.props.isCreator(this.state.timezone)}
+            onClick={() => this.props.createdEvent(this.state.timezone)}
             className="create_event"
           >
             Create Event
