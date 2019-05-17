@@ -52,11 +52,11 @@ class App extends Component {
       timewindows.push(`${time}:45`);
     });
     timewindows.forEach(time => {
-      var row = [];
+      var row = []
       dates.forEach(date => {
         row.push([`${date} ${time}`, false]);
       });
-      table.push(row);
+      table.push(row)
     });
     this.setState({
       dates: dates,
@@ -71,9 +71,9 @@ class App extends Component {
         datetime[1] = false;
         return datetime;
       })
-      return row;
+      return row
     })
-    return table;
+    return table
   }
 
   onSliderChange = value => {
@@ -103,13 +103,13 @@ class App extends Component {
       '95-100': '11 pm'
     }
     for (var key in timesMap) {
-      var range = key.split('-');
-      var val = timesMap[key];
+      var range = key.split('-')
+      var val = timesMap[key]
       if (value[0] >= range[0] && value[0] < range[1]) {
-        this.setState({ startTime: val });
+        this.setState({ startTime: val })
       }
       if (value[1] >= range[0] && value[1] < range[1]) {
-        this.setState({ endTime: val });
+        this.setState({ endTime: val })
       }
     }
   }
@@ -132,32 +132,32 @@ class App extends Component {
   }
 
   onClick(e, x, y) {
-    e.preventDefault();
-    var table = this.state.table;
-    var newTable = [];
+    e.preventDefault()
+    var table = this.state.table
+    var newTable = []
     if (this.state.window === 1) {
       table.forEach((row, xx) => {
-        var newRow = [];
+        var newRow = []
         row.forEach((datetime, yy) => {
           if (yy === y) newRow.push([datetime[0], true]);
           else newRow.push([datetime[0], datetime[1]]);
-        });
+        })
         newTable.push(newRow);
-      });
+      })
     } else {
       newTable = table;
-      var newvar = table[x][y];
-      newvar[1] = !newvar[1];
-      newTable[x][y] = newvar;
+      var newvar = table[x][y]
+      newvar[1] = !newvar[1]
+      newTable[x][y] = newvar
     }
     this.setState({
       table: newTable
-    });
+    })
   }
 
   initWindow() {
     // updates the viewport width
-    this.setState({ viewportWidth: window.innerWidth });
+    this.setState({ viewportWidth: window.innerWidth })
   }
 
   componentWillMount() {
@@ -165,12 +165,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.updateViewportWidth();
-    window.addEventListener('resize', this.updateViewportWidth);
+    this.updateViewportWidth()
+    window.addEventListener('resize', this.updateViewportWidth)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateViewportWidth);
+    window.removeEventListener('resize', this.updateViewportWidth)
   }
 
   updateViewportWidth = () => {
@@ -178,11 +178,11 @@ class App extends Component {
   }
 
   weekButtonHandler = nextWeek => {
-    var start = this.state.dates[0];
-    var end = this.state.dates[6];
-    if (nextWeek) var week = getPreviousNextWeek(end, nextWeek);
-    else week = getPreviousNextWeek(start, nextWeek);
-    week = convertToAppDates(week);
+    var start = this.state.dates[0]
+    var end = this.state.dates[6]
+    if (nextWeek) var week = getPreviousNextWeek(end, nextWeek)
+    else week = getPreviousNextWeek(start, nextWeek)
+    week = convertToAppDates(week)
     this.setState({
       dates: week
     });
@@ -190,7 +190,7 @@ class App extends Component {
 
   createdEvent = timezone => {
     this.fillCurrentTimes()
-    this.setState({ creator: true, timezone: timezone });
+    this.setState({ creator: true, timezone: timezone })
     // Save the state to the backend db here.
   };
 
@@ -255,4 +255,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
