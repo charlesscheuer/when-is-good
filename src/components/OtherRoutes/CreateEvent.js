@@ -93,7 +93,7 @@ export default class CreateEvent extends Component {
           </div>
         </div>
         {this.state.shouldEmail ? <EmailIncluded /> : null}
-        <Link to="/">
+        <Link to="/create">
           <button
             onClick={() => this.props.createdEvent(this.state.timezone)}
             className="create_event"

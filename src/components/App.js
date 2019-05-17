@@ -192,6 +192,7 @@ class App extends Component {
   createdEvent = timezone => {
     this.fillCurrentTimes()
     this.setState({ creator: true, timezone: timezone });
+    // Save the state to the backend db here.
   };
 
   render() {
