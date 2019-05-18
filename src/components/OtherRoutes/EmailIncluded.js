@@ -1,39 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 export default class EmailIncluded extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      numPeople: 2,
-      theirEmails: [''],
-      theirEmail: '',
-      yourEmail: ''
-    };
+      theirEmails: props.theirEmails,
+    }
   }
 
   upHandler = () => {
-    let num = this.state.numPeople + 1;
-    this.state.theirEmails.push('');
-    this.setState({ numPeople: num });
+    let num = this.props.numPeople + 1
+    this.state.theirEmails.push('')
+    this.props.emailHandler({ numPeople: num })
   };
 
   downHandler = () => {
-    let num = this.state.numPeople - 1;
-    if (this.state.numPeople > 2) {
-      this.state.theirEmails.splice(this.state.theirEmails.length - 1, 1);
-      this.setState({ numPeople: num });
+    let num = this.props.numPeople - 1
+    if (this.props.numPeople > 2) {
+      this.state.theirEmails.splice(this.state.theirEmails.length - 1, 1)
+      this.props.emailHandler({ numPeople: num })
     }
-  };
+  }
 
   yourEmailHandler = e => {
-    this.setState({ yourEmail: e.target.value });
-  };
+    this.props.emailHandler({ yourEmail: e.target.value })
+  }
 
   theirEmailHandler = (e, index) => {
-    let emailsCopy = [...this.state.theirEmails];
-    emailsCopy.splice(0, 1);
-    // if using index instead of 0 this doesn't work
-    this.setState({ theirEmails: emailsCopy });
+    let emailsCopy = [...this.state.theirEmails]
+    emailsCopy.splice(index, 1, e.target.value)
+    this.setState({ theirEmails: emailsCopy })
+    this.props.emailHandler({ theirEmails: this.state.theirEmails })
   };
 
   render() {
@@ -52,7 +49,7 @@ export default class EmailIncluded extends Component {
               className="create_numPeople_counter_value"
               disabled
               type="text"
-              value={this.state.numPeople}
+              value={this.props.numPeople}
             />
             <button
               onClick={this.upHandler}
@@ -90,7 +87,7 @@ export default class EmailIncluded extends Component {
                     className="create_emails_form_input"
                     placeholder={'Person ' + (index + 2) + "'s email"}
                     id="email"
-                    onChange={index => this.theirEmailHandler}
+                    onChange={(e) => this.theirEmailHandler(e, index)}
                     required
                     type="text"
                   />
@@ -101,11 +98,11 @@ export default class EmailIncluded extends Component {
                     Enter email for person {index + 2}
                   </label>
                 </form>
-              );
+              )
             })}
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

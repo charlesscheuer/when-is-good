@@ -25,22 +25,20 @@ class App extends Component {
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
       viewportWidth: 800,
-      // the stuff below here is being set by the range from '/create'
-      // it should be passed here to be used in TimeSelect.js
+      creator: true,
+      // Pass the below to <CreateEvent>
       value: [22, 62],
       startTime: '9 am',
       endTime: '5 pm',
-      // 👆provides day of week for the single column mobile view
-      creator: true,
-      timezone: 'EST'
-      // this is the timezone they chose when creating the event
-    };
-    this.onClick = this.onClick.bind(this);
-    this.onSelectWindow = this.onSelectWindow.bind(this);
-    this.resetSelection = this.resetSelection.bind(this);
+      timezone: 'PST',
+      shouldEmail: false,
+      yourEmail: '',
+      theirEmails: [''],
+      numPeople: 2,
+    }
   }
 
-  fillCurrentTimes() {
+  fillCurrentTimes = () => {
     let table = [];
     let timewindows = [];
     let dates = getInitDate();
@@ -65,7 +63,7 @@ class App extends Component {
     });
   }
 
-  resetSelection(table) {
+  resetSelection = (table) => {
     table.map(row => {
       row.map(datetime => {
         datetime[1] = false;
@@ -114,7 +112,7 @@ class App extends Component {
     }
   }
 
-  onSelectWindow(value) {
+  onSelectWindow = (value) => {
     if (value === 1) {
       var table = this.state.table;
       table = this.resetSelection(table);
@@ -131,7 +129,7 @@ class App extends Component {
     }
   }
 
-  onClick(e, x, y) {
+  onClick = (e, x, y) => {
     e.preventDefault()
     var table = this.state.table
     var newTable = []
@@ -155,7 +153,7 @@ class App extends Component {
     })
   }
 
-  initWindow() {
+  initWindow = () => {
     // updates the viewport width
     this.setState({ viewportWidth: window.innerWidth })
   }
@@ -185,16 +183,34 @@ class App extends Component {
     week = convertToAppDates(week)
     this.setState({
       dates: week
-    });
-  };
+    })
+  }
 
-  createdEvent = timezone => {
+  createdEvent = () => {
     this.fillCurrentTimes()
-    this.setState({ creator: true, timezone: timezone })
+    this.setState({ creator: true })
     // Save the state to the backend db here.
-  };
+  }
+
+  handleEmailToggle = () => {
+    this.setState({ shouldEmail: !this.state.shouldEmail });
+    setTimeout(() => {
+      if (this.state.shouldEmail) {
+        window.scrollTo(0, 1000);
+      }
+    }, 100)
+  }
+
+  onTimezoneChange = (event) => {
+    this.setState({ timezone: event.target.value });
+  }
+
+  emailHandler = (emailState) => {
+    this.setState(emailState)
+  }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Route
@@ -202,11 +218,19 @@ class App extends Component {
           exact
           render={() => (
             <CreateEvent
+              value={this.state.value}
               startTime={this.state.startTime}
               endTime={this.state.endTime}
-              value={this.state.value}
+              timezone={this.state.timezone}
+              shouldEmail={this.state.shouldEmail}
+              yourEmail={this.state.yourEmail}
+              theirEmails={this.state.theirEmails}
+              numPeople={this.state.numPeople}
+              emailHandler={this.emailHandler}
               onSliderChange={this.onSliderChange}
               createdEvent={this.createdEvent}
+              onTimezoneChange={this.onTimezoneChange}
+              handleEmailToggle={this.handleEmailToggle}
             />
           )}
         />

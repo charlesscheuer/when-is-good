@@ -8,30 +8,6 @@ import Creds from '../Creds';
 const Range = Slider.Range;
 
 export default class CreateEvent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      shouldEmail: false,
-      numPeople: 2,
-      theirEmails: [''],
-      timezone: 'EST'
-    };
-    this.selectChange = this.selectChange.bind(this);
-  }
-
-  handleEmailToggle = () => {
-    this.setState({ shouldEmail: !this.state.shouldEmail });
-    setTimeout(() => {
-      if (this.state.shouldEmail) {
-        window.scrollTo(0, 1000);
-      }
-    }, 100);
-  };
-
-  selectChange(event) {
-    this.setState({ timezone: event.target.value });
-  }
-
   render() {
     return (
       <div className="create">
@@ -66,8 +42,8 @@ export default class CreateEvent extends Component {
           </p>
           <select
             className="create_timezone_selection"
-            onChange={this.selectChange}
-            value={this.state.timezone}
+            onChange={this.props.onTimezoneChange}
+            value={this.props.timezone}
           >
             <option className="create_timezone_selection-option" value="PST">
               PST
@@ -87,15 +63,19 @@ export default class CreateEvent extends Component {
           </p>
           <div>
             <Toggle
-              defaultChecked={this.state.shouldEmail}
-              onChange={this.handleEmailToggle}
+              defaultChecked={this.props.shouldEmail}
+              onChange={this.props.handleEmailToggle}
             />
           </div>
         </div>
-        {this.state.shouldEmail ? <EmailIncluded /> : null}
+        {this.props.shouldEmail ? <EmailIncluded
+                                    yourEmail={this.props.yourEmail}
+                                    theirEmails={this.props.theirEmails}
+                                    numPeople={this.props.numPeople}
+                                    emailHandler={this.props.emailHandler} /> : null}
         <Link to="/create">
           <button
-            onClick={() => this.props.createdEvent(this.state.timezone)}
+            onClick={() => this.props.createdEvent()}
             className="create_event"
           >
             Create Event
