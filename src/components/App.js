@@ -188,7 +188,11 @@ class App extends Component {
 
   createdEvent = () => {
     this.fillCurrentTimes()
-    this.setState({ creator: true })
+    var numPeople = this.state.theirEmails.length
+    this.setState({
+      creator: true,
+      numPeople: numPeople,
+    })
     // Save the state to the backend db here.
   }
 
