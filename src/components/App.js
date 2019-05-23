@@ -9,12 +9,14 @@ import CalendarIcon from './calendar/CalendarIcon';
 import WeekDays from './calendar/weekSelect/weekDays/WeekDays';
 import CreateEvent from './OtherRoutes/CreateEvent';
 import WeekSelect from './calendar/weekSelect/WeekSelect';
+
 import {
   getPreviousNextWeek,
   convertToAppDates,
   getInitDate,
   getInitTimes,
 } from '../lib/library.js';
+
 
 class App extends Component {
   constructor(props) {
@@ -50,7 +52,7 @@ class App extends Component {
       timewindows.push(`${time}:45`);
     });
     timewindows.forEach(time => {
-      var row = []
+      var row = [];
       dates.forEach(date => {
         row.push([`${date} ${time}`, false]);
       });
@@ -73,7 +75,6 @@ class App extends Component {
     })
     return table
   }
-
   onSliderChange = value => {
     // this changes the state of the value array when user drags the range component from '/create'
     this.setState({
@@ -129,13 +130,13 @@ class App extends Component {
     }
   }
 
-  onClick = (e, x, y) => {
-    e.preventDefault()
-    var table = this.state.table
-    var newTable = []
+  onClick(e, x, y) {
+    e.preventDefault();
+    var table = this.state.table;
+    var newTable = [];
     if (this.state.window === 1) {
       table.forEach((row, xx) => {
-        var newRow = []
+        var newRow = [];
         row.forEach((datetime, yy) => {
           if (yy === y) newRow.push([datetime[0], true]);
           else newRow.push([datetime[0], datetime[1]]);
@@ -150,30 +151,30 @@ class App extends Component {
     }
     this.setState({
       table: newTable
-    })
+    });
   }
 
   initWindow = () => {
     // updates the viewport width
-    this.setState({ viewportWidth: window.innerWidth })
+    this.setState({ viewportWidth: window.innerWidth });
   }
 
   componentWillMount() {
-    this.fillCurrentTimes()
+    this.fillCurrentTimes();
   }
 
   componentDidMount() {
-    this.updateViewportWidth()
-    window.addEventListener('resize', this.updateViewportWidth)
+    this.updateViewportWidth();
+    window.addEventListener('resize', this.updateViewportWidth);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateViewportWidth)
+    window.removeEventListener('resize', this.updateViewportWidth);
   }
 
   updateViewportWidth = () => {
-    throttle(this.initWindow(), 500)
-  }
+    throttle(this.initWindow(), 500);
+  };
 
   weekButtonHandler = nextWeek => {
     var start = this.state.dates[0]
@@ -274,6 +275,10 @@ class App extends Component {
                 onClick={this.onClick}
                 vw={this.state.viewportWidth}
               />
+              <div className="create">
+                <button className="create_event">Submit times</button>
+                {/*onclick to submit the time info here */}
+              </div>
               <Creds />
             </div>
           )}
@@ -283,4 +288,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;
