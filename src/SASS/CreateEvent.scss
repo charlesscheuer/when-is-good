@@ -333,6 +333,35 @@
       border-top-color: #6c6c6c;
     }
   }
+  &_timezone {
+    padding: 0rem 20rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+    animation: moveInBottom 2s $trans-primary;
+
+    @media screen and (max-width: 1310px) {
+      padding: 0rem 15rem;
+    }
+    @media screen and (max-width: 1190px) {
+      padding: 0rem 10rem;
+    }
+    @media screen and (max-width: 990px) {
+      padding: 0rem 7.5rem;
+    }
+    &_selection {
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 1rem;
+      align-self: center;
+      color: $color-text;
+      margin-left: 2rem;
+      &-option {
+        color: $color-text;
+      }
+    }
+  }
   &_shouldEmail {
     padding: 0rem 20rem;
     width: 100%;

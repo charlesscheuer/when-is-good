@@ -4,41 +4,36 @@ export default class EmailIncluded extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      numPeople: 2,
-      theirEmails: [''],
-      theirEmail: '',
-      yourEmail: ''
+      theirEmails: props.theirEmails,
     }
   }
 
   upHandler = () => {
-    let num = this.state.numPeople + 1
+    let num = this.props.numPeople + 1
     this.state.theirEmails.push('')
-    this.setState({ numPeople: num })
-    window.scrollTo(0, 800)
-  }
+    this.props.emailHandler({ numPeople: num })
+  };
 
   downHandler = () => {
-    let num = this.state.numPeople - 1
-    if (this.state.numPeople > 2) {
+    let num = this.props.numPeople - 1
+    if (this.props.numPeople > 2) {
       this.state.theirEmails.splice(this.state.theirEmails.length - 1, 1)
-      this.setState({ numPeople: num })
+      this.props.emailHandler({ numPeople: num })
     }
   }
 
   yourEmailHandler = e => {
-    this.setState({ yourEmail: e.target.value })
+    this.props.emailHandler({ yourEmail: e.target.value })
   }
 
   theirEmailHandler = (e, index) => {
     let emailsCopy = [...this.state.theirEmails]
-    emailsCopy.splice(0, 1)
-    // if i use index instead of 0 this doesn't work
+    emailsCopy.splice(index, 1, e.target.value)
     this.setState({ theirEmails: emailsCopy })
-  }
+    this.props.emailHandler({ theirEmails: this.state.theirEmails })
+  };
 
   render() {
-    console.log(this.state.theirEmails)
     return (
       <div className="create">
         <div className="create_numPeople">
@@ -54,7 +49,7 @@ export default class EmailIncluded extends Component {
               className="create_numPeople_counter_value"
               disabled
               type="text"
-              value={this.state.numPeople}
+              value={this.props.numPeople}
             />
             <button
               onClick={this.upHandler}
@@ -86,14 +81,13 @@ export default class EmailIncluded extends Component {
           </div>
           <div className="create_emails_yours">
             {this.state.theirEmails.map((element, index) => {
-              console.log(index)
               return (
                 <form className="create_emails_form" key={index}>
                   <input
                     className="create_emails_form_input"
                     placeholder={'Person ' + (index + 2) + "'s email"}
                     id="email"
-                    onChange={index => this.theirEmailHandler}
+                    onChange={(e) => this.theirEmailHandler(e, index)}
                     required
                     type="text"
                   />

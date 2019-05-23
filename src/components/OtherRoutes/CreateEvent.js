@@ -8,24 +8,6 @@ import Creds from '../Creds';
 const Range = Slider.Range;
 
 export default class CreateEvent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      shouldEmail: false,
-      numPeople: 2,
-      theirEmails: ['']
-    };
-  }
-
-  handleEmailToggle = () => {
-    this.setState({ shouldEmail: !this.state.shouldEmail });
-    setTimeout(() => {
-      if (this.state.shouldEmail) {
-        window.scrollTo(0, 1000);
-      }
-    }, 100);
-  };
-
   render() {
     return (
       <div className="create">
@@ -54,7 +36,26 @@ export default class CreateEvent extends Component {
             onChange={this.props.onSliderChange}
           />
         </div>
-
+        <div className="create_timezone">
+          <p className="create_timezone_label">
+            What time zone would you like the times to be displayed in?
+          </p>
+          <select
+            className="create_timezone_selection"
+            onChange={this.props.onTimezoneChange}
+            value={this.props.timezone}
+          >
+            <option className="create_timezone_selection-option" value="PST">
+              PST
+            </option>
+            <option className="create_timezone_selection-option" value="MST">
+              MST
+            </option>
+            <option className="create_timezone_selection-option" value="EST">
+              EST
+            </option>
+          </select>
+        </div>
         <div className="create_shouldEmail">
           <p className="create_shouldEmail_label">
             Do you want to email the group with a link to the best times? If
@@ -62,14 +63,21 @@ export default class CreateEvent extends Component {
           </p>
           <div>
             <Toggle
-              defaultChecked={this.state.shouldEmail}
-              onChange={this.handleEmailToggle}
+              defaultChecked={this.props.shouldEmail}
+              onChange={this.props.handleEmailToggle}
             />
           </div>
         </div>
-        {this.state.shouldEmail ? <EmailIncluded /> : null}
-        <Link to="/">
-          <button onClick={this.props.isCreator} className="create_event">
+        {this.props.shouldEmail ? <EmailIncluded
+                                    yourEmail={this.props.yourEmail}
+                                    theirEmails={this.props.theirEmails}
+                                    numPeople={this.props.numPeople}
+                                    emailHandler={this.props.emailHandler} /> : null}
+        <Link to="/create">
+          <button
+            onClick={() => this.props.createdEvent()}
+            className="create_event"
+          >
             Create Event
           </button>
         </Link>

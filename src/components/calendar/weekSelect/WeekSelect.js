@@ -3,130 +3,42 @@ import LeftArrowButton from './LeftArrowButton'
 import RightArrowButton from './RightArrowButton'
 
 export default class WeekSelect extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      month: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'November',
-        'December'
-      ],
-      currentMonth: 4,
-      currentDate: 1,
-      // 👆these will soon be passed as props
-      startDate: 1,
-      endDate: 7
-    }
-  }
-
-  // edge case: start date + 7 was less than 31 and end date + 7 > 31
-  weekNext = () => {
-    setTimeout(() => {
-      this.props.dayNext(this.state.startDate)
-    }, 100)
-    let { startDate } = this.state
-    let { endDate } = this.state
-    if (endDate + 7 <= 31 && startDate + 7 <= 31) {
-      this.setState({
-        startDate: startDate + 7,
-        endDate: endDate + 7
-      })
-    } else if (endDate + 7 > 31 && startDate + 7 > 31) {
-      let subtract = (endDate - 31) * -1
-      let newDate = 7 - subtract
-      startDate = 1
-      this.setState({
-        startDate: startDate,
-        endDate: newDate
-      })
-    } else if (endDate + 7 > 31) {
-      // 22-28 then got 29-5 expected 29-4
-      let subtract = (endDate - 31) * -1
-      let newDate = 7 - subtract
-      startDate = startDate + 7
-      this.setState({
-        startDate: startDate,
-        endDate: newDate
-      })
-    } else if (startDate + 7 > 31) {
-      let subtract = (startDate - 31) * -1
-      let newDate = 7 - subtract
-      endDate = endDate + 7
-      this.setState({
-        startDate: newDate,
-        endDate: endDate
-      })
-    }
-  }
-
-  weekPrevious = () => {
-    setTimeout(() => {
-      this.props.dayNext(this.state.startDate)
-    }, 100)
-    let { startDate } = this.state
-    let { endDate } = this.state
-    let minus = (endDate - 7) * -1
-    let newEnd = 31 - minus
-    if (startDate - 7 >= 1 && endDate - 7 >= 1) {
-      this.setState({
-        startDate: startDate - 7,
-        endDate: endDate - 7
-      })
-    } else if (startDate - 7 >= 1 && endDate - 7 < 1) {
-      this.setState({
-        startDate: startDate - 7,
-        endDate: newEnd
-      })
-    } else if (startDate - 7 < 1) {
-      // new month here
-      // go from 1
-      let subtract = (startDate - 7) * -1
-      let newDate = 31 - subtract
-      if (endDate - 7 > 0) {
-        this.setState({
-          startDate: newDate,
-          endDate: endDate - 7
-        })
-      } else {
-        this.setState({
-          startDate: newDate,
-          endDate: newEnd
-        })
-      }
-    }
-  }
-
-  // class for the arrow buttons is set on the components and is week_arrow
-
-  // I think this component needs some sort of onStateChange to make the clicking change the week state
   render() {
-    // let {startDate} = this.state;
-    // let {endDate} = this.state;
+    var map = {
+      0: 'January',
+      1: 'February',
+      2: 'March',
+      3: 'April',
+      4: 'May',
+      5: 'June',
+      6: 'July',
+      7: 'August',
+      8: 'September',
+      9: 'October',
+      10: 'November',
+      11: 'December',
+    }
+    var days = this.props.dates.map(datetime => {
+      var dateTimeObj = new Date(datetime)
+      return [dateTimeObj.getDate(), map[dateTimeObj.getMonth()]]
+    })
     return (
       <div className="week">
-        <LeftArrowButton clicked={this.weekPrevious} />
+        <LeftArrowButton clicked={() => this.props.weekButtonHandler(false)} />
         <div className="week_title">
           {this.props.vw < 624 ? (
             <p className="week_title">
-              {this.state.month[this.state.currentMonth]}{' '}
-              {this.state.currentDate}
+              {days[0][1]}{' '}
+              {days[0][0]}
             </p>
           ) : (
             <p className="week_title">
-              {this.state.month[this.state.currentMonth]} {this.state.startDate}
-              –{this.state.endDate}
+              {days[0][1]} {days[0][0]}
+              –{days[6][0]}
             </p>
           )}
         </div>
-        <RightArrowButton clicked={this.weekNext} />
+        <RightArrowButton clicked={() => this.props.weekButtonHandler(true)} />
       </div>
     )
   }

@@ -10,45 +10,41 @@ import WeekDays from './calendar/weekSelect/weekDays/WeekDays';
 import CreateEvent from './OtherRoutes/CreateEvent';
 import WeekSelect from './calendar/weekSelect/WeekSelect';
 
+import {
+  getPreviousNextWeek,
+  convertToAppDates,
+  getInitDate,
+  getInitTimes,
+} from '../lib/library.js';
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       window: 30,
-      dates: [
-        'April 4, 19',
-        'April 5, 19',
-        'April 6, 19',
-        'April 7, 19',
-        'April 8, 19',
-        'April 9, 19',
-        'April 10, 19'
-      ],
+      dates: [],
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
-      selected: [],
       viewportWidth: 800,
-      dow: 0,
-      // dow and weekStartDate are for the days of the week values and should be set to current week by default
-      weekStartDate: 1,
-      // the stuff below here is being set by the range from '/create'
-      // it should be passed here to be used in TimeSelect.js
+      creator: true,
+      // Pass the below to <CreateEvent>
       value: [22, 62],
       startTime: '9 am',
       endTime: '5 pm',
-      // 👆provides day of week for the single column mobile view
-      creator: false
-    };
-    this.onClick = this.onClick.bind(this);
-    this.onSelectWindow = this.onSelectWindow.bind(this);
-    this.resetSelection = this.resetSelection.bind(this);
+      timezone: 'PST',
+      shouldEmail: false,
+      yourEmail: '',
+      theirEmails: [''],
+      numPeople: 2,
+    }
   }
 
-  fillCurrentTimes() {
+  fillCurrentTimes = () => {
     let table = [];
     let timewindows = [];
-    let dates = [...this.state.dates];
-    let times = [...this.state.times];
+    let dates = getInitDate();
+    var times = getInitTimes(this.state.startTime, this.state.endTime)
     times.forEach(time => {
       timewindows.push(`${time}:00`);
       timewindows.push(`${time}:15`);
@@ -60,141 +56,64 @@ class App extends Component {
       dates.forEach(date => {
         row.push([`${date} ${time}`, false]);
       });
-      table.push(row);
+      table.push(row)
     });
     this.setState({
-      table: table
+      dates: dates,
+      table: table,
+      times: times,
     });
   }
 
-  resetSelection(table) {
+  resetSelection = (table) => {
     table.map(row => {
       row.map(datetime => {
         datetime[1] = false;
         return datetime;
-      });
-      return row;
-    });
-    return table;
+      })
+      return row
+    })
+    return table
   }
-
-  betweenTimes = value => {
-    // this function determines the times to show the user as they set using the range input
-
-    // 0 should be 5 am, 50 should be 12 pm,  and 100 is 11pm
-    // START TIMES:
-    // let times = {
-    //   '0': '5 am',
-    //   '5': '6 am',
-    //   '10': '7 am',
-    //   '15': '8 am',
-    //   '20': '9 am',
-    //   '25': '10 am',
-    //   '30': '11 am',
-    //   '35': '12 pm',
-    //   '40': '1 pm',
-    //   '45': '2 pm',
-    //   '50': '3 pm',
-    //   '55': '4 pm',
-    //   '60': '5 pm',
-    //   '65': '6 pm',
-    //   '70': '7 pm',
-    //   '75': '8 pm',
-    //   '80': '9 pm',
-    //   '85': '10 pm',
-    //   '90': '11 pm'
-    // }
-    // this.setstate(times.map[lowerValue])
-    if (value[0] < 5) {
-      this.setState({ startTime: '5 am' });
-    } else if (value[0] >= 5 && value[0] < 10) {
-      this.setState({ startTime: '6 am' });
-    } else if (value[0] >= 10 && value[0] < 15) {
-      this.setState({ startTime: '7 am' });
-    } else if (value[0] >= 15 && value[0] < 20) {
-      this.setState({ startTime: '8 am' });
-    } else if (value[0] >= 20 && value[0] < 25) {
-      this.setState({ startTime: '9 am' });
-    } else if (value[0] >= 25 && value[0] < 30) {
-      this.setState({ startTime: '10 am' });
-    } else if (value[0] >= 30 && value[0] < 35) {
-      this.setState({ startTime: '11 am' });
-    } else if (value[0] >= 35 && value[0] < 40) {
-      this.setState({ startTime: '12 pm' });
-    } else if (value[0] >= 40 && value[0] < 45) {
-      this.setState({ startTime: '1 pm' });
-    } else if (value[0] >= 45 && value[0] < 50) {
-      this.setState({ startTime: '2 pm' });
-    } else if (value[0] >= 50 && value[0] < 55) {
-      this.setState({ startTime: '3 pm' });
-    } else if (value[0] >= 55 && value[0] < 60) {
-      this.setState({ startTime: '4 pm' });
-    } else if (value[0] >= 60 && value[0] < 65) {
-      this.setState({ startTime: '5 pm' });
-    } else if (value[0] >= 65 && value[0] < 70) {
-      this.setState({ startTime: '6 pm' });
-    } else if (value[0] >= 70 && value[0] < 75) {
-      this.setState({ startTime: '7 pm' });
-    } else if (value[0] >= 75 && value[0] < 80) {
-      this.setState({ startTime: '8 pm' });
-    } else if (value[0] >= 80 && value[0] < 87) {
-      this.setState({ startTime: '9 pm' });
-    } else if (value[0] >= 87 && value[0] < 95) {
-      this.setState({ startTime: '10 pm' });
-    } else if (value[0] >= 95 && value[0] < 100) {
-      this.setState({ startTime: '11 pm' });
-    }
-    if (value[1] < 5) {
-      this.setState({ endTime: '5 am' });
-    } else if (value[1] >= 5 && value[1] < 10) {
-      this.setState({ endTime: '6 am' });
-    } else if (value[1] >= 10 && value[1] < 15) {
-      this.setState({ endTime: '7 am' });
-    } else if (value[1] >= 15 && value[1] < 20) {
-      this.setState({ endTime: '8 am' });
-    } else if (value[1] >= 20 && value[1] < 25) {
-      this.setState({ endTime: '9 am' });
-    } else if (value[1] >= 25 && value[1] < 30) {
-      this.setState({ endTime: '10 am' });
-    } else if (value[1] >= 30 && value[1] < 35) {
-      this.setState({ endTime: '11 am' });
-    } else if (value[1] >= 35 && value[1] < 40) {
-      this.setState({ endTime: '12 pm' });
-    } else if (value[1] >= 40 && value[1] < 45) {
-      this.setState({ endTime: '1 pm' });
-    } else if (value[1] >= 45 && value[1] < 50) {
-      this.setState({ endTime: '2 pm' });
-    } else if (value[1] >= 50 && value[1] < 55) {
-      this.setState({ endTime: '3 pm' });
-    } else if (value[1] >= 55 && value[1] < 60) {
-      this.setState({ endTime: '4 pm' });
-    } else if (value[1] >= 60 && value[1] < 65) {
-      this.setState({ endTime: '5 pm' });
-    } else if (value[1] >= 65 && value[1] < 70) {
-      this.setState({ endTime: '6 pm' });
-    } else if (value[1] >= 70 && value[1] < 75) {
-      this.setState({ endTime: '7 pm' });
-    } else if (value[1] >= 75 && value[1] < 80) {
-      this.setState({ endTime: '8 pm' });
-    } else if (value[1] >= 80 && value[1] < 87) {
-      this.setState({ endTime: '9 pm' });
-    } else if (value[1] >= 87 && value[1] < 95) {
-      this.setState({ endTime: '10 pm' });
-    } else if (value[1] >= 95 && value[1] < 100) {
-      this.setState({ endTime: '11 pm' });
-    }
-  };
-
   onSliderChange = value => {
     // this changes the state of the value array when user drags the range component from '/create'
     this.setState({
       value
-    });
-    console.log(value);
-    this.betweenTimes(value);
-  };
+    })
+    let timesMap = {
+      '0-4': '5 am',
+      '5-9': '6 am',
+      '10-14': '7 am',
+      '15-19': '8 am',
+      '20-24': '9 am',
+      '25-29': '10 am',
+      '30-34': '11 am',
+      '35-39': '12 pm',
+      '40-44': '1 pm',
+      '45-49': '2 pm',
+      '50-54': '3 pm',
+      '55-59': '4 pm',
+      '60-64': '5 pm',
+      '65-69': '6 pm',
+      '70-74': '7 pm',
+      '75-79': '8 pm',
+      '80-86': '9 pm',
+      '87-94': '10 pm',
+      '95-100': '11 pm'
+    }
+    for (var key in timesMap) {
+      var range = key.split('-')
+      var val = timesMap[key]
+      if (value[0] >= range[0] && value[0] < range[1]) {
+        this.setState({ startTime: val })
+      }
+      if (value[1] >= range[0] && value[1] < range[1]) {
+        this.setState({ endTime: val })
+      }
+    }
+  }
 
-  onSelectWindow(value) {
+  onSelectWindow = (value) => {
     if (value === 1) {
       var table = this.state.table;
       table = this.resetSelection(table);
@@ -221,21 +140,21 @@ class App extends Component {
         row.forEach((datetime, yy) => {
           if (yy === y) newRow.push([datetime[0], true]);
           else newRow.push([datetime[0], datetime[1]]);
-        });
+        })
         newTable.push(newRow);
-      });
+      })
     } else {
       newTable = table;
-      var newvar = table[x][y];
-      newvar[1] = !newvar[1];
-      newTable[x][y] = newvar;
+      var newvar = table[x][y]
+      newvar[1] = !newvar[1]
+      newTable[x][y] = newvar
     }
     this.setState({
       table: newTable
     });
   }
 
-  initWindow() {
+  initWindow = () => {
     // updates the viewport width
     this.setState({ viewportWidth: window.innerWidth });
   }
@@ -257,48 +176,71 @@ class App extends Component {
     throttle(this.initWindow(), 500);
   };
 
-  dayNextHandler = startDate => {
-    let { dow } = this.state;
-    if (dow >= 0 && dow < 6) {
-      this.setState({ dow: dow + 1 });
-    } else if (dow === 6) {
-      this.setState({ dow: 0 });
-    }
-    this.setState({ weekStartDate: startDate });
-  };
-
-  dayPrevHandler = startDate => {
-    let { dow } = this.state;
-    if (dow > 0 && dow <= 6) {
-      this.setState({ dow: dow - 1 });
-    } else if (dow === 0) {
-      this.setState({ dow: 6 });
-    }
-    this.setState({ weekStartDate: startDate });
-  };
+  weekButtonHandler = nextWeek => {
+    var start = this.state.dates[0]
+    var end = this.state.dates[6]
+    if (nextWeek) var week = getPreviousNextWeek(end, nextWeek)
+    else week = getPreviousNextWeek(start, nextWeek)
+    week = convertToAppDates(week)
+    this.setState({
+      dates: week
+    })
+  }
 
   createdEvent = () => {
-    this.setState({ creator: true });
-  };
+    this.fillCurrentTimes()
+    var numPeople = this.state.theirEmails.length
+    this.setState({
+      creator: true,
+      numPeople: numPeople,
+    })
+    // Save the state to the backend db here.
+  }
+
+  handleEmailToggle = () => {
+    this.setState({ shouldEmail: !this.state.shouldEmail });
+    setTimeout(() => {
+      if (this.state.shouldEmail) {
+        window.scrollTo(0, 1000);
+      }
+    }, 100)
+  }
+
+  onTimezoneChange = (event) => {
+    this.setState({ timezone: event.target.value });
+  }
+
+  emailHandler = (emailState) => {
+    this.setState(emailState)
+  }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Route
-          path="/create"
+          path="/"
           exact
           render={() => (
             <CreateEvent
+              value={this.state.value}
               startTime={this.state.startTime}
               endTime={this.state.endTime}
-              value={this.state.value}
+              timezone={this.state.timezone}
+              shouldEmail={this.state.shouldEmail}
+              yourEmail={this.state.yourEmail}
+              theirEmails={this.state.theirEmails}
+              numPeople={this.state.numPeople}
+              emailHandler={this.emailHandler}
               onSliderChange={this.onSliderChange}
-              isCreator={this.createdEvent}
+              createdEvent={this.createdEvent}
+              onTimezoneChange={this.onTimezoneChange}
+              handleEmailToggle={this.handleEmailToggle}
             />
           )}
         />
         <Route
-          path="/"
+          path="/create"
           exact
           render={() => (
             <div ref={this.viewportWidthRef} className="App">
@@ -310,26 +252,24 @@ class App extends Component {
                   </div>
                 </div>
               </div>
+
               {this.state.creator ? (
                 <TopBar onSelectWindow={this.onSelectWindow} />
               ) : null}
-
               <div className="sticks">
                 <WeekSelect
-                  dayNext={this.dayNextHandler}
-                  dayPrev={this.dayPrevHandler}
+                  dates={this.state.dates}
+                  weekButtonHandler={this.weekButtonHandler}
                   vw={this.state.viewportWidth}
                 />
                 <WeekDays
                   vw={this.state.viewportWidth}
-                  dow={this.state.dow}
                   dates={this.state.dates}
-                  startDate={this.state.weekStartDate}
                   className="stickyScroll"
                 />
               </div>
-
               <Calendar
+                dates={this.state.dates}
                 window={this.state.window}
                 table={this.state.table}
                 onClick={this.onClick}
