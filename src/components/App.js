@@ -9,12 +9,14 @@ import CalendarIcon from './calendar/CalendarIcon';
 import WeekDays from './calendar/weekSelect/weekDays/WeekDays';
 import CreateEvent from './OtherRoutes/CreateEvent';
 import WeekSelect from './calendar/weekSelect/WeekSelect';
+
 import {
   getPreviousNextWeek,
   convertToAppDates,
   getInitDate,
   getInitTimes
 } from '../lib/library.js';
+
 
 class App extends Component {
   constructor(props) {
@@ -68,12 +70,20 @@ class App extends Component {
       row.map(datetime => {
         datetime[1] = false;
         return datetime;
+<<<<<<< HEAD
       });
       return row;
     });
     return table;
   };
 
+=======
+      })
+      return row
+    })
+    return table
+  }
+>>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
   onSliderChange = value => {
     // this changes the state of the value array when user drags the range component from '/create'
     this.setState({
@@ -129,7 +139,11 @@ class App extends Component {
     }
   };
 
+<<<<<<< HEAD
   onClick = (e, x, y) => {
+=======
+  onClick(e, x, y) {
+>>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
     e.preventDefault();
     var table = this.state.table;
     var newTable = [];
@@ -151,12 +165,20 @@ class App extends Component {
     this.setState({
       table: newTable
     });
+<<<<<<< HEAD
   };
+=======
+  }
+>>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
 
   initWindow = () => {
     // updates the viewport width
     this.setState({ viewportWidth: window.innerWidth });
+<<<<<<< HEAD
   };
+=======
+  }
+>>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
 
   componentWillMount() {
     this.fillCurrentTimes();
@@ -187,8 +209,17 @@ class App extends Component {
   };
 
   createdEvent = () => {
+<<<<<<< HEAD
     this.fillCurrentTimes();
     this.setState({ creator: true });
+=======
+    this.fillCurrentTimes()
+    var numPeople = this.state.theirEmails.length
+    this.setState({
+      creator: true,
+      numPeople: numPeople,
+    })
+>>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
     // Save the state to the backend db here.
   };
 
@@ -274,7 +305,10 @@ class App extends Component {
                 <button className="create_event">Submit times</button>
                 {/*onclick to submit the time info here */}
               </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
               <Creds />
             </div>
           )}
