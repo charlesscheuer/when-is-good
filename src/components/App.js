@@ -335,6 +335,10 @@ class App extends Component {
                 onClick={this.onClick}
                 vw={this.state.viewportWidth}
               />
+              <div className="create">
+                <button className="create_event">Submit times</button>
+                {/*onclick to submit the time info here */}
+              </div>
               <Creds />
             </div>
           )}
