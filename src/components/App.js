@@ -17,7 +17,6 @@ import {
   getInitTimes
 } from '../lib/library.js';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +26,6 @@ class App extends Component {
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
       viewportWidth: 800,
-      creator: false,
       // Pass the below to <CreateEvent>
       value: [22, 62],
       startTime: '9 am',
@@ -36,7 +34,9 @@ class App extends Component {
       shouldEmail: false,
       yourEmail: '',
       theirEmails: [''],
-      numPeople: 2
+      numPeople: 2,
+      eventCode: ''
+      // the code for their event (if no link emailed?)
     };
   }
 
@@ -70,20 +70,12 @@ class App extends Component {
       row.map(datetime => {
         datetime[1] = false;
         return datetime;
-<<<<<<< HEAD
       });
       return row;
     });
     return table;
   };
 
-=======
-      })
-      return row
-    })
-    return table
-  }
->>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
   onSliderChange = value => {
     // this changes the state of the value array when user drags the range component from '/create'
     this.setState({
@@ -139,11 +131,7 @@ class App extends Component {
     }
   };
 
-<<<<<<< HEAD
   onClick = (e, x, y) => {
-=======
-  onClick(e, x, y) {
->>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
     e.preventDefault();
     var table = this.state.table;
     var newTable = [];
@@ -165,20 +153,12 @@ class App extends Component {
     this.setState({
       table: newTable
     });
-<<<<<<< HEAD
   };
-=======
-  }
->>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
 
   initWindow = () => {
     // updates the viewport width
     this.setState({ viewportWidth: window.innerWidth });
-<<<<<<< HEAD
   };
-=======
-  }
->>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
 
   componentWillMount() {
     this.fillCurrentTimes();
@@ -209,17 +189,7 @@ class App extends Component {
   };
 
   createdEvent = () => {
-<<<<<<< HEAD
     this.fillCurrentTimes();
-    this.setState({ creator: true });
-=======
-    this.fillCurrentTimes()
-    var numPeople = this.state.theirEmails.length
-    this.setState({
-      creator: true,
-      numPeople: numPeople,
-    })
->>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
     // Save the state to the backend db here.
   };
 
@@ -238,6 +208,16 @@ class App extends Component {
 
   emailHandler = emailState => {
     this.setState(emailState);
+  };
+
+  eventCodeSubmission = code => {
+    // fetch the times that have been posted here using the 'eventCode' from this.state
+    this.setState({ eventCode: code });
+  };
+
+  eventCodeHandler = input => {
+    this.setState({ eventCode: input });
+    // if anything is typed in at this point it will change the state to the time selection
   };
 
   render() {
@@ -278,10 +258,7 @@ class App extends Component {
                   </div>
                 </div>
               </div>
-
-              {this.state.creator ? (
-                <TopBar onSelectWindow={this.onSelectWindow} />
-              ) : null}
+              <TopBar onSelectWindow={this.onSelectWindow} />
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
@@ -305,10 +282,88 @@ class App extends Component {
                 <button className="create_event">Submit times</button>
                 {/*onclick to submit the time info here */}
               </div>
-<<<<<<< HEAD
+              <Creds />
+            </div>
+          )}
+        />
+        <Route
+          path="/addtime"
+          exact
+          render={() => (
+            <div ref={this.viewportWidthRef} className="App">
+              <div className="bar">
+                <div className="brand">
+                  <CalendarIcon />
+                  <div className="brand-title">
+                    <h1 className="brand-title-text">I'm Free FYI</h1>
+                  </div>
+                </div>
+              </div>
 
-=======
->>>>>>> 7a4e0f7aa7670854d232e2923cea13bada50e136
+              {this.state.eventCode === '' ? (
+                <div className="create">
+                  <p>Please input your code</p>
+                  <div className="create_emails_yours">
+                    <form className="create_emails_form">
+                      <input
+                        className="create_emails_form_input"
+                        placeholder="Enter the event code"
+                        id="email"
+                        onChange={this.eventCodeHandler}
+                        required
+                        type="text"
+                      />
+                      <label
+                        htmlFor="email"
+                        className="create_emails_form_input_label"
+                      >
+                        Enter your event code
+                      </label>
+                    </form>
+                  </div>
+                  <button
+                    className="create_event"
+                    onClick={this.codeSubmission}
+                  >
+                    Submit code
+                  </button>
+                </div>
+              ) : (
+                <div className="create">
+                  <h1 className="create_addtime">
+                    Add the times that work best for you.
+                  </h1>
+                </div>
+              )}
+              {this.state.eventCode === '' ? null : (
+                <div className="sticks">
+                  <WeekSelect
+                    dates={this.state.dates}
+                    weekButtonHandler={this.weekButtonHandler}
+                    vw={this.state.viewportWidth}
+                  />
+                  <WeekDays
+                    vw={this.state.viewportWidth}
+                    dates={this.state.dates}
+                    className="stickyScroll"
+                  />
+                </div>
+              )}
+              {this.state.eventCode === '' ? null : (
+                <Calendar
+                  dates={this.state.dates}
+                  window={this.state.window}
+                  table={this.state.table}
+                  onClick={this.onClick}
+                  vw={this.state.viewportWidth}
+                />
+              )}
+              {this.state.eventCode === '' ? null : (
+                <div className="create">
+                  <button className="create_event">Submit times</button>
+                  {/*onclick to submit the time info here */}
+                </div>
+              )}
               <Creds />
             </div>
           )}
