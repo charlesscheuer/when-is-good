@@ -9,11 +9,12 @@ import CalendarIcon from './calendar/CalendarIcon';
 import WeekDays from './calendar/weekSelect/weekDays/WeekDays';
 import CreateEvent from './OtherRoutes/CreateEvent';
 import WeekSelect from './calendar/weekSelect/WeekSelect';
+
 import {
   getPreviousNextWeek,
   convertToAppDates,
   getInitDate,
-  getInitTimes,
+  getInitTimes
 } from '../lib/library.js';
 import { backend_url } from '../lib/controller.js';
 
@@ -26,7 +27,6 @@ class App extends Component {
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
       viewportWidth: 800,
-      creator: true,
       // Pass the below to <CreateEvent>
       value: [22, 62],
       startTime: '9 am',
@@ -36,14 +36,16 @@ class App extends Component {
       yourEmail: '',
       theirEmails: [''],
       numPeople: 2,
-    }
+      eventCode: ''
+      // the code for their event (if no link emailed?)
+    };
   }
 
   fillCurrentTimes = () => {
     let table = [];
     let timewindows = [];
     let dates = getInitDate();
-    var times = getInitTimes(this.state.startTime, this.state.endTime)
+    var times = getInitTimes(this.state.startTime, this.state.endTime);
     times.forEach(time => {
       timewindows.push(`${time}:00`);
       timewindows.push(`${time}:15`);
@@ -51,35 +53,35 @@ class App extends Component {
       timewindows.push(`${time}:45`);
     });
     timewindows.forEach(time => {
-      var row = []
+      var row = [];
       dates.forEach(date => {
         row.push([`${date} ${time}`, false]);
       });
-      table.push(row)
+      table.push(row);
     });
     this.setState({
       dates: dates,
       table: table,
-      times: times,
+      times: times
     });
-  }
+  };
 
-  resetSelection = (table) => {
+  resetSelection = table => {
     table.map(row => {
       row.map(datetime => {
         datetime[1] = false;
         return datetime;
-      })
-      return row
-    })
-    return table
-  }
+      });
+      return row;
+    });
+    return table;
+  };
 
   onSliderChange = value => {
     // this changes the state of the value array when user drags the range component from '/create'
     this.setState({
       value
-    })
+    });
     let timesMap = {
       '0-4': '5 am',
       '5-9': '6 am',
@@ -100,20 +102,20 @@ class App extends Component {
       '80-86': '9 pm',
       '87-94': '10 pm',
       '95-100': '11 pm'
-    }
+    };
     for (var key in timesMap) {
-      var range = key.split('-')
-      var val = timesMap[key]
+      var range = key.split('-');
+      var val = timesMap[key];
       if (value[0] >= range[0] && value[0] < range[1]) {
-        this.setState({ startTime: val })
+        this.setState({ startTime: val });
       }
       if (value[1] >= range[0] && value[1] < range[1]) {
-        this.setState({ endTime: val })
+        this.setState({ endTime: val });
       }
     }
-  }
+  };
 
-  onSelectWindow = (value) => {
+  onSelectWindow = value => {
     if (value === 1) {
       var table = this.state.table;
       table = this.resetSelection(table);
@@ -128,74 +130,69 @@ class App extends Component {
         window: value
       });
     }
-  }
+  };
 
   onClick = (e, x, y) => {
-    e.preventDefault()
-    var table = this.state.table
-    var newTable = []
+    e.preventDefault();
+    var table = this.state.table;
+    var newTable = [];
     if (this.state.window === 1) {
       table.forEach((row, xx) => {
-        var newRow = []
+        var newRow = [];
         row.forEach((datetime, yy) => {
           if (yy === y) newRow.push([datetime[0], true]);
           else newRow.push([datetime[0], datetime[1]]);
-        })
+        });
         newTable.push(newRow);
-      })
+      });
     } else {
       newTable = table;
-      var newvar = table[x][y]
-      newvar[1] = !newvar[1]
-      newTable[x][y] = newvar
+      var newvar = table[x][y];
+      newvar[1] = !newvar[1];
+      newTable[x][y] = newvar;
     }
     this.setState({
       table: newTable
-    })
-  }
+    });
+  };
 
   initWindow = () => {
     // updates the viewport width
-    this.setState({ viewportWidth: window.innerWidth })
-  }
+    this.setState({ viewportWidth: window.innerWidth });
+  };
 
   componentWillMount() {
-    this.fillCurrentTimes()
+    this.fillCurrentTimes();
   }
 
   componentDidMount() {
-    this.updateViewportWidth()
-    window.addEventListener('resize', this.updateViewportWidth)
+    this.updateViewportWidth();
+    window.addEventListener('resize', this.updateViewportWidth);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateViewportWidth)
+    window.removeEventListener('resize', this.updateViewportWidth);
   }
 
   updateViewportWidth = () => {
-    throttle(this.initWindow(), 500)
-  }
+    throttle(this.initWindow(), 500);
+  };
 
   weekButtonHandler = nextWeek => {
-    var start = this.state.dates[0]
-    var end = this.state.dates[6]
-    if (nextWeek) var week = getPreviousNextWeek(end, nextWeek)
-    else week = getPreviousNextWeek(start, nextWeek)
-    week = convertToAppDates(week)
+    var start = this.state.dates[0];
+    var end = this.state.dates[6];
+    if (nextWeek) var week = getPreviousNextWeek(end, nextWeek);
+    else week = getPreviousNextWeek(start, nextWeek);
+    week = convertToAppDates(week);
     this.setState({
       dates: week
-    })
-  }
+    });
+  };
 
   createdEvent = () => {
-    this.fillCurrentTimes()
-    var numPeople = this.state.theirEmails.length
-    this.setState({
-      creator: true,
-      numPeople: numPeople,
-    })
+    this.fillCurrentTimes();
     // Save the state to the backend db here.
-  }
+  };
 
   handleEmailToggle = () => {
     this.setState({ shouldEmail: !this.state.shouldEmail });
@@ -203,16 +200,26 @@ class App extends Component {
       if (this.state.shouldEmail) {
         window.scrollTo(0, 1000);
       }
-    }, 100)
-  }
+    }, 100);
+  };
 
-  onTimezoneChange = (event) => {
+  onTimezoneChange = event => {
     this.setState({ timezone: event.target.value });
-  }
+  };
 
-  emailHandler = (emailState) => {
-    this.setState(emailState)
-  }
+  emailHandler = emailState => {
+    this.setState(emailState);
+  };
+
+  eventCodeSubmission = code => {
+    // fetch the times that have been posted here using the 'eventCode' from this.state
+    this.setState({ eventCode: code });
+  };
+
+  eventCodeHandler = input => {
+    this.setState({ eventCode: input });
+    // if anything is typed in at this point it will change the state to the time selection
+  };
 
   createCalendarEvent = () => {
     var body = {'state': this.state}
@@ -268,10 +275,7 @@ class App extends Component {
                   </div>
                 </div>
               </div>
-
-              {this.state.creator ? (
-                <TopBar onSelectWindow={this.onSelectWindow} />
-              ) : null}
+              <TopBar onSelectWindow={this.onSelectWindow} />
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
@@ -291,6 +295,92 @@ class App extends Component {
                 onClick={this.onClick}
                 vw={this.state.viewportWidth}
               />
+              <div className="create">
+                <button className="create_event">Submit times</button>
+                {/*onclick to submit the time info here */}
+              </div>
+              <Creds />
+            </div>
+          )}
+        />
+        <Route
+          path="/addtime"
+          exact
+          render={() => (
+            <div ref={this.viewportWidthRef} className="App">
+              <div className="bar">
+                <div className="brand">
+                  <CalendarIcon />
+                  <div className="brand-title">
+                    <h1 className="brand-title-text">I'm Free FYI</h1>
+                  </div>
+                </div>
+              </div>
+
+              {this.state.eventCode === '' ? (
+                <div className="create">
+                  <p>Please input your code</p>
+                  <div className="create_emails_yours">
+                    <form className="create_emails_form">
+                      <input
+                        className="create_emails_form_input"
+                        placeholder="Enter the event code"
+                        id="email"
+                        onChange={this.eventCodeHandler}
+                        required
+                        type="text"
+                      />
+                      <label
+                        htmlFor="email"
+                        className="create_emails_form_input_label"
+                      >
+                        Enter your event code
+                      </label>
+                    </form>
+                  </div>
+                  <button
+                    className="create_event"
+                    onClick={this.codeSubmission}
+                  >
+                    Submit code
+                  </button>
+                </div>
+              ) : (
+                <div className="create">
+                  <h1 className="create_addtime">
+                    Add the times that work best for you.
+                  </h1>
+                </div>
+              )}
+              {this.state.eventCode === '' ? null : (
+                <div className="sticks">
+                  <WeekSelect
+                    dates={this.state.dates}
+                    weekButtonHandler={this.weekButtonHandler}
+                    vw={this.state.viewportWidth}
+                  />
+                  <WeekDays
+                    vw={this.state.viewportWidth}
+                    dates={this.state.dates}
+                    className="stickyScroll"
+                  />
+                </div>
+              )}
+              {this.state.eventCode === '' ? null : (
+                <Calendar
+                  dates={this.state.dates}
+                  window={this.state.window}
+                  table={this.state.table}
+                  onClick={this.onClick}
+                  vw={this.state.viewportWidth}
+                />
+              )}
+              {this.state.eventCode === '' ? null : (
+                <div className="create">
+                  <button className="create_event">Submit times</button>
+                  {/*onclick to submit the time info here */}
+                </div>
+              )}
               <Creds />
             </div>
           )}
@@ -300,4 +390,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;
