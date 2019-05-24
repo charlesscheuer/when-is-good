@@ -15,6 +15,7 @@ import {
   getInitDate,
   getInitTimes,
 } from '../lib/library.js';
+import { backend_url } from '../lib/controller.js';
 
 class App extends Component {
   constructor(props) {
@@ -213,7 +214,23 @@ class App extends Component {
     this.setState(emailState)
   }
 
+  createCalendarEvent = () => {
+    var body = {'state': this.state}
+    console.log(body)
+    var api = backend_url + 'user'
+
+    // fetch(api, {
+    //     method: 'post',
+    //     body: JSON.stringify(body)
+    //   }).then(function(response) {
+    //     return response.json();
+    //   }).then(function(data) {
+    //     console.log('Posted:', data);
+    //   })
+  }
+
   render() {
+    this.createCalendarEvent()
     console.log(this.state)
     return (
       <div>
