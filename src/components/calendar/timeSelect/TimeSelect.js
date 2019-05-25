@@ -17,18 +17,19 @@ const displayHandler = (datetime, window) => {
 const displayTableHandler = (table, dates, window) => {
   let displayTable = []
   for (let row of table) {
-    var displayRow = []
+    var displayRow = {}
     var index = 0 //FIXME: Ugly hack
-    for (let datetime of row) {
-      var dateTimeObj = new Date(datetime[0])
+    for (let key in row) {
+      var value = row[key]
+      var dateTimeObj = new Date(key)
       if (window === 1) {
         var dTObject = new Date(dates[index])
         var date = dTObject.getDate()
-        displayRow.push([date, datetime[1]])
+        displayRow[date] = value
         index++
       } else {
         var min = dateTimeObj.getMinutes()
-        if (min % window === 0) displayRow.push([datetime[0], datetime[1]])
+        if (min % window === 0) displayRow[key] = value
       }
     }
     displayTable.push(displayRow)
@@ -82,11 +83,11 @@ const TimeSelect = props => {
             {displayTable.map((row, x) => {
               return (
                 <div className="TimeSlot_col_row" key={x}>
-                  {row.map((datetime, y) => {
+                  {Object.keys(row).map((datetime, y) => {
                     return (
                       <button
                         className={
-                          datetime[1]
+                          row[datetime]
                             ? 'TimeSlot_time TimeSlot_time_selected'
                             : 'TimeSlot_time'
                         }
@@ -95,7 +96,7 @@ const TimeSelect = props => {
                         key={x + y}
                       >
                         <p className="TimeSlot_time_value">
-                          {displayHandler(datetime[0], window)}
+                          {displayHandler(datetime, window)}
                         </p>
                       </button>
                     )

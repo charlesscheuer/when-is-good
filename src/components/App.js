@@ -52,13 +52,21 @@ class App extends Component {
       timewindows.push(`${time}:30`);
       timewindows.push(`${time}:45`);
     });
+    // timewindows.forEach(time => {
+    //   var row = [];
+    //   dates.forEach(date => {
+    //     row.push([`${date} ${time}`, false]);
+    //   });
+    //   table.push(row);
+    // });
     timewindows.forEach(time => {
-      var row = [];
+      var row = {};
       dates.forEach(date => {
-        row.push([`${date} ${time}`, false]);
+        row[`${date} ${time}`] = false
       });
       table.push(row);
     });
+    console.log(table)
     this.setState({
       dates: dates,
       table: table,
@@ -68,10 +76,9 @@ class App extends Component {
 
   resetSelection = table => {
     table.map(row => {
-      row.map(datetime => {
-        datetime[1] = false;
-        return datetime;
-      });
+      for(var key in row) {
+        row[key] = false;
+      }
       return row;
     });
     return table;
@@ -138,18 +145,18 @@ class App extends Component {
     var newTable = [];
     if (this.state.window === 1) {
       table.forEach((row, xx) => {
-        var newRow = [];
-        row.forEach((datetime, yy) => {
-          if (yy === y) newRow.push([datetime[0], true]);
-          else newRow.push([datetime[0], datetime[1]]);
+        var newRow = {};
+        Object.keys(row).forEach((datetime, yy) => {
+          if (yy === y) newRow[datetime] = true
+          else newRow[datetime] = row[datetime]
         });
         newTable.push(newRow);
       });
     } else {
       newTable = table;
-      var newvar = table[x][y];
-      newvar[1] = !newvar[1];
-      newTable[x][y] = newvar;
+      var keys = Object.keys(table[x])
+      var newvar = keys[y];
+      newTable[x][newvar] = !newTable[x][newvar];
     }
     this.setState({
       table: newTable
