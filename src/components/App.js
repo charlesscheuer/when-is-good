@@ -52,13 +52,6 @@ class App extends Component {
       timewindows.push(`${time}:30`);
       timewindows.push(`${time}:45`);
     });
-    // timewindows.forEach(time => {
-    //   var row = [];
-    //   dates.forEach(date => {
-    //     row.push([`${date} ${time}`, false]);
-    //   });
-    //   table.push(row);
-    // });
     timewindows.forEach(time => {
       var row = {};
       dates.forEach(date => {
