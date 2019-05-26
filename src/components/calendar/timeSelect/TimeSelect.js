@@ -14,27 +14,52 @@ const displayHandler = (datetime, window) => {
   return `:${min}`
 }
 
-const displayTableHandler = (table, dates, window) => {
+const displayTableHandler = (table, dates, window, mobileDate, vw) => {
   let displayTable = []
-  for (let row of table) {
-    var displayRow = {}
-    var index = 0 //FIXME: Ugly hack
-    for (let key in row) {
+  // FIXME: Refactor this code in the future. This logic is very ugly.
+  var i = 0;
+  if(vw < 624) {
+    for (let row of table) {
+      var displayRow = {}
+      var index = 0 //FIXME: Ugly hack
+      var key = mobileDate[i]
       var value = row[key]
       var dateTimeObj = new Date(key)
+      var date = dateTimeObj.getDate()
       if (window === 1) {
-        var dTObject = new Date(dates[index])
-        var date = dTObject.getDate()
         displayRow[date] = value
         index++
       } else {
         var min = dateTimeObj.getMinutes()
         if (min % window === 0) displayRow[key] = value
       }
+      displayTable.push(displayRow)
+      if (window === 1) {
+        break
+      }
+      i++;
     }
-    displayTable.push(displayRow)
-    if (window === 1) {
-      break
+  }
+  else {
+    for (let row of table) {
+      displayRow = {}
+      index = 0 //FIXME: Ugly hack
+      for (let key in row) {
+        value = row[key]
+        dateTimeObj = new Date(key)
+        date = dateTimeObj.getDate()
+        if (window === 1) {
+          displayRow[date] = value
+          index++
+        } else {
+          min = dateTimeObj.getMinutes()
+          if (min % window === 0) displayRow[key] = value
+        }
+      }
+      displayTable.push(displayRow)
+      if (window === 1) {
+        break
+      }
     }
   }
   return displayTable
@@ -44,40 +69,10 @@ const TimeSelect = props => {
   let table = [...props.table]
   let dates = [...props.dates]
   let window = props.window
-  let displayTable = displayTableHandler(table, dates, window)
+  let mobileDate = props.mobileDate
+  let displayTable = displayTableHandler(table, dates, window, mobileDate, props.vw)
   return (
     <div className="TimeSelect">
-      {props.vw < 624 ? (
-        // not sure how to make this only one column here
-        <div className="TimeSlot">
-          <div className="TimeSlot_col">
-            {displayTable.map((row, x) => {
-              return (
-                <div className="TimeSlot_col_row" key={x}>
-                  {row.map((datetime, y) => {
-                    return (
-                      <button
-                        className={
-                          datetime[1]
-                            ? 'TimeSlot_time TimeSlot_time_selected'
-                            : 'TimeSlot_time'
-                        }
-                        draggable="true"
-                        onClick={e => props.onClick(e, x, y)}
-                        key={x + y}
-                      >
-                        <p className="TimeSlot_time_value">
-                          {displayHandler(datetime[0], window)}
-                        </p>
-                      </button>
-                    )
-                  })}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      ) : (
         <div className="TimeSlot">
           <div className="TimeSlot_col">
             {displayTable.map((row, x) => {
@@ -92,7 +87,7 @@ const TimeSelect = props => {
                             : 'TimeSlot_time'
                         }
                         draggable="true"
-                        onClick={e => props.onClick(e, x, y)}
+                        onClick={e => props.onClick(e, datetime)}
                         key={x + y}
                       >
                         <p className="TimeSlot_time_value">
@@ -106,7 +101,6 @@ const TimeSelect = props => {
             })}
           </div>
         </div>
-      )}
     </div>
   )
 }

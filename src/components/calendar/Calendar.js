@@ -6,6 +6,7 @@ const Calendar = props => {
     <div>
       <TimeSelect
         dates={props.dates}
+        mobileDate={props.mobileDate}
         window={props.window}
         table={props.table}
         onClick={props.onClick}

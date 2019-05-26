@@ -83,6 +83,16 @@ function getPreviousNextWeek(date, next) {
   return weekArray
 }
 
+function getPreviousNextDay(date, next) {
+  if(next) {
+    var newdate = addDays(date, 1)
+  }
+  else {
+    newdate = subtractDays(date, 1)
+  }
+  return newdate
+}
+
 function convertToStdDates(dates) {
   return dates.map((date) => new Date(date))
 }
@@ -94,6 +104,7 @@ function convertToAppDates(stdDates) {
 }
 
 export { getPreviousNextWeek,
+         getPreviousNextDay,
          getDates,
          convertToStdDates,
          convertToAppDates,

@@ -12,9 +12,11 @@ import WeekSelect from './calendar/weekSelect/WeekSelect';
 
 import {
   getPreviousNextWeek,
+  getPreviousNextDay,
   convertToAppDates,
   getInitDate,
-  getInitTimes
+  getInitTimes,
+  convertToStdDates
 } from '../lib/library.js';
 import { backend_url } from '../lib/controller.js';
 
@@ -26,6 +28,7 @@ class App extends Component {
       dates: [],
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
+      mobileDate: [],
       viewportWidth: 800,
       // Pass the below to <CreateEvent>
       value: [22, 62],
@@ -43,6 +46,8 @@ class App extends Component {
 
   fillCurrentTimes = () => {
     let table = [];
+    let mobileDate = [];
+    let today = convertToAppDates([new Date()])
     let timewindows = [];
     let dates = getInitDate();
     var times = getInitTimes(this.state.startTime, this.state.endTime);
@@ -58,10 +63,11 @@ class App extends Component {
         row[`${date} ${time}`] = false
       });
       table.push(row);
+      mobileDate.push(`${today[0]} ${time}`);
     });
-    console.log(table)
     this.setState({
       dates: dates,
+      mobileDate: mobileDate,
       table: table,
       times: times
     });
@@ -132,24 +138,27 @@ class App extends Component {
     }
   };
 
-  onClick = (e, x, y) => {
+  onClick = (e, datetime) => {
+    console.log(datetime)
     e.preventDefault();
     var table = this.state.table;
-    var newTable = [];
+    var newTable = table;
     if (this.state.window === 1) {
-      table.forEach((row, xx) => {
-        var newRow = {};
-        Object.keys(row).forEach((datetime, yy) => {
-          if (yy === y) newRow[datetime] = true
-          else newRow[datetime] = row[datetime]
-        });
-        newTable.push(newRow);
-      });
+      newTable.forEach(row => {
+        var rowObj = convertToStdDates(Object.keys(row))
+        Object.keys(row).forEach((key, i) => {
+          var date = rowObj[i].getDate()
+          if(date === parseInt(datetime)) {
+            row[key] = !row[key]
+          }
+        })
+      })
     } else {
-      newTable = table;
-      var keys = Object.keys(table[x])
-      var newvar = keys[y];
-      newTable[x][newvar] = !newTable[x][newvar];
+      newTable.forEach(row => {
+        Object.keys(row).forEach(key => {
+          if(key === datetime) row[key] = !row[key]
+        })
+      })
     }
     this.setState({
       table: newTable
@@ -178,11 +187,18 @@ class App extends Component {
     throttle(this.initWindow(), 500);
   };
 
-  weekButtonHandler = nextWeek => {
+  weekButtonHandler = next => {
+    var vw = this.state.viewportWidth
     var start = this.state.dates[0];
     var end = this.state.dates[6];
-    if (nextWeek) var week = getPreviousNextWeek(end, nextWeek);
-    else week = getPreviousNextWeek(start, nextWeek);
+    if(vw < 624) {
+      var mobileDate = getPreviousNextDay(mobileDate, next)
+      this.setState({
+        mobileDate: mobileDate
+      })
+    }
+    if (next) var week = getPreviousNextWeek(end, next);
+    else week = getPreviousNextWeek(start, next);
     week = convertToAppDates(week);
     this.setState({
       dates: week
@@ -223,7 +239,6 @@ class App extends Component {
 
   createCalendarEvent = () => {
     var body = {'state': this.state}
-    console.log(body)
     var api = backend_url + 'user'
 
     // fetch(api, {
@@ -238,7 +253,6 @@ class App extends Component {
 
   render() {
     this.createCalendarEvent()
-    console.log(this.state)
     return (
       <div>
         <Route
@@ -290,6 +304,7 @@ class App extends Component {
               </div>
               <Calendar
                 dates={this.state.dates}
+                mobileDate={this.state.mobileDate}
                 window={this.state.window}
                 table={this.state.table}
                 onClick={this.onClick}
