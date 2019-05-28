@@ -139,7 +139,6 @@ class App extends Component {
   };
 
   onClick = (e, datetime) => {
-    console.log(datetime)
     e.preventDefault();
     var table = this.state.table;
     var newTable = table;
@@ -192,17 +191,40 @@ class App extends Component {
     var start = this.state.dates[0];
     var end = this.state.dates[6];
     if(vw < 624) {
-      var mobileDate = getPreviousNextDay(mobileDate, next)
+      var mDate = convertToStdDates(this.state.mobileDate)
+      mDate = mDate.map(md => getPreviousNextDay(md, next))
+      mDate = convertToAppDates(mDate)
+      var timewindows = []
+      var times = getInitTimes(this.state.startTime, this.state.endTime);
+      times.forEach(time => {
+        timewindows.push(`${time}:00`);
+        timewindows.push(`${time}:15`);
+        timewindows.push(`${time}:30`);
+        timewindows.push(`${time}:45`);
+      });
+      var mobileDate  = []
+      timewindows.forEach(time => {
+        mobileDate.push(`${mDate[0]} ${time}`);
+      });
+      if(!this.state.dates.includes(mDate[0])) {
+        if (next) var week = getPreviousNextWeek(end, next);
+        else week = getPreviousNextWeek(start, next);
+        week = convertToAppDates(week);
+        this.setState({
+          dates: week
+        });
+      }
       this.setState({
         mobileDate: mobileDate
       })
+    } else {
+      if (next) var week = getPreviousNextWeek(end, next);
+      else week = getPreviousNextWeek(start, next);
+      week = convertToAppDates(week);
+      this.setState({
+        dates: week
+      });
     }
-    if (next) var week = getPreviousNextWeek(end, next);
-    else week = getPreviousNextWeek(start, next);
-    week = convertToAppDates(week);
-    this.setState({
-      dates: week
-    });
   };
 
   createdEvent = () => {
@@ -253,6 +275,7 @@ class App extends Component {
 
   render() {
     this.createCalendarEvent()
+    console.log(this.state)
     return (
       <div>
         <Route
@@ -293,6 +316,7 @@ class App extends Component {
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
+                  mobileDate={this.state.mobileDate}
                   weekButtonHandler={this.weekButtonHandler}
                   vw={this.state.viewportWidth}
                 />

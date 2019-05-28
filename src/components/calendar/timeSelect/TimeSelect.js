@@ -21,14 +21,12 @@ const displayTableHandler = (table, dates, window, mobileDate, vw) => {
   if(vw < 624) {
     for (let row of table) {
       var displayRow = {}
-      var index = 0 //FIXME: Ugly hack
       var key = mobileDate[i]
       var value = row[key]
       var dateTimeObj = new Date(key)
       var date = dateTimeObj.getDate()
       if (window === 1) {
         displayRow[date] = value
-        index++
       } else {
         var min = dateTimeObj.getMinutes()
         if (min % window === 0) displayRow[key] = value
@@ -43,14 +41,12 @@ const displayTableHandler = (table, dates, window, mobileDate, vw) => {
   else {
     for (let row of table) {
       displayRow = {}
-      index = 0 //FIXME: Ugly hack
       for (let key in row) {
         value = row[key]
         dateTimeObj = new Date(key)
         date = dateTimeObj.getDate()
         if (window === 1) {
           displayRow[date] = value
-          index++
         } else {
           min = dateTimeObj.getMinutes()
           if (min % window === 0) displayRow[key] = value
