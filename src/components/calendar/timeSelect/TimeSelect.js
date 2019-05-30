@@ -14,7 +14,7 @@ const displayHandler = (datetime, window) => {
   return `:${min}`
 }
 
-const displayTableHandler = (table, dates, window, mobileDate, vw) => {
+const displayTableHandler = (table, window, mobileDate, vw) => {
   let displayTable = []
   // FIXME: Refactor this code in the future. This logic is very ugly.
   var i = 0;
@@ -63,10 +63,10 @@ const displayTableHandler = (table, dates, window, mobileDate, vw) => {
 
 const TimeSelect = props => {
   let table = [...props.table]
-  let dates = [...props.dates]
+  let dates = [...props.dates].map(date => new Date(date).getDate())
   let window = props.window
   let mobileDate = props.mobileDate
-  let displayTable = displayTableHandler(table, dates, window, mobileDate, props.vw)
+  let displayTable = displayTableHandler(table, window, mobileDate, props.vw)
   return (
     <div className="TimeSelect">
         <div className="TimeSlot">
@@ -74,24 +74,41 @@ const TimeSelect = props => {
             {displayTable.map((row, x) => {
               return (
                 <div className="TimeSlot_col_row" key={x}>
-                  {Object.keys(row).map((datetime, y) => {
-                    return (
-                      <button
-                        className={
-                          row[datetime]
-                            ? 'TimeSlot_time TimeSlot_time_selected'
-                            : 'TimeSlot_time'
+                  {dates.map((date, y) => {
+                    var datetime = ''
+                    if (Object.keys(row).length !== 0) {
+                      for(let dt of Object.keys(row)) {
+                        if(window === 1) {
+                          if(parseInt(dt) === date) {
+                            datetime = dt
+                            break
+                          }
+                        } else {
+                          if(new Date(dt).getDate() === date) {
+                            datetime = dt
+                            break
+                          }
                         }
-                        draggable="true"
-                        onClick={e => props.onClick(e, datetime)}
-                        key={x + y}
-                      >
-                        <p className="TimeSlot_time_value">
-                          {displayHandler(datetime, window)}
-                        </p>
-                      </button>
-                    )
-                  })}
+                      }
+                      if(datetime === '') return(null)
+                      return (
+                        <button
+                          className={
+                            row[datetime]
+                              ? 'TimeSlot_time TimeSlot_time_selected'
+                              : 'TimeSlot_time'
+                          }
+                          draggable="true"
+                          onClick={e => props.onClick(e, datetime)}
+                          key={x + y}
+                        >
+                          <p className="TimeSlot_time_value">
+                            {displayHandler(datetime, window)}
+                          </p>
+                        </button>
+                      )}
+                    }
+                  )}
                 </div>
               )
             })}

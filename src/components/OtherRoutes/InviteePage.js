@@ -1,79 +1,27 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { throttle } from 'throttle-debounce';
-import { Route } from 'react-router-dom';
-import TopBar from './topBar/TopBar';
-import Calendar from './calendar/Calendar';
-import Creds from './Creds';
-import '../SASS/main.scss';
-import CalendarIcon from './calendar/CalendarIcon';
-import WeekDays from './calendar/weekSelect/weekDays/WeekDays';
-import CreateEvent from './OtherRoutes/CreateEvent';
-import WeekSelect from './calendar/weekSelect/WeekSelect';
-import EventCreated from './OtherRoutes/EventCreated';
-import InviteePage from './OtherRoutes/InviteePage'
+import TopBar from '../topBar/TopBar';
+import Calendar from '../calendar/Calendar';
+import Creds from '../Creds';
+import '../../SASS/main.scss';
+import CalendarIcon from '../calendar/CalendarIcon';
+import WeekDays from '../calendar/weekSelect/weekDays/WeekDays';
+import WeekSelect from '../calendar/weekSelect/WeekSelect';
+
 import {
   getPreviousNextWeek,
   getPreviousNextDay,
   convertToAppDates,
-  getInitDate,
   getInitTimes,
   convertToStdDates
-} from '../lib/library.js';
-import { backend_url } from '../lib/controller.js';
+} from '../../lib/library.js';
+import { backend_url } from '../../lib/controller.js';
 
-class App extends Component {
+class InviteePage extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      window: 30,
-      dates: [],
-      times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-      table: [],
-      mobileDate: [],
-      viewportWidth: 800,
-      // Pass the below to <CreateEvent>
-      value: [22, 62],
-      startTime: '9 am',
-      endTime: '5 pm',
-      timezone: 'PST',
-      shouldEmail: false,
-      yourEmail: '',
-      theirEmails: [''],
-      numPeople: 2,
-      eventCode: '',
-      // the code for their event (if no link emailed?)
-    };
+    super(props)
+    this.state = { dates: [] }
   }
-
-  fillCurrentTimes = () => {
-    let table = [];
-    let mobileDate = [];
-    let today = convertToAppDates([new Date()])
-    let timewindows = [];
-    let dates = getInitDate();
-    var times = getInitTimes(this.state.startTime, this.state.endTime);
-    times.forEach(time => {
-      timewindows.push(`${time}:00`);
-      timewindows.push(`${time}:15`);
-      timewindows.push(`${time}:30`);
-      timewindows.push(`${time}:45`);
-    });
-    timewindows.forEach(time => {
-      var row = {};
-      dates.forEach(date => {
-        row[`${date} ${time}`] = false
-      });
-      table.push(row);
-      mobileDate.push(`${today[0]} ${time}`);
-    });
-    this.setState({
-      dates: dates,
-      mobileDate: mobileDate,
-      table: table,
-      times: times
-    });
-  };
 
   resetSelection = table => {
     table.map(row => {
@@ -172,7 +120,10 @@ class App extends Component {
   };
 
   componentWillMount() {
-    this.fillCurrentTimes();
+    var id = this.props.id
+    this.getCalendarEvent(id)
+      .then(state => this.setState(state))
+    console.log("state"+this.state)
   }
 
   componentDidMount() {
@@ -230,9 +181,9 @@ class App extends Component {
   };
 
   createdEvent = () => {
-    this.fillCurrentTimes()
-    // Save the state to the backend db
-    // this.createCalendarEvent()
+    var id = this.props.match.params.id
+    var state = this.getCalendarEvent(id)
+    this.setState(state)
   };
 
   handleEmailToggle = () => {
@@ -281,45 +232,21 @@ class App extends Component {
 
   getCalendarEvent = (id) => {
     var api = backend_url + id
-    fetch(api, {
+    console.log(id)
+    return fetch(api, {
         method: 'GET',
       }).then(function(response) {
         return response.json();
       }).then(function(data) {
         console.log('Got:', JSON.parse(JSON.stringify(data)).data.state);
-        this.setState(JSON.parse(JSON.stringify(data)).data.state)
+        return JSON.parse(JSON.stringify(data)).data.state
       }.bind(this))
   }
 
   render() {
-    return (
-      <div>
-        <Route
-          path="/"
-          exact
-          render={() => (
-            <CreateEvent
-              value={this.state.value}
-              startTime={this.state.startTime}
-              endTime={this.state.endTime}
-              timezone={this.state.timezone}
-              shouldEmail={this.state.shouldEmail}
-              yourEmail={this.state.yourEmail}
-              theirEmails={this.state.theirEmails}
-              numPeople={this.state.numPeople}
-              emailHandler={this.emailHandler}
-              onSliderChange={this.onSliderChange}
-              createdEvent={this.createdEvent}
-              onTimezoneChange={this.onTimezoneChange}
-              handleEmailToggle={this.handleEmailToggle}
-            />
-          )}
-        />
-        <Route
-          path="/create"
-          exact
-          render={() => (
-            <div ref={this.viewportWidthRef} className="App">
+    const { dates } = this.state
+    return dates.length ? (
+        <div ref={this.viewportWidthRef} className="App">
               <div className="bar">
                 <div className="brand">
                   <CalendarIcon />
@@ -351,110 +278,14 @@ class App extends Component {
                 vw={this.state.viewportWidth}
               />
               <div className="create">
-                <Link to="/eventcreated">
-                  <button className="create_event"
-                          onClick={() => this.createCalendarEvent()}>
-                    Submit times
-                  </button>
-                </Link>
+                <button className="create_event">
+                        {/* //onClick={() => this.getCalendarEvent(props.match.params.id)}> */}
+                  Submit times
+                </button>
               </div>
               <Creds />
-            </div>
-          )}
-        />
-        <Route
-          path="/eventcreated"
-          render={() => <EventCreated eventCode={this.state.eventCode}/>}
-        />
-        <Route
-          path="/event/:id"
-          render={(props) => (<InviteePage id={props.match.params.id}/>)}
-        />
-        <Route
-          path="/addtime"
-          exact
-          render={() => (
-            <div ref={this.viewportWidthRef} className="App">
-              <div className="bar">
-                <div className="brand">
-                  <CalendarIcon />
-                  <div className="brand-title">
-                    <h1 className="brand-title-text">I'm Free FYI</h1>
-                  </div>
-                </div>
-              </div>
-
-              {this.state.eventCode === '' ? (
-                <div className="create">
-                  <p>Please input your code</p>
-                  <div className="create_emails_yours">
-                    <form className="create_emails_form">
-                      <input
-                        className="create_emails_form_input"
-                        placeholder="Enter the event code"
-                        id="email"
-                        onChange={this.eventCodeHandler}
-                        required
-                        type="text"
-                      />
-                      <label
-                        htmlFor="email"
-                        className="create_emails_form_input_label"
-                      >
-                        Enter your event code
-                      </label>
-                    </form>
-                  </div>
-                  <button
-                    className="create_event"
-                    onClick={this.codeSubmission}
-                  >
-                    Submit code
-                  </button>
-                </div>
-              ) : (
-                <div className="create">
-                  <h1 className="create_addtime">
-                    Add the times that work best for you.
-                  </h1>
-                </div>
-              )}
-              {this.state.eventCode === '' ? null : (
-                <div className="sticks">
-                  <WeekSelect
-                    dates={this.state.dates}
-                    weekButtonHandler={this.weekButtonHandler}
-                    vw={this.state.viewportWidth}
-                  />
-                  <WeekDays
-                    vw={this.state.viewportWidth}
-                    dates={this.state.dates}
-                    className="stickyScroll"
-                  />
-                </div>
-              )}
-              {this.state.eventCode === '' ? null : (
-                <Calendar
-                  dates={this.state.dates}
-                  window={this.state.window}
-                  table={this.state.table}
-                  onClick={this.onClick}
-                  vw={this.state.viewportWidth}
-                />
-              )}
-              {this.state.eventCode === '' ? null : (
-                <div className="create">
-                  <button className="create_event">Submit times</button>
-                  {/*onclick to submit the time info here */}
-                </div>
-              )}
-              <Creds />
-            </div>
-          )}
-        />
-      </div>
-    );
+          </div>) : <span>Loading event dates...</span>
   }
 }
 
-export default App;
+export default InviteePage;
