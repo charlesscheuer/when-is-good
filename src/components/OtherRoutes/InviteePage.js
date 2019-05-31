@@ -223,14 +223,14 @@ class InviteePage extends Component {
       }).then(function(response) {
         return response.json();
       }).then(function(data) {
-        console.log('Posted:', data.id);
+        ('Posted:', data.id);
         this.setState({eventCode: data.id})
       }.bind(this))
   }
 
   getCalendarEvent = (id) => {
     var api = backend_url + id
-    console.log(id)
+    (id)
     return fetch(api, {
         method: 'GET',
       }).then(function(response) {
@@ -238,7 +238,7 @@ class InviteePage extends Component {
       }).then(function(data) {
         console.log('Got:', JSON.parse(JSON.stringify(data)).data.state);
         return JSON.parse(JSON.stringify(data)).data.state
-      }.bind(this))
+      })
   }
 
   render() {
