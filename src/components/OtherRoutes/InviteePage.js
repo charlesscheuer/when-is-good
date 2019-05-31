@@ -142,7 +142,7 @@ class InviteePage extends Component {
     var start = this.state.dates[0];
     var end = this.state.dates[6];
     if(vw < 624) {
-      var mDate = convertToStdDates(this.state.mobileDate)
+      var mDate = convertToStdDates(this.state.mobileTable)
       mDate = mDate.map(md => getPreviousNextDay(md, next))
       mDate = convertToAppDates(mDate)
       var timewindows = []
@@ -153,9 +153,9 @@ class InviteePage extends Component {
         timewindows.push(`${time}:30`);
         timewindows.push(`${time}:45`);
       });
-      var mobileDate  = []
+      var mobileTable  = []
       timewindows.forEach(time => {
-        mobileDate.push(`${mDate[0]} ${time}`);
+        mobileTable.push(`${mDate[0]} ${time}`);
       });
       if(!this.state.dates.includes(mDate[0])) {
         if (next) var week = getPreviousNextWeek(end, next);
@@ -166,7 +166,7 @@ class InviteePage extends Component {
         });
       }
       this.setState({
-        mobileDate: mobileDate
+        mobileTable: mobileTable
       })
     } else {
       if (next) week = getPreviousNextWeek(end, next);
@@ -255,7 +255,7 @@ class InviteePage extends Component {
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
-                  mobileDate={this.state.mobileDate}
+                  mobileTable={this.state.mobileTable}
                   weekButtonHandler={this.weekButtonHandler}
                   vw={this.state.viewportWidth}
                 />
@@ -267,7 +267,7 @@ class InviteePage extends Component {
               </div>
               <Calendar
                 dates={this.state.dates}
-                mobileDate={this.state.mobileDate}
+                mobileTable={this.state.mobileTable}
                 window={this.state.window}
                 table={this.state.table}
                 onClick={this.onClick}

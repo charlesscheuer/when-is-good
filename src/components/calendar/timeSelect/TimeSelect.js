@@ -14,14 +14,14 @@ const displayHandler = (datetime, window) => {
   return `:${min}`
 }
 
-const displayTableHandler = (table, window, mobileDate, vw) => {
+const displayTableHandler = (table, window, mobileTable, vw) => {
   let displayTable = []
   // FIXME: Refactor this code in the future. This logic is very ugly.
   var i = 0;
   if(vw < 624) {
     for (let row of table) {
       var displayRow = {}
-      var key = mobileDate[i]
+      var key = mobileTable[i]
       var value = row[key]
       var dateTimeObj = new Date(key)
       var date = dateTimeObj.getDate()
@@ -65,8 +65,8 @@ const TimeSelect = props => {
   let table = [...props.table]
   let dates = [...props.dates].map(date => new Date(date).getDate())
   let window = props.window
-  let mobileDate = props.mobileDate
-  let displayTable = displayTableHandler(table, window, mobileDate, props.vw)
+  let mobileTable = props.mobileTable
+  let displayTable = displayTableHandler(table, window, mobileTable, props.vw)
   return (
     <div className="TimeSelect">
         <div className="TimeSlot">

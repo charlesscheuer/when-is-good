@@ -22,16 +22,16 @@ export default class WeekSelect extends Component {
       var dateTimeObj = new Date(datetime)
       return [dateTimeObj.getDate(), map[dateTimeObj.getMonth()]]
     })
-    var mobileDate = this.props.mobileDate
-    mobileDate = mobileDate[0].split(' ')
+    var mobileTable = this.props.mobileTable
+    mobileTable = mobileTable[0].split(' ')
     return (
       <div className="week">
         <LeftArrowButton clicked={() => this.props.weekButtonHandler(false)} />
         <div className="week_title">
           {this.props.vw < 624 ? (
             <p className="week_title">
-              {mobileDate[0]}{' '}
-              {mobileDate[1].split(',')[0]}
+              {mobileTable[0]}{' '}
+              {mobileTable[1].split(',')[0]}
             </p>
           ) : (
             <p className="week_title">

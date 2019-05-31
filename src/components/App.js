@@ -30,7 +30,7 @@ class App extends Component {
       dates: [],
       times: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
       table: [],
-      mobileDate: [],
+      mobileTable: [],
       viewportWidth: 800,
       // Pass the below to <CreateEvent>
       value: [22, 62],
@@ -42,13 +42,12 @@ class App extends Component {
       theirEmails: [''],
       numPeople: 2,
       eventCode: '',
-      // the code for their event (if no link emailed?)
     };
   }
 
   fillCurrentTimes = (dates) => {
     let table = [];
-    let mobileDate = [];
+    let mobileTable = [];
     let today = convertToAppDates([new Date()])
     let timewindows = [];
     var times = getInitTimes(this.state.startTime, this.state.endTime);
@@ -64,11 +63,11 @@ class App extends Component {
         row[`${date} ${time}`] = false
       });
       table.push(row);
-      mobileDate.push(`${today[0]} ${time}`);
+      mobileTable.push(`${today[0]} ${time}`);
     });
     this.setState({
       dates: dates,
-      mobileDate: mobileDate,
+      mobileTable: mobileTable,
       table: table,
       times: times
     });
@@ -193,7 +192,7 @@ class App extends Component {
     var start = this.state.dates[0];
     var end = this.state.dates[6];
     if(vw < 624) {
-      var mDate = convertToStdDates(this.state.mobileDate)
+      var mDate = convertToStdDates(this.state.mobileTable)
       mDate = mDate.map(md => getPreviousNextDay(md, next))
       mDate = convertToAppDates(mDate)
       var timewindows = []
@@ -204,9 +203,9 @@ class App extends Component {
         timewindows.push(`${time}:30`);
         timewindows.push(`${time}:45`);
       });
-      var mobileDate  = []
+      var mobileTable  = []
       timewindows.forEach(time => {
-        mobileDate.push(`${mDate[0]} ${time}`);
+        mobileTable.push(`${mDate[0]} ${time}`);
       });
       if(!this.state.dates.includes(mDate[0])) {
         if (next) var week = getPreviousNextWeek(end, next);
@@ -221,7 +220,7 @@ class App extends Component {
         });
       }
       this.setState({
-        mobileDate: mobileDate
+        mobileTable: mobileTable
       })
     } else {
       if (next) week = getPreviousNextWeek(end, next);
@@ -338,7 +337,7 @@ class App extends Component {
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
-                  mobileDate={this.state.mobileDate}
+                  mobileTable={this.state.mobileTable}
                   weekButtonHandler={this.weekButtonHandler}
                   vw={this.state.viewportWidth}
                 />
@@ -350,7 +349,7 @@ class App extends Component {
               </div>
               <Calendar
                 dates={this.state.dates}
-                mobileDate={this.state.mobileDate}
+                mobileTable={this.state.mobileTable}
                 window={this.state.window}
                 table={this.state.table}
                 onClick={this.onClick}
