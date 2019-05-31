@@ -121,9 +121,7 @@ class InviteePage extends Component {
 
   componentWillMount() {
     var id = this.props.id
-    this.getCalendarEvent(id)
-      .then(state => this.setState(state))
-    console.log("state"+this.state)
+    this.getCalendarEvent(id).then(state => this.setState(state))
   }
 
   componentDidMount() {

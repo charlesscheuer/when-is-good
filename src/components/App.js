@@ -46,12 +46,11 @@ class App extends Component {
     };
   }
 
-  fillCurrentTimes = () => {
+  fillCurrentTimes = (dates) => {
     let table = [];
     let mobileDate = [];
     let today = convertToAppDates([new Date()])
     let timewindows = [];
-    let dates = getInitDate();
     var times = getInitTimes(this.state.startTime, this.state.endTime);
     times.forEach(time => {
       timewindows.push(`${time}:00`);
@@ -172,7 +171,8 @@ class App extends Component {
   };
 
   componentWillMount() {
-    this.fillCurrentTimes();
+    let dates = getInitDate();
+    this.fillCurrentTimes(dates);
   }
 
   componentDidMount() {
@@ -215,6 +215,10 @@ class App extends Component {
         this.setState({
           dates: week
         });
+        this.fillCurrentTimes(week);
+        this.setState({
+          dates: week
+        });
       }
       this.setState({
         mobileDate: mobileDate
@@ -223,6 +227,7 @@ class App extends Component {
       if (next) week = getPreviousNextWeek(end, next);
       else week = getPreviousNextWeek(start, next);
       week = convertToAppDates(week);
+      this.fillCurrentTimes(week);
       this.setState({
         dates: week
       });
@@ -292,6 +297,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Route
