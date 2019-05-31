@@ -99,7 +99,7 @@ const TimeSelect = props => {
                               : 'TimeSlot_time'
                           }
                           draggable="true"
-                          onClick={e => props.onClick(e, datetime)}
+                          onClick={e => props.onTimeSelect(e, datetime)}
                           key={x + y}
                         >
                           <p className="TimeSlot_time_value">

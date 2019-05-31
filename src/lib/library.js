@@ -103,6 +103,38 @@ function convertToAppDates(stdDates) {
   })
 }
 
+function fillCurrentTimes(dates, times) {
+  let table = []
+  let mobileTable = []
+  let today = convertToAppDates([new Date()])
+  let timewindows = []
+  times.forEach(time => {
+    timewindows.push(`${time}:00`)
+    timewindows.push(`${time}:15`)
+    timewindows.push(`${time}:30`)
+    timewindows.push(`${time}:45`)
+  })
+  timewindows.forEach(time => {
+    var row = {}
+    dates.forEach(date => {
+      row[`${date} ${time}`] = false
+    })
+    table.push(row)
+    mobileTable.push(`${today[0]} ${time}`)
+  })
+  return [table, mobileTable]
+}
+
+function resetSelection(table) {
+  table.map(row => {
+    for(var key in row) {
+      row[key] = false
+    }
+    return row
+  })
+  return table
+}
+
 export { getPreviousNextWeek,
          getPreviousNextDay,
          getDates,
@@ -110,4 +142,6 @@ export { getPreviousNextWeek,
          convertToAppDates,
          getInitDate,
          getInitTimes,
-         getMondayOftheWeek }
+         getMondayOftheWeek,
+         fillCurrentTimes,
+         resetSelection }

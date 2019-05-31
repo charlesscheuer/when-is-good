@@ -6,10 +6,10 @@ const Calendar = props => {
     <div>
       <TimeSelect
         dates={props.dates}
-        mobileDate={props.mobileDate}
+        mobileTable={props.mobileTable}
         window={props.window}
         table={props.table}
-        onClick={props.onClick}
+        onTimeSelect={props.onTimeSelect}
         vw={props.vw}
       />
     </div>

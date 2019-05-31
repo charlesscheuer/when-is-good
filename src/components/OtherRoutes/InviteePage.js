@@ -270,7 +270,7 @@ class InviteePage extends Component {
                 mobileTable={this.state.mobileTable}
                 window={this.state.window}
                 table={this.state.table}
-                onClick={this.onClick}
+                onTimeSelect={this.onTimeSelect}
                 vw={this.state.viewportWidth}
               />
               <div className="create">
