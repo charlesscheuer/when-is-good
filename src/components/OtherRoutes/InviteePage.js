@@ -7,6 +7,7 @@ import '../../SASS/main.scss'
 import CalendarIcon from '../calendar/CalendarIcon'
 import WeekDays from '../calendar/weekSelect/weekDays/WeekDays'
 import WeekSelect from '../calendar/weekSelect/WeekSelect'
+import Loader from '../calendar/Loader'
 
 import {
   getPreviousNextWeek,
@@ -204,7 +205,7 @@ class InviteePage extends Component {
                 </button>
               </div>
               <Creds />
-          </div>) : <span>Loading event dates...</span>
+          </div>) : <Loader />
   }
 }
 

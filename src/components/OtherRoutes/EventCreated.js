@@ -1,4 +1,5 @@
 import React from 'react'
+import Loader from '../calendar/Loader'
 import '../../SASS/main.scss';
 
 var EventCreated = ({eventCode}) => { 
@@ -6,7 +7,7 @@ var EventCreated = ({eventCode}) => {
     <div>
       <h1 className="topBar_center_title">{`http://imfree.fyi/event/${eventCode}`}</h1>
     </div>
-  ) : <span>Loading ...</span>
+  ) : <Loader />
 }
 
 export default EventCreated
