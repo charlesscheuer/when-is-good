@@ -5,13 +5,13 @@ import { Route } from 'react-router-dom'
 import TopBar from './topBar/TopBar'
 import Calendar from './calendar/Calendar'
 import Creds from './Creds'
-import '../SASS/main.scss'
 import CalendarIcon from './calendar/CalendarIcon'
 import WeekDays from './calendar/weekSelect/weekDays/WeekDays'
 import CreateEvent from './OtherRoutes/CreateEvent'
 import WeekSelect from './calendar/weekSelect/WeekSelect'
 import EventCreated from './OtherRoutes/EventCreated'
 import InviteePage from './OtherRoutes/InviteePage'
+import '../SASS/main.scss'
 import {
   getPreviousNextWeek,
   getPreviousNextDay,
@@ -207,7 +207,7 @@ class App extends Component {
       mDate = mDate.map(md => getPreviousNextDay(md, next))
       mDate = convertToAppDates(mDate)
       var timewindows = []
-      var times = getInitTimes(this.state.startTime, this.state.endTime)
+      times = getInitTimes(this.state.startTime, this.state.endTime)
       times.forEach(time => {
         timewindows.push(`${time}:00`)
         timewindows.push(`${time}:15`)

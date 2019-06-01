@@ -106,7 +106,7 @@ const TimeSelect = props => {
                             {displayHandler(datetime, window)}
                           </p>
                         </button>
-                      )}
+                      )} else return(null)
                     }
                   )}
                 </div>
