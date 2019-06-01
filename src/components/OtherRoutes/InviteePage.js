@@ -27,7 +27,10 @@ class InviteePage extends Component {
 
   componentWillMount() {
     var id = this.props.id
-    this.getCalendarEvent(id).then(state => this.setState(state))
+    this.getCalendarEvent(id).then(state => {
+      state['viewportWidth'] = window.innerWidth
+      this.setState(state)
+    })
   }
 
   componentDidMount() {
