@@ -16,7 +16,7 @@ var EventCreated = (props) => {
       </div>
       <div className="create">
         <p>You can share this URL with your invitees</p>
-        <p href='http://imfree.fyi/event/${props.eventCode}'>{`http://imfree.fyi/event/${props.eventCode}`}</p>
+        <a href={`http://localhost:3000/event/${props.eventCode}`}>{`https://imfree.fyi/event/${props.eventCode}`}</a>
       </div>
     </div>
   ) : <Loader />
