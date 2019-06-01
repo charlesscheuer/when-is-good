@@ -269,7 +269,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log('current state:', this.state)
     return (
       <div>
         <Route
