@@ -262,6 +262,7 @@ class InviteePage extends Component {
                 <WeekDays
                   vw={this.state.viewportWidth}
                   dates={this.state.dates}
+                  mobileTable={this.state.mobileTable}
                   className="stickyScroll"
                 />
               </div>
