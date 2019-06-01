@@ -72,6 +72,7 @@ const TimeSelect = props => {
         <div className="TimeSlot">
           <div className="TimeSlot_col">
             {displayTable.map((row, x) => {
+              if(Object.entries(row).length === 0) return (null)
               return (
                 <div className="TimeSlot_col_row" key={x}>
                   {dates.map((date, y) => {
