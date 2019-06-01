@@ -88,10 +88,9 @@ class InviteePage extends Component {
     }
   };
 
-  onClick = (e, datetime) => {
-    e.preventDefault();
-    var table = this.state.table;
-    var newTable = table;
+  onTimeSelect = (e, datetime) => {
+    e.preventDefault()
+    var newTable = [...this.state.table]
     if (this.state.window === 1) {
       newTable.forEach(row => {
         var rowObj = convertToStdDates(Object.keys(row))
@@ -111,8 +110,8 @@ class InviteePage extends Component {
     }
     this.setState({
       table: newTable
-    });
-  };
+    })
+  }
 
   initWindow = () => {
     // updates the viewport width
