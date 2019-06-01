@@ -343,7 +343,10 @@ class App extends Component {
         />
         <Route
           path="/eventcreated"
-          render={() => <EventCreated eventCode={this.state.eventCode}/>}
+          render={() => <div ref={this.viewportWidthRef} className="App">
+                          <EventCreated
+                            eventCode={this.state.eventCode}/>
+                          </div>}
         />
         <Route
           path="/event/:id"
