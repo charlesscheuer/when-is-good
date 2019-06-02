@@ -184,8 +184,8 @@ class App extends Component {
         Object.keys(row).forEach((key, i) => {
           var date = rowObj[i].getDate()
           if(date === parseInt(datetime)) {
-            if(value == false)selection.push(key)
-            else selection = selection.filter(select => select !== datetime)
+            if(value === false)selection.push(key)
+            else selection = selection.filter(select => select !== date)
           }
         })
       })
@@ -193,7 +193,7 @@ class App extends Component {
       newTable.forEach(row => {
         Object.keys(row).forEach(key => {
           if(key === datetime) {
-            if(value == false)selection.push(key)
+            if(value === false)selection.push(key)
             else selection = selection.filter(select => select !== datetime)
           }
         })
