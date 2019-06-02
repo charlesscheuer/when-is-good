@@ -185,7 +185,7 @@ class App extends Component {
           var date = rowObj[i].getDate()
           if(date === parseInt(datetime)) {
             if(value === false)selection.push(key)
-            else selection = selection.filter(select => select !== date)
+            else selection = selection.filter(select => new Date(select).getDate() !== date)
           }
         })
       })
