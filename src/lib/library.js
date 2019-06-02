@@ -106,7 +106,7 @@ function convertToAppDates(stdDates) {
 function fillCurrentTimes(dates, times) {
   let table = []
   let mobileTable = []
-  let today = convertToAppDates([new Date()])
+  //let today = convertToAppDates([new Date()])
   let timewindows = []
   times.forEach(time => {
     timewindows.push(`${time}:00`)
@@ -120,7 +120,7 @@ function fillCurrentTimes(dates, times) {
       row[`${date} ${time}`] = false
     })
     table.push(row)
-    mobileTable.push(`${today[0]} ${time}`)
+    mobileTable.push(`${dates[0]} ${time}`)
   })
   return [table, mobileTable]
 }
@@ -135,6 +135,21 @@ function resetSelection(table) {
   return table
 }
 
+function mapSelectedDateTimes(table, selection) {
+  table.map(row => {
+    var keys = Object.keys(row)
+    keys.forEach(key => {
+      if(selection.includes(key)) {
+        if(row[key] === false) row[key] = !row[key]
+      } else {
+        if(row[key] === true) row[key] = !row[key]
+      }
+    })
+    return row
+  })
+  return table
+}
+
 export { getPreviousNextWeek,
          getPreviousNextDay,
          getDates,
@@ -144,4 +159,5 @@ export { getPreviousNextWeek,
          getInitTimes,
          getMondayOftheWeek,
          fillCurrentTimes,
-         resetSelection }
+         resetSelection,
+         mapSelectedDateTimes }

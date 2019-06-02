@@ -17,6 +17,7 @@ import {
   convertToStdDates,
   fillCurrentTimes,
   resetSelection,
+  mapSelectedDateTimes,
 } from '../../lib/library.js'
 import { backend_url } from '../../lib/controller.js'
 
@@ -59,7 +60,8 @@ class InviteePage extends Component {
       this.setState({
         ...this.state,
         table: table,
-        window: value
+        window: value,
+        selection: [],
       })
     } else {
       this.setState({
@@ -69,28 +71,35 @@ class InviteePage extends Component {
     }
   }
 
-  onTimeSelect = (e, datetime) => {
+  onTimeSelect = (e, datetime, value) => {
     e.preventDefault()
     var newTable = [...this.state.table]
+    var selection = [...this.state.selection]
     if (this.state.window === 1) {
       newTable.forEach(row => {
         var rowObj = convertToStdDates(Object.keys(row))
         Object.keys(row).forEach((key, i) => {
           var date = rowObj[i].getDate()
           if(date === parseInt(datetime)) {
-            row[key] = !row[key]
+            if(value == false)selection.push(key)
+            else selection = selection.filter(select => select !== datetime)
           }
         })
       })
     } else {
       newTable.forEach(row => {
         Object.keys(row).forEach(key => {
-          if(key === datetime) row[key] = !row[key]
+          if(key === datetime) {
+            if(value == false)selection.push(key)
+            else selection = selection.filter(select => select !== datetime)
+          }
         })
       })
     }
+    newTable = mapSelectedDateTimes(newTable, selection)
     this.setState({
-      table: newTable
+      table: newTable,
+      selection: selection,
     })
   }
 
@@ -99,6 +108,7 @@ class InviteePage extends Component {
     var start = this.state.dates[0]
     var end = this.state.dates[6]
     var mobileTable = this.state.mobileTable
+    var selection = this.state.selection
     var times = getInitTimes(this.state.startTime, this.state.endTime)
     if(vw < 624) {
       var mDate = convertToStdDates(mobileTable)
@@ -128,11 +138,22 @@ class InviteePage extends Component {
       if (next) dates = getPreviousNextWeek(end, next)
       else dates = getPreviousNextWeek(start, next)
       dates = convertToAppDates(dates)
+      var tables = fillCurrentTimes(dates, times)
+      var table = mapSelectedDateTimes(tables[0], selection)
+      this.setState({
+        dates: dates,
+        table: table,
+        mobileTable: tables[1],
+        selection: selection,
+      })
+      return
     }
-    var tables = fillCurrentTimes(dates, times)
+    tables = fillCurrentTimes(dates, times)
+    table = mapSelectedDateTimes(tables[0], selection)
     this.setState({
       dates: dates,
-      table: tables[0],
+      table: table,
+      selection: selection,
     })
   }
 
