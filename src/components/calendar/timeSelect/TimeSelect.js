@@ -61,6 +61,12 @@ const displayTableHandler = (table, window, mobileTable, vw) => {
   return displayTable
 }
 
+const onTimeSelectClassName = (val) => {
+  if (val === 1) return 'TimeSlot_time TimeSlot_time_selected'
+  else if(val === 0) return 'TimeSlot_time'
+  return 'TimeSlot_time TimeSlot_time_invitee_selected'
+}
+
 const TimeSelect = props => {
   let table = [...props.table]
   let dates = [...props.dates].map(date => new Date(date).getDate())
@@ -94,11 +100,7 @@ const TimeSelect = props => {
                       if(datetime === '') return(null)
                       return (
                         <button
-                          className={
-                            row[datetime]
-                              ? 'TimeSlot_time TimeSlot_time_selected'
-                              : 'TimeSlot_time'
-                          }
+                          className={onTimeSelectClassName(row[datetime])}
                           draggable="true"
                           onClick={e => props.onTimeSelect(e, datetime, row[datetime])}
                           key={x + y}

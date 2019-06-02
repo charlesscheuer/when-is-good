@@ -117,7 +117,7 @@ function fillCurrentTimes(dates, times) {
   timewindows.forEach(time => {
     var row = {}
     dates.forEach(date => {
-      row[`${date} ${time}`] = false
+      row[`${date} ${time}`] = 0
     })
     table.push(row)
     mobileTable.push(`${dates[0]} ${time}`)
@@ -128,7 +128,7 @@ function fillCurrentTimes(dates, times) {
 function resetSelection(table) {
   table.map(row => {
     for(var key in row) {
-      row[key] = false
+      row[key] = 0
     }
     return row
   })
@@ -140,9 +140,24 @@ function mapSelectedDateTimes(table, selection) {
     var keys = Object.keys(row)
     keys.forEach(key => {
       if(selection.includes(key)) {
-        if(row[key] === false) row[key] = !row[key]
+        if(row[key] === 0) row[key] = 1
       } else {
-        if(row[key] === true) row[key] = !row[key]
+        if(row[key] === 1) row[key] = 0
+      }
+    })
+    return row
+  })
+  return table
+}
+
+function mapInviteeSelectedDateTimes(table, inviteeSelection) {
+  table.map(row => {
+    var keys = Object.keys(row)
+    keys.forEach(key => {
+      if(inviteeSelection.includes(key)) {
+        if(row[key] === 1) row[key] = 2
+      } else {
+        if(row[key] === 2) row[key] = 1
       }
     })
     return row
@@ -160,4 +175,5 @@ export { getPreviousNextWeek,
          getMondayOftheWeek,
          fillCurrentTimes,
          resetSelection,
-         mapSelectedDateTimes }
+         mapSelectedDateTimes,
+         mapInviteeSelectedDateTimes }

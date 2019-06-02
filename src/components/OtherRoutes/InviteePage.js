@@ -18,13 +18,17 @@ import {
   fillCurrentTimes,
   resetSelection,
   mapSelectedDateTimes,
+  mapInviteeSelectedDateTimes,
 } from '../../lib/library.js'
 import { backend_url } from '../../lib/controller.js'
 
 class InviteePage extends Component {
   constructor(props) {
     super(props)
-    this.state = { dates: [] }
+    this.state = {
+      dates: [],
+      inviteeSelection: [],
+    }
   }
 
   componentWillMount() {
@@ -75,14 +79,15 @@ class InviteePage extends Component {
     e.preventDefault()
     var newTable = [...this.state.table]
     var selection = [...this.state.selection]
+    var inviteeSelection = []
     if (this.state.window === 1) {
       newTable.forEach(row => {
         var rowObj = convertToStdDates(Object.keys(row))
         Object.keys(row).forEach((key, i) => {
           var date = rowObj[i].getDate()
           if(date === parseInt(datetime)) {
-            if(value === false)selection.push(key)
-            else selection = selection.filter(select => new Date(select).getDate() !== date)
+            if(value === 1)inviteeSelection.push(key)
+            else if(value === 2) inviteeSelection = inviteeSelection.filter(select => new Date(select).getDate() !== date)
           }
         })
       })
@@ -90,16 +95,16 @@ class InviteePage extends Component {
       newTable.forEach(row => {
         Object.keys(row).forEach(key => {
           if(key === datetime) {
-            if(value === false)selection.push(key)
-            else selection = selection.filter(select => select !== datetime)
+            if(value === 1)inviteeSelection.push(key)
+            else if(value === 2) inviteeSelection = inviteeSelection.filter(select => select !== datetime)
           }
         })
       })
     }
-    newTable = mapSelectedDateTimes(newTable, selection)
+    newTable = mapInviteeSelectedDateTimes(newTable, inviteeSelection)
     this.setState({
       table: newTable,
-      selection: selection,
+      inviteeSelection: inviteeSelection,
     })
   }
 

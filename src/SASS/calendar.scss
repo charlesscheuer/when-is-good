@@ -217,6 +217,13 @@
         cursor: pointer;
       }
     }
+    &_invitee_selected {
+      background-color: $color-primary-darker;
+      box-shadow: 0 2px 20px rgba($color-primary-darker, 0.68);
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
     &:hover {
       cursor: pointer;
