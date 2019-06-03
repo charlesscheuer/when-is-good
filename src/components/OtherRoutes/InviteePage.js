@@ -164,9 +164,19 @@ class InviteePage extends Component {
   }
 
   confirmTimes = () => {
-    var body = { "state" : this.state }
-    var id = this.state.eventCode
+    var selection = this.state.selection
+    var newSelection = []
+    var id = this.props.id
     var api = backend_url + id
+    var inviteeSelection = this.state.inviteeSelection
+    selection.forEach(datetime => {
+      inviteeSelection.forEach(idatetime => {
+        if(datetime !== idatetime) {
+          newSelection.push(datetime)
+        }
+      })
+    })
+    var body = { "keyval": {"state": {"selection" : newSelection }}}
     fetch(api, {
         method: 'PUT',
         body: JSON.stringify(body),
@@ -176,8 +186,8 @@ class InviteePage extends Component {
       }).then(function(response) {
         return response.json()
       }).then(function(data) {
-        this.setState({eventCode: data.id})
-      }.bind(this))
+        console.log("Put:", data)
+      })
   }
 
   getCalendarEvent = (id) => {
@@ -227,7 +237,8 @@ class InviteePage extends Component {
                 vw={this.state.viewportWidth}
               />
               <div className="create">
-                <button className="create_event">
+                <button className="create_event"
+                        onClick={() => this.confirmTimes()}>
                   Confirm times
                 </button>
               </div>
