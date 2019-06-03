@@ -35,6 +35,8 @@ class InviteePage extends Component {
     var id = this.props.id
     this.getCalendarEvent(id).then(state => {
       state['viewportWidth'] = window.innerWidth
+      var table = mapSelectedDateTimes(state.table, state.selection)
+      state.table = table
       this.setState(state)
     })
   }
@@ -78,7 +80,6 @@ class InviteePage extends Component {
   onTimeSelect = (e, datetime, value) => {
     e.preventDefault()
     var newTable = [...this.state.table]
-    var selection = [...this.state.selection]
     var inviteeSelection = []
     if (this.state.window === 1) {
       newTable.forEach(row => {
@@ -162,11 +163,12 @@ class InviteePage extends Component {
     })
   }
 
-  createCalendarEvent = () => {
+  confirmTimes = () => {
     var body = { "state" : this.state }
-    var api = backend_url + 'user'
+    var id = this.state.eventCode
+    var api = backend_url + id
     fetch(api, {
-        method: 'POST',
+        method: 'PUT',
         body: JSON.stringify(body),
         headers:{
           'Content-Type': 'application/json'
@@ -202,7 +204,6 @@ class InviteePage extends Component {
                   </div>
                 </div>
               </div>
-              <TopBar onSelectWindow={this.onSelectWindow} />
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
@@ -227,7 +228,7 @@ class InviteePage extends Component {
               />
               <div className="create">
                 <button className="create_event">
-                  Submit times
+                  Confirm times
                 </button>
               </div>
               <Creds />

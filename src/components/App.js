@@ -261,7 +261,11 @@ class App extends Component {
   }
 
   createCalendarEvent = () => {
-    var body = { "state" : this.state }
+    var state = this.state
+    var table = this.state.table
+    resetSelection(table)
+    state.table = table
+    var body = { "state" : state }
     var api = backend_url + 'user'
     fetch(api, {
         method: 'POST',
