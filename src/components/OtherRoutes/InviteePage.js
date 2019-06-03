@@ -16,7 +16,6 @@ import {
   getInitTimes,
   convertToStdDates,
   fillCurrentTimes,
-  resetSelection,
   mapSelectedDateTimes,
   mapInviteeSelectedDateTimes,
 } from '../../lib/library.js'
