@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { throttle } from 'throttle-debounce'
-import TopBar from '../topBar/TopBar'
+import InviteeTopBar from '../topBar/InviteeTopBar'
 import Calendar from '../calendar/Calendar'
 import Creds from '../Creds'
 import '../../SASS/main.scss'
@@ -57,24 +57,6 @@ class InviteePage extends Component {
   initWindow = () => {
     // updates the viewport width
     this.setState({ viewportWidth: window.innerWidth })
-  }
-
-  onSelectWindow = value => {
-    if (value === 1) {
-      var table = this.state.table
-      table = resetSelection(table)
-      this.setState({
-        ...this.state,
-        table: table,
-        window: value,
-        selection: [],
-      })
-    } else {
-      this.setState({
-        ...this.state,
-        window: value
-      })
-    }
   }
 
   onTimeSelect = (e, datetime, value) => {
@@ -150,7 +132,6 @@ class InviteePage extends Component {
         dates: dates,
         table: table,
         mobileTable: tables[1],
-        selection: selection,
       })
       return
     }
@@ -159,7 +140,6 @@ class InviteePage extends Component {
     this.setState({
       dates: dates,
       table: table,
-      selection: selection,
     })
   }
 
@@ -170,13 +150,17 @@ class InviteePage extends Component {
     var api = backend_url + id
     var inviteeSelection = this.state.inviteeSelection
     selection.forEach(datetime => {
-      inviteeSelection.forEach(idatetime => {
-        if(datetime !== idatetime) {
-          newSelection.push(datetime)
-        }
-      })
+      if(!inviteeSelection.includes(datetime)) {
+        newSelection.push(datetime)
+      }
     })
-    var body = { "keyval": {"state": {"selection" : newSelection }}}
+    var body = {
+      "keyval": {
+        "state": {
+          "selection" : newSelection
+        }
+      }
+    }
     fetch(api, {
         method: 'PUT',
         body: JSON.stringify(body),
@@ -214,6 +198,7 @@ class InviteePage extends Component {
                   </div>
                 </div>
               </div>
+              <InviteeTopBar />
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
