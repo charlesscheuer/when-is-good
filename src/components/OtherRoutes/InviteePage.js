@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { throttle } from 'throttle-debounce'
 import InviteeTopBar from '../topBar/InviteeTopBar'
 import Calendar from '../calendar/Calendar'
@@ -27,6 +28,9 @@ class InviteePage extends Component {
     this.state = {
       dates: [],
       inviteeSelection: [],
+      eventTitle: '',
+      calStart: '',
+      calEnd: '',
     }
   }
 
@@ -84,9 +88,14 @@ class InviteePage extends Component {
       })
     }
     newTable = mapInviteeSelectedDateTimes(newTable, inviteeSelection)
+    var calStart = new Date(inviteeSelection[0])
+    var calEnd = new Date(calStart)
+    calEnd.setMinutes(calEnd.getMinutes() + parseInt(this.state.window))
     this.setState({
       table: newTable,
       inviteeSelection: inviteeSelection,
+      calStart: calStart,
+      calEnd: calEnd,
     })
   }
 
@@ -142,6 +151,13 @@ class InviteePage extends Component {
     })
   }
 
+  eventTitleHandler = (e) => {
+    var eventTitle = e.target.value
+    this.setState({
+      eventTitle: eventTitle
+    })
+  }
+
   confirmTimes = () => {
     var selection = this.state.selection
     var newSelection = []
@@ -186,6 +202,7 @@ class InviteePage extends Component {
   }
 
   render() {
+    console.log(this.state)
     const { dates } = this.state
     return dates.length ? (
         <div ref={this.viewportWidthRef} className="App">
@@ -197,7 +214,7 @@ class InviteePage extends Component {
                   </div>
                 </div>
               </div>
-              <InviteeTopBar />
+              <InviteeTopBar eventTitleHandler={this.eventTitleHandler}/>
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
@@ -221,10 +238,20 @@ class InviteePage extends Component {
                 vw={this.state.viewportWidth}
               />
               <div className="create">
-                <button className="create_event"
+                <Link to={{
+                  pathname: `/confirmed/${this.props.id}`,
+                  data: {
+                    "calStart": this.state.calStart,
+                    "calEnd": this.state.calEnd,
+                    "eventTitle": this.state.eventTitle,
+                    "id": this.props.id,
+                  }
+                  }}>
+                    <button className="create_event"
                         onClick={() => this.confirmTimes()}>
-                  Confirm times
-                </button>
+                      Confirm times
+                    </button>
+                </Link>
               </div>
               <Creds />
           </div>) : <Loader />

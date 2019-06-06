@@ -10,6 +10,7 @@ import WeekDays from './calendar/weekSelect/weekDays/WeekDays'
 import CreateEvent from './OtherRoutes/CreateEvent'
 import WeekSelect from './calendar/weekSelect/WeekSelect'
 import EventCreated from './OtherRoutes/EventCreated'
+import InviteeConfirmed from './OtherRoutes/InviteeConfirmed'
 import InviteePage from './OtherRoutes/InviteePage'
 import '../SASS/main.scss'
 import {
@@ -377,6 +378,12 @@ class App extends Component {
         <Route
           path="/event/:id"
           render={(props) => (<InviteePage id={props.match.params.id}/>)}
+        />
+        <Route
+          path="/confirmed/:event"
+          render={(props) => <div ref={this.viewportWidthRef} className="App">
+              <InviteeConfirmed data={props}/>
+            </div>}
         />
         <Route
           path="/addtime"

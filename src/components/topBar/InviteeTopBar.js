@@ -1,13 +1,25 @@
 import React from 'react'
 
-const InviteeTopBar = () => {
+const InviteeTopBar = (props) => {
   return (
     <div className="topbar">
       <div className="container">
-        <div className="topBar">
-          <div className="topBar_center">
-            <p className="topBar_center_title">Confirm your availability</p>
-          </div>
+        <div className="create">
+          <p>Confirm your availability</p>
+          <form className="create_emails_form">
+            <input
+              className="create_emails_form_input"
+              placeholder="What's it about?"
+              id="event title"
+              onChange={(e) => props.eventTitleHandler(e)}
+              type="text"
+            />
+            <label
+              className="create_emails_form_input_label"
+            >
+              What's it about?
+            </label>
+          </form>
         </div>
       </div>
     </div>
