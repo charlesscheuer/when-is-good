@@ -29,6 +29,8 @@ class InviteePage extends Component {
       dates: [],
       inviteeSelection: [],
       eventTitle: '',
+      yourEmail: '',
+      yourName: '',
       inviteeName: '',
       inviteeEmail: '',
       inviteeNumber: '',
@@ -176,7 +178,8 @@ class InviteePage extends Component {
     var selection = this.state.selection
     var newSelection = []
     var id = this.props.id
-    var api = backend_url + id
+    var usersapi = backend_url + id
+    var meetingsapi = backend_url + 'meeting'
     var inviteeSelection = this.state.inviteeSelection
     selection.forEach(datetime => {
       if(!inviteeSelection.includes(datetime)) {
@@ -190,7 +193,7 @@ class InviteePage extends Component {
         }
       }
     }
-    fetch(api, {
+    fetch(usersapi, {
         method: 'PUT',
         body: JSON.stringify(body),
         headers:{
@@ -200,6 +203,29 @@ class InviteePage extends Component {
         return response.json()
       }).then(function(data) {
         console.log("Put:", data)
+      })
+    body = {
+      "meeting": {
+        eventTitle: this.state.eventTitle,
+        yourEmail: this.state.yourEmail,
+        yourName: this.state.yourName,
+        inviteeName: this.state.inviteeEmail,
+        inviteeEmail: this.state.inviteeEmail,
+        inviteeNumber: this.state.inviteeNumber,
+        calStart: this.state.calStart,
+        calEnd: this.state.calEnd,
+      }
+    }
+    fetch(meetingsapi, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers:{
+          'Content-Type': 'application/json'
+        },
+      }).then(function(response) {
+        return response.json()
+      }).then(function(data) {
+        console.log("Posted meeting:", data)
       })
   }
 
