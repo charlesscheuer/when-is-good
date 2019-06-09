@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Toggle from 'react-toggle';
-import EmailIncluded from './EmailIncluded';
 import Slider from 'rc-slider';
 import CalendarIcon from '../calendar/CalendarIcon';
 import Creds from '../Creds';
+// TODO: Future Feature
+// import Toggle from 'react-toggle';
+// import EmailIncluded from './EmailIncluded';
+
 const Range = Slider.Range;
 
 export default class CreateEvent extends Component {
@@ -15,19 +17,18 @@ export default class CreateEvent extends Component {
           <CalendarIcon />
           <h1 className="create_brand_title">I'm Free FYI</h1>
         </div>
-        <h1 className="create_title">Create an event</h1>
+        <h1 className="create_title">Create a meeting</h1>
         <p className="create_subtext">
-          No signup necessary. We create a custom link, but you can click here
-          to email everyone when the entire group has posted its best times.
+          No Signups! Set your availability, Share your personal link,
+          Receive meeting confirmation on your email.
         </p>
         <p className="create_instruction">
-          We just need a little bit of information from you before we get
+          We need a little bit of information from you before we get
           started:
         </p>
         <p className="create_subtext">
           This meeting will occur between {this.props.startTime} and{' '}
-          {this.props.endTime}. Drag the slider below to adjust the times you
-          would like to meet between.
+          {this.props.endTime}. Drag the slider to change.
         </p>
         <div className="create_range">
           <Range
@@ -58,21 +59,39 @@ export default class CreateEvent extends Component {
         </div>
         <div className="create_shouldEmail">
           <p className="create_shouldEmail_label">
-            Do you want to email the group with a link to the best times? If
-            not, you can just copy the link we provide and send it yourself.
+          Where do you want meeting confirmation from your invitees delivered?
           </p>
-          <div>
+          {/* TODO: Future Feature for group invites */}
+          {/* <div>
             <Toggle
               defaultChecked={this.props.shouldEmail}
               onChange={this.props.handleEmailToggle}
             />
+          </div> */}
+        </div>
+        <div className="create_emails">
+          <div className="create_emails_yours">
+            <form className="create_emails_form">
+              <input
+                className="create_emails_form_input"
+                placeholder="Your email"
+                id="email"
+                onChange={(e) => this.props.yourEmailHandler(e)}
+                required
+                type="text"
+              />
+              <label htmlFor="email" className="create_emails_form_input_label">
+                Enter your email
+              </label>
+            </form>
           </div>
         </div>
-        {this.props.shouldEmail ? <EmailIncluded
+        {/* TODO: Future Feature for group invites */}
+        {/* {this.props.shouldEmail ? <EmailIncluded
                                     yourEmail={this.props.yourEmail}
                                     theirEmails={this.props.theirEmails}
                                     numPeople={this.props.numPeople}
-                                    emailHandler={this.props.emailHandler} /> : null}
+                                    emailHandler={this.props.emailHandler} /> : null} */}
         <Link to="/create">
           <button
             onClick={() => this.props.createdEvent()}

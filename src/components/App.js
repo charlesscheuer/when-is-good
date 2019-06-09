@@ -145,6 +145,13 @@ class App extends Component {
     })
   }
 
+  yourEmailHandler = e => {
+    var yourEmail = e.target.value
+    this.setState({
+      yourEmail: yourEmail
+    })
+  }
+
   createdEvent = () => {
     let dates = getInitDate()
     var times = getInitTimes(this.state.startTime, this.state.endTime)
@@ -310,6 +317,7 @@ class App extends Component {
               timezone={this.state.timezone}
               shouldEmail={this.state.shouldEmail}
               yourEmail={this.state.yourEmail}
+              yourEmailHandler={this.yourEmailHandler}
               theirEmails={this.state.theirEmails}
               numPeople={this.state.numPeople}
               emailHandler={this.emailHandler}
