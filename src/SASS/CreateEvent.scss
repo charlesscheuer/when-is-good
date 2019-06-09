@@ -13,6 +13,12 @@
   //   @media screen and (max-width: 990px) {
   //     font-size: 1.2rem;
   //   }
+  @media screen and (max-width: 800px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 1.2rem;
+  }
   &_brand {
     padding: 0rem 20rem;
     margin-bottom: 0;
@@ -23,6 +29,9 @@
     animation: moveInBottom 2s $trans-primary;
     h1 {
       font-weight: 400;
+      @media screen and (max-width: 700px) {
+        font-size: 1.5rem;
+      }
     }
     @media screen and (max-width: 1310px) {
       padding: 0rem 15rem;
@@ -33,11 +42,21 @@
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
     }
+    @media screen and (max-width: 600px) {
+      padding: 0rem 1rem;
+    }
   }
   &_title {
     color: $color-4;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     margin-top: 0;
+    text-align: center;
+    @media screen and (max-width: 700px) {
+      font-size: 2.1rem;
+    }
+    @media screen and (max-width: 550px) {
+      font-size: 1.8rem;
+    }
   }
   &_addtime {
     color: $color-text;
@@ -63,12 +82,16 @@
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
     }
+    @media screen and (max-width: 700px) {
+      padding: 0rem 1rem;
+    }
   }
   &_instruction {
     color: $color-4;
     margin-top: 0;
     padding: 0rem 20rem;
     text-align: left;
+    width: 100%;
     @media screen and (max-width: 1310px) {
       padding: 0rem 15rem;
     }
@@ -77,6 +100,9 @@
     }
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
+    }
+    @media screen and (max-width: 700px) {
+      padding: 0rem 1rem;
     }
   }
   &_range {
@@ -91,6 +117,9 @@
     }
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
+    }
+    @media screen and (max-width: 600px) {
+      padding: 0rem 1rem;
     }
     .rc-slider {
       position: relative;
@@ -361,6 +390,9 @@
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
     }
+    @media screen and (max-width: 700px) {
+      padding: 0rem 1rem;
+    }
     &_selection {
       font-family: inherit;
       font-weight: 500;
@@ -368,6 +400,10 @@
       align-self: center;
       color: $color-text;
       margin-left: 2rem;
+      @media screen and (max-width: 900px) {
+        width: 7rem;
+      }
+
       &-option {
         color: $color-text;
       }
@@ -387,6 +423,9 @@
     }
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
+    }
+    @media screen and (max-width: 700px) {
+      padding: 0rem 1rem;
     }
     &_label {
       width: 40rem;
@@ -615,6 +654,9 @@
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
     }
+    @media screen and (max-width: 700px) {
+      padding: 0rem 1rem;
+    }
     &_form {
       width: 18rem;
       text-align: center;
@@ -682,6 +724,9 @@
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
     }
+    @media screen and (max-width: 600px) {
+      padding: 0rem 1rem;
+    }
   }
   &_event {
     background-color: $color-4;
@@ -696,8 +741,6 @@
     color: $color-text;
     border: none;
     padding: 0.5rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
     &:hover {
       cursor: pointer;
       transform: translateY(-2px);
@@ -731,8 +774,7 @@
 .invitee_details {
   width: 100vw;
   display: flex;
-  margin: 2rem;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-direction: row;
   @media screen and (max-width: 624px) {
     flex-direction: column;
