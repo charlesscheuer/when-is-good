@@ -44,9 +44,11 @@ class App extends Component {
       timezone: 'PST',
       shouldEmail: false,
       yourEmail: '',
+      yourName: '',
       theirEmails: [''],
       numPeople: 2,
       eventCode: '',
+      eventTitle: '',
     }
   }
 
@@ -145,11 +147,19 @@ class App extends Component {
     })
   }
 
-  yourEmailHandler = e => {
-    var yourEmail = e.target.value
-    this.setState({
-      yourEmail: yourEmail
-    })
+  yourNameEmailHandler = e => {
+    var id = e.target.id
+    var value = e.target.value
+    if(id === "yourName") {
+      this.setState({
+        yourName: value,
+        eventTitle: value + '\'s meeting'
+      })
+    } else {
+      this.setState({
+        yourEmail: value,
+      })
+    }
   }
 
   createdEvent = () => {
@@ -317,7 +327,7 @@ class App extends Component {
               timezone={this.state.timezone}
               shouldEmail={this.state.shouldEmail}
               yourEmail={this.state.yourEmail}
-              yourEmailHandler={this.yourEmailHandler}
+              yourNameEmailHandler={this.yourNameEmailHandler}
               theirEmails={this.state.theirEmails}
               numPeople={this.state.numPeople}
               emailHandler={this.emailHandler}

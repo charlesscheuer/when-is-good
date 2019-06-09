@@ -70,18 +70,31 @@ export default class CreateEvent extends Component {
           </div> */}
         </div>
         <div className="create_emails">
-          <div className="create_emails_yours">
+          <div className="invitee_details">
             <form className="create_emails_form">
               <input
                 className="create_emails_form_input"
-                placeholder="Your email"
-                id="email"
-                onChange={(e) => this.props.yourEmailHandler(e)}
+                placeholder="Name"
+                id="yourName"
+                onChange={(e) => this.props.yourNameEmailHandler(e)}
+                required
+                type="text"
+              />
+              <label htmlFor="name" className="create_emails_form_input_label">
+                Name
+              </label>
+            </form>
+            <form className="create_emails_form">
+              <input
+                className="create_emails_form_input"
+                placeholder="Email"
+                id="yourEmail"
+                onChange={(e) => this.props.yourNameEmailHandler(e)}
                 required
                 type="text"
               />
               <label htmlFor="email" className="create_emails_form_input_label">
-                Enter your email
+                Email
               </label>
             </form>
           </div>

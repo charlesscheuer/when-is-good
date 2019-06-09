@@ -6,20 +6,50 @@ const InviteeTopBar = (props) => {
       <div className="container">
         <div className="create">
           <p>Confirm your availability</p>
+        <div className="invitee_details">
           <form className="create_emails_form">
             <input
               className="create_emails_form_input"
-              placeholder="What's it about?"
-              id="event title"
-              onChange={(e) => props.eventTitleHandler(e)}
+              placeholder="Name"
+              id="inviteeName"
+              onChange={(e) => props.inviteeDetailsHandler(e)}
               type="text"
             />
             <label
               className="create_emails_form_input_label"
             >
-              What's it about?
+              Name
             </label>
           </form>
+          <form className="create_emails_form">
+            <input
+              className="create_emails_form_input"
+              placeholder="Email"
+              id="inviteeEmail"
+              onChange={(e) => props.inviteeDetailsHandler(e)}
+              type="text"
+            />
+            <label
+              className="create_emails_form_input_label"
+            >
+              Email
+            </label>
+          </form>
+          <form className="create_emails_form">
+            <input
+              className="create_emails_form_input"
+              placeholder="Phone number"
+              id="inviteeNumber"
+              onChange={(e) => props.inviteeDetailsHandler(e)}
+              type="text"
+            />
+            <label
+              className="create_emails_form_input_label"
+            >
+              Phone number
+            </label>
+          </form>
+          </div>
         </div>
       </div>
     </div>

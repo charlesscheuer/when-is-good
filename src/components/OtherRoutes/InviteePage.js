@@ -29,6 +29,9 @@ class InviteePage extends Component {
       dates: [],
       inviteeSelection: [],
       eventTitle: '',
+      inviteeName: '',
+      inviteeEmail: '',
+      inviteeNumber: '',
       calStart: '',
       calEnd: '',
     }
@@ -151,11 +154,22 @@ class InviteePage extends Component {
     })
   }
 
-  eventTitleHandler = (e) => {
-    var eventTitle = e.target.value
-    this.setState({
-      eventTitle: eventTitle
-    })
+  inviteeDetailsHandler = (e) => {
+    var id = e.target.id
+    var value = e.target.value
+    if(id === "inviteeName") {
+      this.setState({
+        inviteeName: value
+      })
+    } else if(id === "inviteeEmail") {
+      this.setState({
+        inviteeEmail: value
+      })
+    } else {
+      this.setState({
+        inviteeNumber: value
+      })
+    }
   }
 
   confirmTimes = () => {
@@ -202,7 +216,7 @@ class InviteePage extends Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log("inviteepage's state", this.state)
     const { dates } = this.state
     return dates.length ? (
         <div ref={this.viewportWidthRef} className="App">
@@ -214,7 +228,7 @@ class InviteePage extends Component {
                   </div>
                 </div>
               </div>
-              <InviteeTopBar eventTitleHandler={this.eventTitleHandler}/>
+              <InviteeTopBar inviteeDetailsHandler={this.inviteeDetailsHandler}/>
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
@@ -244,6 +258,9 @@ class InviteePage extends Component {
                     "calStart": this.state.calStart,
                     "calEnd": this.state.calEnd,
                     "eventTitle": this.state.eventTitle,
+                    "inviteeName": this.state.inviteeName,
+                    "inviteeEmail": this.state.inviteeEmail,
+                    "inviteeNumber": this.state.inviteeNumber,
                     "id": this.props.id,
                   }
                   }}>
