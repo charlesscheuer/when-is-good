@@ -1,25 +1,31 @@
 import React from 'react'
 import { getTimezoneDifference } from '../../../lib/library.js'
 
-const displayHandler = (datetime, window) => {
+const displayHandler = (datetime, window, creatorTimezone, inviteeTimezone) => {
   if (window === 1) {
     return datetime
   }
+  //TODO: Handle timezone better using moment()
   var dateTimeObj = new Date(datetime)
   var hour = dateTimeObj.getHours()
+  var newhour = hour
   var min = dateTimeObj.getMinutes()
   var ampm = hour >= 12 ? 'pm' : 'am'
-  hour = hour % 12
-  hour = hour ? hour : 12
-  if (min === 0) return `${hour}${ampm}`
+  var tzdiff = getTimezoneDifference(creatorTimezone, inviteeTimezone)
+  if(tzdiff !== 0) {
+    newhour = hour + tzdiff
+    if(ampm === 'am' && hour < 12 && newhour >= 12) ampm = 'pm'
+    else if(ampm === 'pm' && hour < 24 && newhour >= 24) ampm = 'am'
+  }
+  newhour = newhour % 12
+  newhour = newhour ? newhour : 12
+  if (min === 0) return `${newhour}${ampm}`
   return `:${min}`
 }
 
-const displayTableHandler = (table, window, mobileTable, creatorTimezone, inviteeTimezone, vw) => {
+const displayTableHandler = (table, window, mobileTable, vw) => {
   let displayTable = []
   // FIXME: Refactor this code in the future. This logic is very ugly.
-  var tzdiff = getTimezoneDifference(creatorTimezone, inviteeTimezone)
-  console.log("tzdiff", tzdiff)
   var i = 0;
   if(vw < 624) {
     for (let row of table) {
@@ -77,7 +83,7 @@ const TimeSelect = props => {
   let dates = [...props.dates].map(date => new Date(date).getDate())
   let window = props.window
   let mobileTable = props.mobileTable
-  let displayTable = displayTableHandler(table, window, mobileTable, creatorTimezone, inviteeTimezone,  props.vw)
+  let displayTable = displayTableHandler(table, window, mobileTable, props.vw)
   return (
     <div className="TimeSelect">
         <div className="TimeSlot">
@@ -111,7 +117,7 @@ const TimeSelect = props => {
                           key={x + y}
                         >
                           <p className="TimeSlot_time_value">
-                            {displayHandler(datetime, window)}
+                            {displayHandler(datetime, window, creatorTimezone, inviteeTimezone)}
                           </p>
                         </button>
                       )} else return(null)
