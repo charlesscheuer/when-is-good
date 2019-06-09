@@ -1,0 +1,17 @@
+.sharing {
+  margin-top: 10vh;
+  font-family: $font-primary;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+  font-weight: 400;
+  text-align: center;
+  color: $color-primary;
+  &_link {
+    color: $color-text;
+    &:active,
+    &:focus,
+    &:visited {
+      color: $color-text;
+    }
+  }
+}
