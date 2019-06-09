@@ -34,6 +34,8 @@ class InviteePage extends Component {
       inviteeName: '',
       inviteeEmail: '',
       inviteeNumber: '',
+      inviteeTimezone: 'PST',
+      timezone: '',
       calStart: '',
       calEnd: '',
     }
@@ -174,6 +176,12 @@ class InviteePage extends Component {
     }
   }
 
+  onInviteeTimezoneChange = event => {
+    this.setState({
+      inviteeTimezone: event.target.value
+    })
+  }
+
   confirmTimes = () => {
     var selection = this.state.selection
     var newSelection = []
@@ -204,6 +212,7 @@ class InviteePage extends Component {
       }).then(function(data) {
         console.log("Put:", data)
       })
+
     body = {
       "meeting": {
         eventTitle: this.state.eventTitle,
@@ -214,6 +223,8 @@ class InviteePage extends Component {
         inviteeNumber: this.state.inviteeNumber,
         calStart: this.state.calStart,
         calEnd: this.state.calEnd,
+        inviteeTimezone: this.state.inviteeTimezone,
+        timezone: this.state.timezone,
       }
     }
     fetch(meetingsapi, {
@@ -254,7 +265,9 @@ class InviteePage extends Component {
                   </div>
                 </div>
               </div>
-              <InviteeTopBar inviteeDetailsHandler={this.inviteeDetailsHandler}/>
+              <InviteeTopBar inviteeDetailsHandler={this.inviteeDetailsHandler}
+                             inviteeTimezone = {this.state.inviteeTimezone}
+                             onInviteeTimezoneChange = {this.onInviteeTimezoneChange}/>
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
@@ -270,6 +283,8 @@ class InviteePage extends Component {
                 />
               </div>
               <Calendar
+                creatorTimezone={this.state.timezone}
+                inviteeTimezone={this.state.inviteeTimezone}
                 dates={this.state.dates}
                 mobileTable={this.state.mobileTable}
                 window={this.state.window}

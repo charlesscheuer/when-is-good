@@ -367,6 +367,8 @@ class App extends Component {
                 />
               </div>
               <Calendar
+                creatorTimezone={this.state.timezone}
+                inviteeTimezone={this.state.timezone}
                 dates={this.state.dates}
                 mobileTable={this.state.mobileTable}
                 window={this.state.window}

@@ -5,6 +5,8 @@ const Calendar = props => {
   return (
     <div>
       <TimeSelect
+        creatorTimezone={props.creatorTimezone}
+        inviteeTimezone={props.inviteeTimezone}
         dates={props.dates}
         mobileTable={props.mobileTable}
         window={props.window}

@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 function addDays(date, days) {
   var dat = new Date(date)
   dat.setDate(dat.getDate() + days);
@@ -165,6 +167,22 @@ function mapInviteeSelectedDateTimes(table, inviteeSelection) {
   return table
 }
 
+function getTimezoneDifference(tz1, tz2) {
+  if(tz1 === 'PST' && tz2 === 'MST') return 1
+  else if(tz1 === 'PST' && tz2 === 'CST') return 2
+  else if(tz1 === 'PST' && tz2 === 'EST') return 3
+  else if(tz1 === 'MST' && tz2 === 'PST') return -1
+  else if(tz1 === 'MST' && tz2 === 'CST') return 1
+  else if(tz1 === 'MST' && tz2 === 'EST') return 2
+  else if(tz1 === 'CST' && tz2 === 'PST') return -2
+  else if(tz1 === 'CST' && tz2 === 'MST') return -1
+  else if(tz1 === 'CST' && tz2 === 'EST') return 1
+  else if(tz1 === 'EST' && tz2 === 'PST') return -3
+  else if(tz1 === 'EST' && tz2 === 'MST') return -2
+  else if(tz1 === 'EST' && tz2 === 'CST') return -1
+  return 0
+}
+
 export { getPreviousNextWeek,
          getPreviousNextDay,
          getDates,
@@ -176,4 +194,5 @@ export { getPreviousNextWeek,
          fillCurrentTimes,
          resetSelection,
          mapSelectedDateTimes,
-         mapInviteeSelectedDateTimes }
+         mapInviteeSelectedDateTimes,
+         getTimezoneDifference }

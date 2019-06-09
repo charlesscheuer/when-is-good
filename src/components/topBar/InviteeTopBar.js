@@ -6,6 +6,26 @@ const InviteeTopBar = (props) => {
       <div className="container">
         <div className="create">
           <p>Confirm your availability</p>
+          <div className="create_timezone">
+            <p className="create_timezone_label">
+              What time zone would you like the times to be in?
+            </p>
+            <select
+              className="create_timezone_selection"
+              onChange={props.onInviteeTimezoneChange}
+              value={props.inviteeTimezone}
+            >
+              <option className="create_timezone_selection-option" value="PST">
+               PST
+              </option>
+              <option className="create_timezone_selection-option" value="MST">
+                MST
+              </option>
+              <option className="create_timezone_selection-option" value="EST">
+               EST
+              </option>
+            </select>
+          </div>
         <div className="invitee_details">
           <form className="create_emails_form">
             <input

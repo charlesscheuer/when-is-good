@@ -1,4 +1,5 @@
 import React from 'react'
+import { getTimezoneDifference } from '../../../lib/library.js'
 
 const displayHandler = (datetime, window) => {
   if (window === 1) {
@@ -14,9 +15,11 @@ const displayHandler = (datetime, window) => {
   return `:${min}`
 }
 
-const displayTableHandler = (table, window, mobileTable, vw) => {
+const displayTableHandler = (table, window, mobileTable, creatorTimezone, inviteeTimezone, vw) => {
   let displayTable = []
   // FIXME: Refactor this code in the future. This logic is very ugly.
+  var tzdiff = getTimezoneDifference(creatorTimezone, inviteeTimezone)
+  console.log("tzdiff", tzdiff)
   var i = 0;
   if(vw < 624) {
     for (let row of table) {
@@ -69,10 +72,12 @@ const onTimeSelectClassName = (val) => {
 
 const TimeSelect = props => {
   let table = [...props.table]
+  let creatorTimezone = props.creatorTimezone
+  let inviteeTimezone = props.inviteeTimezone
   let dates = [...props.dates].map(date => new Date(date).getDate())
   let window = props.window
   let mobileTable = props.mobileTable
-  let displayTable = displayTableHandler(table, window, mobileTable, props.vw)
+  let displayTable = displayTableHandler(table, window, mobileTable, creatorTimezone, inviteeTimezone,  props.vw)
   return (
     <div className="TimeSelect">
         <div className="TimeSlot">
