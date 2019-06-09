@@ -1,5 +1,3 @@
-import moment from 'moment-timezone';
-
 function addDays(date, days) {
   var dat = new Date(date)
   dat.setDate(dat.getDate() + days);
@@ -52,7 +50,7 @@ function getInitTimes(start, end) {
 }
 
 function getMondayOftheWeek() {
-  var date = new Date();
+  var date = new Date()
   var day = date.getDay()
   var diff = date.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
   return new Date(date.setDate(diff));
