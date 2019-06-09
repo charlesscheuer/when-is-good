@@ -71,7 +71,7 @@ export default class CreateEvent extends Component {
         </div>
         <div className="create_emails">
           <div className="invitee_details">
-            <form className="create_emails_form">
+            <form className="create_emails_form invitee_details_form">
               <input
                 className="create_emails_form_input"
                 placeholder="Name"
