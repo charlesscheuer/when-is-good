@@ -218,7 +218,7 @@ class InviteePage extends Component {
         eventTitle: this.state.eventTitle,
         yourEmail: this.state.yourEmail,
         yourName: this.state.yourName,
-        inviteeName: this.state.inviteeEmail,
+        inviteeName: this.state.inviteeName,
         inviteeEmail: this.state.inviteeEmail,
         inviteeNumber: this.state.inviteeNumber,
         calStart: this.state.calStart,
