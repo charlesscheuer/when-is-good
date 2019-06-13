@@ -741,6 +741,10 @@
     color: $color-text;
     border: none;
     padding: 0.5rem;
+    &:disabled {
+      background-color: $color-5;
+      color: $color-text-disabled;
+    }
     &:hover {
       cursor: pointer;
       transform: translateY(-2px);

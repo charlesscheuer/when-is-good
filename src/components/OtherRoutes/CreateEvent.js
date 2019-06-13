@@ -8,9 +8,20 @@ import Creds from '../Creds';
 // import EmailIncluded from './EmailIncluded';
 
 const Range = Slider.Range;
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export default class CreateEvent extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      name: '',
+      emailLabel: 'Email',
+    }
+  }
   render() {
+    const { email, name, emailLabel } = this.state
+    const enabled = email.length > 0 && name.length > 0 && emailLabel === 'Email'
     return (
       <div className="create">
         <div className="create_brand">
@@ -76,7 +87,11 @@ export default class CreateEvent extends Component {
                 className="create_emails_form_input"
                 placeholder="Name"
                 id="yourName"
-                onChange={(e) => this.props.yourNameEmailHandler(e)}
+                onChange={(e) => {
+                  this.setState({
+                    name: e.target.value
+                  })
+                  this.props.yourNameEmailHandler(e)}}
                 required
                 type="text"
               />
@@ -89,12 +104,26 @@ export default class CreateEvent extends Component {
                 className="create_emails_form_input"
                 placeholder="Email"
                 id="yourEmail"
-                onChange={(e) => this.props.yourNameEmailHandler(e)}
+                onChange={(e) => {
+                  this.setState({
+                    email: e.target.value
+                  })
+                  if(emailRegex.test(String(e.target.value).toLowerCase())) {
+                    this.props.yourNameEmailHandler(e)
+                    this.setState({
+                      emailLabel: "Email"
+                    })
+                  } else {
+                    this.setState({
+                      emailLabel: "Invalid Email"
+                    })
+                  }
+                }}
                 required
                 type="text"
               />
               <label htmlFor="email" className="create_emails_form_input_label">
-                Email
+                {this.state.emailLabel}
               </label>
             </form>
           </div>
@@ -107,6 +136,8 @@ export default class CreateEvent extends Component {
                                     emailHandler={this.props.emailHandler} /> : null} */}
         <Link to="/create">
           <button
+            type="button"
+            disabled={!enabled}
             onClick={() => this.props.createdEvent()}
             className="create_event"
           >

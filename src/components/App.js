@@ -12,6 +12,7 @@ import WeekSelect from './calendar/weekSelect/WeekSelect'
 import EventCreated from './OtherRoutes/EventCreated'
 import InviteeConfirmed from './OtherRoutes/InviteeConfirmed'
 import InviteePage from './OtherRoutes/InviteePage'
+import Error from './OtherRoutes/Error'
 import '../SASS/main.scss'
 import {
   getPreviousNextWeek,
@@ -49,6 +50,7 @@ class App extends Component {
       numPeople: 2,
       eventCode: '',
       eventTitle: '',
+      error: false,
     }
   }
 
@@ -296,7 +298,12 @@ class App extends Component {
       }).then(function(data) {
         console.log('Posted state id:', data.id)
         this.setState({eventCode: data.id})
-      }.bind(this))
+      }.bind(this)).catch(error => {
+        console.log(error)
+        this.setState({
+          error: true
+        })
+      })
   }
 
   getCalendarEvent = (id) => {
@@ -309,7 +316,12 @@ class App extends Component {
         var state = JSON.parse(JSON.stringify(data)).data.state
         console.log('Got state:', state)
         this.setState(state)
-      }.bind(this))
+      }.bind(this)).catch(error => {
+        console.log(error)
+        this.setState({
+          error: true
+        })
+      })
   }
 
   render() {
@@ -379,6 +391,8 @@ class App extends Component {
               <div className="create">
                 <Link to="/eventcreated">
                   <button className="create_event"
+                          type="button"
+                          disabled={this.state.selection.length === 0}
                           onClick={() => this.createCalendarEvent()}>
                     Submit times
                   </button>
@@ -403,6 +417,12 @@ class App extends Component {
           path="/confirmed/:event"
           render={(props) => <div ref={this.viewportWidthRef} className="App">
               <InviteeConfirmed data={props}/>
+            </div>}
+        />
+        <Route
+          path="/error"
+          render={(props) => <div ref={this.viewportWidthRef} className="App">
+              <Error data={props}/>
             </div>}
         />
         <Route

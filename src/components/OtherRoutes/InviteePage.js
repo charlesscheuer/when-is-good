@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { throttle } from 'throttle-debounce'
 import InviteeTopBar from '../topBar/InviteeTopBar'
 import Calendar from '../calendar/Calendar'
@@ -38,7 +38,15 @@ class InviteePage extends Component {
       timezone: '',
       calStart: '',
       calEnd: '',
+      error: false,
+      emailLabel: 'Email',
     }
+  }
+
+  componentDidCatch(error, info) {
+    this.setState({
+      error: true
+    })
   }
 
   componentWillMount() {
@@ -48,7 +56,11 @@ class InviteePage extends Component {
       var table = mapSelectedDateTimes(state.table, state.selection)
       state.table = table
       this.setState(state)
-    })
+    }).catch( error => {
+      this.setState({
+        error: true
+      })}
+    )
   }
 
   componentDidMount() {
@@ -158,7 +170,7 @@ class InviteePage extends Component {
     })
   }
 
-  inviteeDetailsHandler = (e) => {
+  inviteeDetailsHandler = (e, emailLabel) => {
     var id = e.target.id
     var value = e.target.value
     if(id === "inviteeName") {
@@ -167,7 +179,8 @@ class InviteePage extends Component {
       })
     } else if(id === "inviteeEmail") {
       this.setState({
-        inviteeEmail: value
+        inviteeEmail: value,
+        emailLabel: emailLabel
       })
     } else {
       this.setState({
@@ -249,13 +262,20 @@ class InviteePage extends Component {
       }).then(function(data) {
         console.log('Got:', JSON.parse(JSON.stringify(data)).data.state)
         return JSON.parse(JSON.stringify(data)).data.state
+      }).catch(error => {
+        console.log(error)
+        this.setState({
+          error: true
+        })
       })
   }
 
   render() {
     console.log("inviteepage's state", this.state)
-    const { dates } = this.state
-    return dates.length ? (
+    const { dates, inviteeName, inviteeEmail, inviteeSelection, emailLabel } = this.state
+    const enabled = inviteeName.length > 0 && inviteeEmail.length > 0 && inviteeSelection.length > 0 && emailLabel === 'Email'
+    const error = this.state.error
+    return error? <Redirect to='/error' /> : dates.length ? (
         <div ref={this.viewportWidthRef} className="App">
               <div className="bar">
                 <div className="brand">
@@ -267,7 +287,8 @@ class InviteePage extends Component {
               </div>
               <InviteeTopBar inviteeDetailsHandler={this.inviteeDetailsHandler}
                              inviteeTimezone = {this.state.inviteeTimezone}
-                             onInviteeTimezoneChange = {this.onInviteeTimezoneChange}/>
+                             onInviteeTimezoneChange = {this.onInviteeTimezoneChange}
+                             emailLabel = {this.state.emailLabel}/>
               <div className="sticks">
                 <WeekSelect
                   dates={this.state.dates}
@@ -299,13 +320,12 @@ class InviteePage extends Component {
                     "calStart": this.state.calStart,
                     "calEnd": this.state.calEnd,
                     "eventTitle": this.state.eventTitle,
-                    "inviteeName": this.state.inviteeName,
-                    "inviteeEmail": this.state.inviteeEmail,
-                    "inviteeNumber": this.state.inviteeNumber,
                     "id": this.props.id,
                   }
                   }}>
                     <button className="create_event"
+                        type="button"
+                        disabled={!enabled}
                         onClick={() => this.confirmTimes()}>
                       Confirm times
                     </button>
