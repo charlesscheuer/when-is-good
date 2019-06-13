@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { throttle } from 'throttle-debounce'
 import { Route } from 'react-router-dom'
 import TopBar from './topBar/TopBar'
@@ -354,6 +354,7 @@ class App extends Component {
           path="/create"
           exact
           render={() => (
+            !this.state.yourEmail.length === 0 ? (
             <div ref={this.viewportWidthRef} className="App">
               <div className="bar">
                 <div className="brand">
@@ -399,7 +400,7 @@ class App extends Component {
                 </Link>
               </div>
               <Creds />
-            </div>
+            </div>) : <Redirect to='/' />
           )}
         />
         <Route

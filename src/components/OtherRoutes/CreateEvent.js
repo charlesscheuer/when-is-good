@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Slider from 'rc-slider';
-import CalendarIcon from '../calendar/CalendarIcon';
-import Creds from '../Creds';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import Slider from 'rc-slider'
+import CalendarIcon from '../calendar/CalendarIcon'
+import Creds from '../Creds'
 // TODO: Future Feature
 // import Toggle from 'react-toggle';
 // import EmailIncluded from './EmailIncluded';
@@ -19,6 +19,7 @@ export default class CreateEvent extends Component {
       emailLabel: 'Email',
     }
   }
+
   render() {
     const { email, name, emailLabel } = this.state
     const enabled = email.length > 0 && name.length > 0 && emailLabel === 'Email'
@@ -146,6 +147,6 @@ export default class CreateEvent extends Component {
         </Link>
         <Creds />
       </div>
-    );
+    )
   }
 }
