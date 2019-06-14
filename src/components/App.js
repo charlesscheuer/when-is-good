@@ -512,7 +512,7 @@ class App extends Component {
             </div>
           )}
         />
-        <Route exact path="/" />
+        <Route render={() => (<Redirect to='/' />)} />
         </Switch>
       </div>
     )
