@@ -1,5 +1,5 @@
 import React from 'react'
-import { getTimezoneDifference } from '../../../lib/library.js'
+import { getTimezoneDifference } from 'lib/library.js'
 
 const displayHandler = (datetime, window, creatorTimezone, inviteeTimezone) => {
   if (window === 1) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import TimeButton from './TimeButton'
-import DayButton from './DayButton'
+import TimeButton from 'components/topBar/TimeButton'
+import DayButton from 'components/topBar/DayButton'
 export default class TopBar extends Component {
   constructor() {
     super()

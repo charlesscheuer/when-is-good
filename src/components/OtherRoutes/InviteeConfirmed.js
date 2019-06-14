@@ -1,6 +1,6 @@
 import React, {Component}  from 'react'
 import { Redirect } from 'react-router-dom'
-import CalendarIcon from '../calendar/CalendarIcon'
+import CalendarIcon from 'components/calendar/CalendarIcon'
 
 class InviteeConfirmed extends Component {
   constructor(props) {

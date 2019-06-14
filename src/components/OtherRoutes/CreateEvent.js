@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Slider from 'rc-slider'
-import CalendarIcon from '../calendar/CalendarIcon'
-import Creds from '../Creds'
+import CalendarIcon from 'components/calendar/CalendarIcon'
+import Creds from 'components/Creds'
 // TODO: Future Feature
 // import Toggle from 'react-toggle';
 // import EmailIncluded from './EmailIncluded';

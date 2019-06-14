@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import NumberDate from './NumberDate'
-import WordDate from './WordDate'
+import NumberDate from 'components/calendar/weekSelect/weekDays/NumberDate'
+import WordDate from 'components/calendar/weekSelect/weekDays/WordDate'
 
 export default class Weekdays extends Component {
   render() {

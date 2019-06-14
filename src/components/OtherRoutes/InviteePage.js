@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { throttle } from 'throttle-debounce'
-import InviteeTopBar from '../topBar/InviteeTopBar'
-import Calendar from '../calendar/Calendar'
-import Creds from '../Creds'
-import '../../SASS/main.scss'
-import CalendarIcon from '../calendar/CalendarIcon'
-import WeekDays from '../calendar/weekSelect/weekDays/WeekDays'
-import WeekSelect from '../calendar/weekSelect/WeekSelect'
-import Loader from '../calendar/Loader'
+import InviteeTopBar from 'components/topBar/InviteeTopBar'
+import Calendar from 'components/calendar/Calendar'
+import Creds from 'components/Creds'
+import 'SASS/main.scss'
+import CalendarIcon from 'components/calendar/CalendarIcon'
+import WeekDays from 'components/calendar/weekSelect/weekDays/WeekDays'
+import WeekSelect from 'components/calendar/weekSelect/WeekSelect'
+import Loader from 'components/calendar/Loader'
 
 import {
   getPreviousNextWeek,

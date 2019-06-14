@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import LeftArrowButton from './LeftArrowButton'
-import RightArrowButton from './RightArrowButton'
+import LeftArrowButton from 'components/calendar/weekSelect/LeftArrowButton'
+import RightArrowButton from 'components/calendar/weekSelect/RightArrowButton'
 
 export default class WeekSelect extends Component {
   render() {

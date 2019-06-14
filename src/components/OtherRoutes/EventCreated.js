@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { Redirect } from 'react-router-dom'
-import Loader from '../calendar/Loader'
-import CalendarIcon from '../calendar/CalendarIcon'
-import '../../SASS/main.scss'
+import Loader from 'components/calendar/Loader'
+import CalendarIcon from 'components/calendar/CalendarIcon'
+import 'SASS/main.scss'
 
 class EventCreated extends Component {
   constructor(props) {
