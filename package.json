@@ -17,12 +17,12 @@
     "throttle-debounce": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "start": "NODE_PATH=./src react-scripts start",
+    "build": "NODE_PATH=./src react-scripts build",
+    "test": "NODE_PATH=./src react-scripts test",
+    "eject": "NODE_PATH=./src react-scripts eject",
+    "predeploy": "NODE_PATH=./src npm run build",
+    "deploy": "NODE_PATH=./src gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
