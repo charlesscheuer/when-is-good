@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, Switch } from 'react-router-dom'
 import { throttle } from 'throttle-debounce'
 import { Route } from 'react-router-dom'
 import TopBar from './topBar/TopBar'
@@ -328,6 +328,7 @@ class App extends Component {
     console.log('current state:', this.state)
     return (
       <div>
+        <Switch>
         <Route
           path="/"
           exact
@@ -405,6 +406,7 @@ class App extends Component {
         />
         <Route
           path="/eventcreated"
+          exact
           render={() => <div ref={this.viewportWidthRef} className="App">
                           <EventCreated
                             eventCode={this.state.eventCode}/>
@@ -412,6 +414,7 @@ class App extends Component {
         />
         <Route
           path="/event/:id"
+          exact
           render={(props) => (<InviteePage id={props.match.params.id}/>)}
         />
         <Route
@@ -422,6 +425,7 @@ class App extends Component {
         />
         <Route
           path="/error"
+          exact
           render={(props) => <div ref={this.viewportWidthRef} className="App">
               <Error data={props}/>
             </div>}
@@ -508,6 +512,8 @@ class App extends Component {
             </div>
           )}
         />
+        <Route exact path="/" />
+        </Switch>
       </div>
     )
   }
