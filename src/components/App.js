@@ -190,7 +190,7 @@ class App extends Component {
         return response.json()
       }).then(function(data) {
         console.log('Posted state id:', data.id)
-      }.bind(this)).catch(error => {
+      }).catch(error => {
         console.log(error)
         this.setState({
           error: true
