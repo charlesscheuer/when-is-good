@@ -20,7 +20,7 @@ const displayHandler = (datetime, window, creatorTimezone, inviteeTimezone) => {
   newhour = newhour % 12
   newhour = newhour ? newhour : 12
   if (min === 0) return `${newhour}${ampm}`
-  return `:${min}`
+  return `${newhour}:${min}${ampm}`
 }
 
 const displayTableHandler = (table, window, mobileTable, vw) => {
