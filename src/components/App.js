@@ -174,6 +174,28 @@ class App extends Component {
       table: tables[0],
       mobileTable: tables[1],
     })
+    var activeuser = {
+      name: this.state.yourName,
+      email: this.state.yourEmail
+    }
+    var body = { "activeuser" : activeuser }
+    var api = backend_url + 'activeuser'
+    fetch(api, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers:{
+          'Content-Type': 'application/json'
+        },
+      }).then(function(response) {
+        return response.json()
+      }).then(function(data) {
+        console.log('Posted state id:', data.id)
+      }.bind(this)).catch(error => {
+        console.log(error)
+        this.setState({
+          error: true
+        })
+      })
   }
 
   onSelectWindow = value => {
