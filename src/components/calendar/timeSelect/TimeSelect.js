@@ -19,8 +19,36 @@ const displayHandler = (datetime, window, creatorTimezone, inviteeTimezone) => {
   }
   newhour = newhour % 12
   newhour = newhour ? newhour : 12
-  if (min === 0) return `${newhour}${ampm}`
-  return `${newhour}:${min}${ampm}`
+  var endTime = getEndTime(newhour, min, window)
+  var endHour = endTime[0]
+  var endMin = endTime[1]
+  var endampm = ampm
+  if(newhour === 11 && endHour === 12) {
+    endampm = (ampm === 'am')?'pm':'am'
+  }
+  if(endHour === 13) endHour = 1
+  if (min === 0) {
+    if(endMin === 0) return `${newhour}${ampm} - ${endHour}${endampm}`
+    return `${newhour}${ampm} - ${endHour}:${endMin}${endampm}`
+  } else {
+    if(endMin === 0) return `${newhour}:${min}${ampm} - ${endHour}${endampm}`
+    return `${newhour}:${min}${ampm} - ${endHour}:${endMin}${endampm}`
+  }
+}
+
+const getEndTime = (hour, min, window) => {
+  if(window === 60) return [hour+1, min]
+  if(min === 0) return [hour, window]
+  if(window === 15) {
+    if(min === 15 || min === 30) return [hour, min+window]
+    return [hour+1, 0]
+  }
+  if(window === 30) {
+    return [hour+1, 0]
+  }
+  if(window === 45) {
+    return [hour+1, 30]
+  }
 }
 
 const displayTableHandler = (table, window, mobileTable, vw) => {
