@@ -418,7 +418,7 @@ class App extends Component {
                           type="button"
                           disabled={this.state.selection.length === 0}
                           onClick={() => this.createCalendarEvent()}>
-                    Submit times
+                    submit times
                   </button>
                 </Link>
               </div>

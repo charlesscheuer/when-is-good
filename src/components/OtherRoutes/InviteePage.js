@@ -327,7 +327,7 @@ class InviteePage extends Component {
                         type="button"
                         disabled={!enabled}
                         onClick={() => this.confirmTimes()}>
-                      Confirm times
+                      confirm times
                     </button>
                 </Link>
               </div>
