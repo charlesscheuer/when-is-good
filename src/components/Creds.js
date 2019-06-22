@@ -20,7 +20,13 @@ export default function Creds() {
         >
           Charlie
         </a>
-        .
+        .<br />
+        <a
+          className="credits_about"
+          href="https://sharp-hypatia-c3340c.netlify.com/"
+        >
+            About imfree.fyi
+        </a>
       </p>
     </div>
   )

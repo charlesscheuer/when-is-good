@@ -96,6 +96,17 @@ h4 {
       color: $color-text;
     }
   }
+  &_about {
+    font-family: $font-primary;
+    font-size: 1rem;
+    font-weight: 300;
+    color: $color-text;
+    margin-left: 30%;
+    & a:active,
+    a:visited {
+      color: $color-text;
+    }
+  }
 }
 
 @font-face {

@@ -446,6 +446,13 @@ class App extends Component {
             </div>}
         />
         <Route
+          path="/about"
+          exact
+          component={() => {
+            window.location.href = 'https://sharp-hypatia-c3340c.netlify.com/';
+            return null;
+          }}/>
+        <Route
           path="/error"
           exact
           render={(props) => <div ref={this.viewportWidthRef} className="App">
