@@ -21,12 +21,13 @@ export default function Creds() {
           Charlie
         </a>
         .<br />
-        <a
+        {/*Uncomment for about page*/}
+        {/* <a
           className="credits_about"
           href="https://sharp-hypatia-c3340c.netlify.com/"
         >
             About imfree.fyi
-        </a>
+        </a> */}
       </p>
     </div>
   )
