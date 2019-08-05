@@ -6,6 +6,10 @@ import ScrollTop from './components/OtherRoutes/ScrollTop'
 
 import * as serviceWorker from './serviceWorker'
 
+if (process.env.NODE_ENV !== 'development') {
+  console.log = () => {}
+}
+
 ReactDOM.render(
   <BrowserRouter>
     <ScrollTop>
