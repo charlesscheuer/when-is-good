@@ -445,13 +445,14 @@ class App extends Component {
               <InviteeConfirmed data={props}/>
             </div>}
         />
-        <Route
+        {/* Uncomment this for about page */}
+        {/* <Route
           path="/about"
           exact
           component={() => {
             window.location.href = 'https://sharp-hypatia-c3340c.netlify.com/';
             return null;
-          }}/>
+          }}/> */}
         <Route
           path="/error"
           exact
