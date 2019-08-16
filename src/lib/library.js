@@ -169,15 +169,67 @@ function getTimezoneDifference(tz1, tz2) {
   if(tz1 === 'PST' && tz2 === 'MST') return 1
   else if(tz1 === 'PST' && tz2 === 'CST') return 2
   else if(tz1 === 'PST' && tz2 === 'EST') return 3
+  else if(tz1 === 'PST' && tz2 === 'WET') return 8
+  else if(tz1 === 'PST' && tz2 === 'CET') return 9
+  else if(tz1 === 'PST' && tz2 === 'EET') return 10
+  else if(tz1 === 'PST' && tz2 === 'FET') return 11
+
   else if(tz1 === 'MST' && tz2 === 'PST') return -1
   else if(tz1 === 'MST' && tz2 === 'CST') return 1
   else if(tz1 === 'MST' && tz2 === 'EST') return 2
+  else if(tz1 === 'MST' && tz2 === 'WET') return 7
+  else if(tz1 === 'MST' && tz2 === 'CET') return 8
+  else if(tz1 === 'MST' && tz2 === 'EET') return 9
+  else if(tz1 === 'MST' && tz2 === 'FET') return 10
+
   else if(tz1 === 'CST' && tz2 === 'PST') return -2
   else if(tz1 === 'CST' && tz2 === 'MST') return -1
   else if(tz1 === 'CST' && tz2 === 'EST') return 1
+  else if(tz1 === 'CST' && tz2 === 'WET') return 6
+  else if(tz1 === 'CST' && tz2 === 'CET') return 7
+  else if(tz1 === 'CST' && tz2 === 'EET') return 8
+  else if(tz1 === 'CST' && tz2 === 'FET') return 9
+
   else if(tz1 === 'EST' && tz2 === 'PST') return -3
   else if(tz1 === 'EST' && tz2 === 'MST') return -2
   else if(tz1 === 'EST' && tz2 === 'CST') return -1
+  else if(tz1 === 'EST' && tz2 === 'WET') return 5
+  else if(tz1 === 'EST' && tz2 === 'CET') return 6
+  else if(tz1 === 'EST' && tz2 === 'EET') return 7
+  else if(tz1 === 'EST' && tz2 === 'FET') return 8
+
+  else if(tz1 === 'WET' && tz2 === 'PST') return -8
+  else if(tz1 === 'WET' && tz2 === 'MST') return -7
+  else if(tz1 === 'WET' && tz2 === 'CST') return -6
+  else if(tz1 === 'WET' && tz2 === 'EST') return -5
+  else if(tz1 === 'WET' && tz2 === 'CET') return 1
+  else if(tz1 === 'WET' && tz2 === 'EET') return 2
+  else if(tz1 === 'WET' && tz2 === 'FET') return 3
+
+  else if(tz1 === 'CET' && tz2 === 'PST') return -9
+  else if(tz1 === 'CET' && tz2 === 'MST') return -8
+  else if(tz1 === 'CET' && tz2 === 'CST') return -7
+  else if(tz1 === 'CET' && tz2 === 'EST') return -6
+  else if(tz1 === 'CET' && tz2 === 'WET') return -1
+  else if(tz1 === 'CET' && tz2 === 'EET') return 1
+  else if(tz1 === 'CET' && tz2 === 'FET') return 2
+
+  else if(tz1 === 'EET' && tz2 === 'PST') return -10
+  else if(tz1 === 'EET' && tz2 === 'MST') return -9
+  else if(tz1 === 'EET' && tz2 === 'CST') return -8
+  else if(tz1 === 'EET' && tz2 === 'EST') return -7
+  else if(tz1 === 'EET' && tz2 === 'WET') return -2
+  else if(tz1 === 'EET' && tz2 === 'CET') return -1
+  else if(tz1 === 'EET' && tz2 === 'FET') return 1
+
+  else if(tz1 === 'FET' && tz2 === 'PST') return -11
+  else if(tz1 === 'FET' && tz2 === 'MST') return -10
+  else if(tz1 === 'FET' && tz2 === 'CST') return -9
+  else if(tz1 === 'FET' && tz2 === 'EST') return -8
+  else if(tz1 === 'FET' && tz2 === 'WET') return -3
+  else if(tz1 === 'FET' && tz2 === 'CET') return -2
+  else if(tz1 === 'FET' && tz2 === 'EET') return -1
+
   return 0
 }
 

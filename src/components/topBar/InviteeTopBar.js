@@ -29,6 +29,18 @@ const InviteeTopBar = props => {
               <option className="create_timezone_selection-option" value="EST">
                 EST
               </option>
+              <option className="create_timezone_selection-option" value="WET">
+                WET
+              </option>
+              <option className="create_timezone_selection-option" value="CET">
+                CET
+              </option>
+              <option className="create_timezone_selection-option" value="EET">
+                EET
+              </option>
+              <option className="create_timezone_selection-option" value="FET">
+                FET
+              </option>
             </select>
           </div>
           <div className="invitee_details">
