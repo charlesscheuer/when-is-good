@@ -1,3 +1,6 @@
+import moment from 'moment'
+import 'moment-timezone'
+
 function addDays(date, days) {
   var dat = new Date(date)
   dat.setDate(dat.getDate() + days);
@@ -233,6 +236,12 @@ function getTimezoneDifference(tz1, tz2) {
   return 0
 }
 
+function convertBetweenTimezones(datetime, tz1, tz2) {
+  var mDatetime1 = moment.tz(datetime, "MMMM D, YYYY H:mm", tz1)
+  var mDatetime2 = mDatetime1.clone().tz(tz2)
+  return mDatetime2
+}
+
 export { getPreviousNextWeek,
          getPreviousNextDay,
          getDates,
@@ -245,4 +254,5 @@ export { getPreviousNextWeek,
          resetSelection,
          mapSelectedDateTimes,
          mapInviteeSelectedDateTimes,
-         getTimezoneDifference }
+         getTimezoneDifference,
+         convertBetweenTimezones }

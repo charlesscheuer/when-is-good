@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import Slider from 'rc-slider'
 import CalendarIcon from 'components/calendar/CalendarIcon'
 import Creds from 'components/Creds'
+import 'moment-timezone'
+import moment from 'moment'
 // TODO: Future Feature
 // import Toggle from 'react-toggle';
 // import EmailIncluded from './EmailIncluded';
@@ -17,14 +19,25 @@ export default class CreateEvent extends Component {
       email: '',
       name: '',
       emailLabel: 'Email',
+      banner: true,
     }
   }
 
   render() {
     const { email, name, emailLabel } = this.state
     const enabled = email.length > 0 && name.length > 0 && emailLabel === 'Email'
+    var bannerText = "Hey! 👋 We got featured on ProductHunt. Give us some ❤️ by upvoting us here"
+    if(this.props.vw < 624) bannerText = ''
     return (
       <div className="create">
+        {this.state.banner?(
+        <div className="create_banner">
+          <p className="create_banner_wording">
+            {bannerText}
+          </p>
+          <a href="https://www.producthunt.com/posts/i-m-free-fyi?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-i-m-free-fyi" target="_blank" rel="noopener noreferrer"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=164472&theme=dark" alt="I'm Free FYI - The fastest way to book a meeting without signup | Product Hunt Embed" style={{width: '250px', height: '54px'}} width="250px" height="54px" /></a>
+          <div onClick={()=>this.setState({banner: false})} className="create_close" />
+        </div>):('')}
         <div className="create_brand">
           <CalendarIcon />
           <h1 className="create_brand_title">I'm Free FYI</h1>
@@ -58,30 +71,12 @@ export default class CreateEvent extends Component {
             onChange={this.props.onTimezoneChange}
             value={this.props.timezone}
           >
-            <option className="create_timezone_selection-option" value="PST">
-              PST
-            </option>
-            <option className="create_timezone_selection-option" value="MST">
-              MST
-            </option>
-            <option className="create_timezone_selection-option" value="CST">
-              CST
-            </option>
-            <option className="create_timezone_selection-option" value="EST">
-              EST
-            </option>
-            <option className="create_timezone_selection-option" value="WET">
-              WET
-            </option>
-            <option className="create_timezone_selection-option" value="CET">
-              CET
-            </option>
-            <option className="create_timezone_selection-option" value="EET">
-              EET
-            </option>
-            <option className="create_timezone_selection-option" value="FET">
-              FET
-            </option>
+            {moment.tz.names().map((tz, index) => {
+              return(
+              <option className="create_timezone_selection-option" key={index} value={`${tz}`}>
+                {tz}
+              </option>)
+            })}
           </select>
         </div>
         <div className="create_shouldEmail">

@@ -5,6 +5,8 @@
   "homepage": "https://determined-noyce-425a82.netlify.com/",
   "dependencies": {
     "gh-deploy": "^0.2.3",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.26",
     "node-sass": "^4.11.0",
     "rc-slider": "^8.6.9",
     "react": "^16.8.6",

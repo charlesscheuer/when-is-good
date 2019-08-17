@@ -1,4 +1,6 @@
 import React from 'react';
+import 'moment-timezone'
+import moment from 'moment'
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const InviteeTopBar = props => {
@@ -17,30 +19,12 @@ const InviteeTopBar = props => {
               onChange={props.onInviteeTimezoneChange}
               value={props.inviteeTimezone}
             >
-              <option className="create_timezone_selection-option" value="PST">
-                PST
-              </option>
-              <option className="create_timezone_selection-option" value="MST">
-                MST
-              </option>
-              <option className="create_timezone_selection-option" value="CST">
-                CST
-              </option>
-              <option className="create_timezone_selection-option" value="EST">
-                EST
-              </option>
-              <option className="create_timezone_selection-option" value="WET">
-                WET
-              </option>
-              <option className="create_timezone_selection-option" value="CET">
-                CET
-              </option>
-              <option className="create_timezone_selection-option" value="EET">
-                EET
-              </option>
-              <option className="create_timezone_selection-option" value="FET">
-                FET
-              </option>
+              {moment.tz.names().map((tz, index) => {
+                return(
+                <option className="create_timezone_selection-option" key={index} value={`${tz}`}>
+                  {tz}
+                </option>)
+              })}
             </select>
           </div>
           <div className="invitee_details">
