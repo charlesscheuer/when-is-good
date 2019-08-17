@@ -19,6 +19,47 @@
   @media screen and (max-width: 600px) {
     font-size: 1.2rem;
   }
+  &_banner {
+    padding-left: 4rem;
+    padding-right: 6rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-text;
+    height: 5rem;
+    animation: bannerFromTop 0.4s $trans-standard;
+    &_wording {
+      color: $color-4;
+      width: 100%;
+    }
+  }
+  &_close {
+    position: absolute;
+    right: 2rem;
+    height: 32px;
+    width: 32px;
+    color: $color-text;
+    opacity: 0.5;
+    &:before, &:after {
+      position: absolute;
+      left: 15px;
+      content: '';
+      height: 33px;
+      width: 2px;
+      background-color: $color-4;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
   &_brand {
     padding: 0rem 20rem;
     margin-bottom: 0;
@@ -772,6 +813,15 @@
   100% {
     opacity: 1;
     translate: transformY(0);
+  }
+}
+
+@keyframes bannerFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 

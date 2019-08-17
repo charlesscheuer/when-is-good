@@ -370,6 +370,7 @@ class App extends Component {
               createdEvent={this.createdEvent}
               onTimezoneChange={this.onTimezoneChange}
               handleEmailToggle={this.handleEmailToggle}
+              vw={this.state.viewportWidth}
             />
           )}
         />

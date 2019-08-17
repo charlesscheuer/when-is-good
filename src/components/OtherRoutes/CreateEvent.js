@@ -17,14 +17,25 @@ export default class CreateEvent extends Component {
       email: '',
       name: '',
       emailLabel: 'Email',
+      banner: true,
     }
   }
 
   render() {
     const { email, name, emailLabel } = this.state
     const enabled = email.length > 0 && name.length > 0 && emailLabel === 'Email'
+    var bannerText = "Hey! 👋 We got featured on ProductHunt. Give us some ❤️ by upvoting us here"
+    if(this.props.vw < 624) bannerText = ''
     return (
       <div className="create">
+        {this.state.banner?(
+        <div className="create_banner">
+          <p className="create_banner_wording">
+            {bannerText}
+          </p>
+          <a href="https://www.producthunt.com/posts/i-m-free-fyi?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-i-m-free-fyi" target="_blank" rel="noopener noreferrer"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=164472&theme=dark" alt="I'm Free FYI - The fastest way to book a meeting without signup | Product Hunt Embed" style={{width: '250px', height: '54px'}} width="250px" height="54px" /></a>
+          <div onClick={()=>this.setState({banner: false})} className="create_close" />
+        </div>):('')}
         <div className="create_brand">
           <CalendarIcon />
           <h1 className="create_brand_title">I'm Free FYI</h1>
