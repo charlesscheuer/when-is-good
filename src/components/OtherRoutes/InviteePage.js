@@ -57,6 +57,10 @@ class InviteePage extends Component {
   componentWillMount() {
     var id = this.props.id
     var currentUserTimezone = moment.tz.guess();
+    if(typeof currentUserTimezone === undefined)
+    {
+      currentUserTimezone = 'America/Vancouver'
+    }
     this.getCalendarEvent(id).then(state => {
       state['viewportWidth'] = window.innerWidth
       var table = mapSelectedDateTimes(state.table, state.selection)

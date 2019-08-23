@@ -59,6 +59,10 @@ class App extends Component {
 
   componentWillMount() {
     var currentUserTimezone = moment.tz.guess();
+    if(typeof currentUserTimezone === undefined)
+    {
+      currentUserTimezone = 'America/Vancouver'
+    }
     let dates = getInitDate()
     var times = getInitTimes(this.state.startTime, this.state.endTime)
     var tables = fillCurrentTimes(dates, times)
