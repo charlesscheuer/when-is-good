@@ -430,9 +430,11 @@
     }
     @media screen and (max-width: 990px) {
       padding: 0rem 7.5rem;
+      flex-direction: column;
     }
     @media screen and (max-width: 700px) {
       padding: 0rem 1rem;
+      flex-direction: column;
     }
     &_selection {
       font-family: inherit;
@@ -441,9 +443,9 @@
       align-self: center;
       color: $color-text;
       margin-left: 2rem;
-      @media screen and (max-width: 900px) {
-        width: 7rem;
-      }
+      // @media screen and (max-width: 900px) {
+      //   width: 15rem;
+      // }
 
       &-option {
         color: $color-text;
