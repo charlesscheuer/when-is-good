@@ -835,15 +835,19 @@
   padding: 0rem 20rem;
   @media screen and (max-width: 1310px) {
     padding: 0rem 15rem;
+    margin-top: 1rem;
   }
   @media screen and (max-width: 1190px) {
     padding: 0rem 10rem;
+    margin-top: 1rem;
   }
   @media screen and (max-width: 990px) {
     padding: 0rem 7.5rem;
+    margin-top: 1rem;
   }
   @media screen and (max-width: 700px) {
     padding: 0rem 1rem;
+    margin-top: 1rem;
   }
   @media screen and (max-width: 980px) {
     flex-direction: column;
