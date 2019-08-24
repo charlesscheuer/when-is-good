@@ -272,6 +272,9 @@ class InviteePage extends Component {
     var newInviteeSelect = convertBetweenTimezones(inviteeSelection[0], inviteeTimezone, timezone)
     inviteeSelection = []
     inviteeSelection.push(newInviteeSelect.format("MMMM D, YYYY H:mm"))
+    var calStart = new Date(inviteeSelection[0])
+    var calEnd = new Date(calStart)
+    calEnd.setMinutes(calEnd.getMinutes() + parseInt(this.state.window))
     selection = []
     newSelection.forEach(datetime => {
       if(!inviteeSelection.includes(datetime)) {
@@ -305,8 +308,8 @@ class InviteePage extends Component {
         inviteeName: this.state.inviteeName,
         inviteeEmail: this.state.inviteeEmail,
         inviteeNumber: this.state.inviteeNumber,
-        calStart: this.state.calStart,
-        calEnd: this.state.calEnd,
+        calStart: calStart,
+        calEnd: calEnd,
         inviteeTimezone: this.state.inviteeTimezone,
         timezone: this.state.timezone,
       }
