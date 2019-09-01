@@ -1,6 +1,8 @@
 import React from 'react';
+import 'moment-timezone'
+import moment from 'moment'
 
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const InviteeTopBar = props => {
   return (
     <div className="topbar">
@@ -17,18 +19,12 @@ const InviteeTopBar = props => {
               onChange={props.onInviteeTimezoneChange}
               value={props.inviteeTimezone}
             >
-              <option className="create_timezone_selection-option" value="PST">
-                PST
-              </option>
-              <option className="create_timezone_selection-option" value="MST">
-                MST
-              </option>
-              <option className="create_timezone_selection-option" value="CST">
-                CST
-              </option>
-              <option className="create_timezone_selection-option" value="EST">
-                EST
-              </option>
+              {moment.tz.names().map((tz, index) => {
+                return(
+                <option className="create_timezone_selection-option" key={index} value={`${tz}`}>
+                  {tz}
+                </option>)
+              })}
             </select>
           </div>
           <div className="invitee_details">
@@ -37,7 +33,7 @@ const InviteeTopBar = props => {
                 className="create_emails_form_input"
                 placeholder="Name"
                 id="inviteeName"
-                onChange={e => props.inviteeDetailsHandler(e, "Email")}
+                onChange={e => props.inviteeDetailsHandler(e, 'Email')}
                 type="text"
               />
               <label className="create_emails_form_input_label">Name</label>
@@ -48,22 +44,24 @@ const InviteeTopBar = props => {
                 placeholder="Email"
                 id="inviteeEmail"
                 onChange={e => {
-                  if(emailRegex.test(String(e.target.value).toLowerCase())) {
-                    props.inviteeDetailsHandler(e, "Email")
+                  if (emailRegex.test(String(e.target.value).toLowerCase())) {
+                    props.inviteeDetailsHandler(e, 'Email');
                   } else {
-                    props.inviteeDetailsHandler(e, "Invalid Email")
+                    props.inviteeDetailsHandler(e, 'Invalid Email');
                   }
                 }}
                 type="text"
               />
-              <label className="create_emails_form_input_label">{props.emailLabel}</label>
+              <label className="create_emails_form_input_label">
+                {props.emailLabel}
+              </label>
             </form>
             <form className="create_emails_form invitee_details_form">
               <input
                 className="create_emails_form_input"
                 placeholder="Phone number"
                 id="inviteeNumber"
-                onChange={e => props.inviteeDetailsHandler(e, "Email")}
+                onChange={e => props.inviteeDetailsHandler(e, 'Email')}
                 type="text"
               />
               <label className="create_emails_form_input_label">
@@ -74,7 +72,7 @@ const InviteeTopBar = props => {
         </div>
       </div>
     </div>
-    )
-  }
+  );
+};
 
-export default InviteeTopBar
+export default InviteeTopBar;

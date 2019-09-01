@@ -1,22 +1,14 @@
 import React from 'react'
-import { getTimezoneDifference } from 'lib/library.js'
 
 const displayHandler = (datetime, window, creatorTimezone, inviteeTimezone) => {
   if (window === 1) {
     return datetime
   }
-  //TODO: Handle timezone better using moment()
   var dateTimeObj = new Date(datetime)
   var hour = dateTimeObj.getHours()
   var newhour = hour
   var min = dateTimeObj.getMinutes()
   var ampm = hour >= 12 ? 'pm' : 'am'
-  var tzdiff = getTimezoneDifference(creatorTimezone, inviteeTimezone)
-  if(tzdiff !== 0) {
-    newhour = hour + tzdiff
-    if(ampm === 'am' && hour < 12 && newhour >= 12) ampm = 'pm'
-    else if(ampm === 'pm' && hour < 24 && newhour >= 24) ampm = 'am'
-  }
   newhour = newhour % 12
   newhour = newhour ? newhour : 12
   var endTime = getEndTime(newhour, min, window)

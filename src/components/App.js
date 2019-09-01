@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Link, Redirect, Switch } from 'react-router-dom'
 import { throttle } from 'throttle-debounce'
 import { Route } from 'react-router-dom'
+import 'moment-timezone'
+import moment from 'moment'
+
 import TopBar from 'components/topBar/TopBar'
 import Calendar from 'components/calendar/Calendar'
 import Creds from 'components/Creds'
@@ -42,7 +45,7 @@ class App extends Component {
       value: [22, 62],
       startTime: '9 am',
       endTime: '5 pm',
-      timezone: 'PST',
+      timezone: 'America/Chicago',
       shouldEmail: false,
       yourEmail: '',
       yourName: '',
@@ -55,6 +58,11 @@ class App extends Component {
   }
 
   componentWillMount() {
+    var currentUserTimezone = moment.tz.guess();
+    if(typeof currentUserTimezone === undefined)
+    {
+      currentUserTimezone = 'America/Vancouver'
+    }
     let dates = getInitDate()
     var times = getInitTimes(this.state.startTime, this.state.endTime)
     var tables = fillCurrentTimes(dates, times)
@@ -62,6 +70,7 @@ class App extends Component {
       dates: dates,
       times: times,
       table: tables[0],
+      timezone: currentUserTimezone,
       mobileTable: tables[1],
     })
   }
@@ -370,6 +379,7 @@ class App extends Component {
               createdEvent={this.createdEvent}
               onTimezoneChange={this.onTimezoneChange}
               handleEmailToggle={this.handleEmailToggle}
+              vw={this.state.viewportWidth}
             />
           )}
         />

@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { throttle } from 'throttle-debounce'
+import 'moment-timezone'
+import moment from 'moment'
+
 import InviteeTopBar from 'components/topBar/InviteeTopBar'
 import Calendar from 'components/calendar/Calendar'
 import Creds from 'components/Creds'
@@ -19,6 +22,7 @@ import {
   fillCurrentTimes,
   mapSelectedDateTimes,
   mapInviteeSelectedDateTimes,
+  convertBetweenTimezones,
 } from '../../lib/library.js'
 import { backend_url } from '../../lib/controller.js'
 
@@ -34,7 +38,8 @@ class InviteePage extends Component {
       inviteeName: '',
       inviteeEmail: '',
       inviteeNumber: '',
-      inviteeTimezone: 'PST',
+      prevInviteeTimezone: 'America/Chicago',
+      inviteeTimezone: 'America/Chicago',
       timezone: '',
       calStart: '',
       calEnd: '',
@@ -51,10 +56,38 @@ class InviteePage extends Component {
 
   componentWillMount() {
     var id = this.props.id
+    var currentUserTimezone = moment.tz.guess();
+    if(typeof currentUserTimezone === undefined)
+    {
+      currentUserTimezone = 'America/Vancouver'
+    }
     this.getCalendarEvent(id).then(state => {
       state['viewportWidth'] = window.innerWidth
       var table = mapSelectedDateTimes(state.table, state.selection)
       state.table = table
+      state.inviteeTimezone = currentUserTimezone
+      state.prevInviteeTimezone = state.timezone
+      var newSelection = state.selection
+      var newTable = state.table
+      if(currentUserTimezone !== state.timezone) {
+        newSelection = []
+        newTable = []
+        state.selection.map(element => {
+          var newElement = convertBetweenTimezones(element, state.prevInviteeTimezone, state.inviteeTimezone)
+          return newSelection.push(newElement.format("MMMM D, YYYY H:mm"))
+        })
+        state.table.map(row => {
+          var newRow = {}
+          Object.keys(row).forEach(key => {
+            newSelection.includes(key) ? newRow[key] = 1 : newRow[key] = 0
+          })
+          return newTable.push(newRow)
+        })
+      }
+      console.log(newSelection)
+      state.table = newTable
+      state.selection = newSelection
+      state.prevInviteeTimezone = state.inviteeTimezone
       this.setState(state)
     }).catch( error => {
       this.setState({
@@ -190,27 +223,68 @@ class InviteePage extends Component {
   }
 
   onInviteeTimezoneChange = event => {
+    var inviteeTimezone = event.target.value
+    var prevInviteeTimezone = this.state.prevInviteeTimezone
+    var table = this.state.table
+    var newSelection = []
+    var newTable = []
+    this.state.selection.map(element => {
+      var newElement = convertBetweenTimezones(element, prevInviteeTimezone, inviteeTimezone)
+      return newSelection.push(newElement.format("MMMM D, YYYY H:mm"))
+    })
+    table.map(row => {
+      var newRow = {}
+      Object.keys(row).forEach(key => {
+        newSelection.includes(key) ? newRow[key] = 1 : newRow[key] = 0
+      })
+      return newTable.push(newRow)
+    })
     this.setState({
-      inviteeTimezone: event.target.value
+      table: newTable,
+      selection: newSelection,
+      prevInviteeTimezone: inviteeTimezone,
+      inviteeTimezone: inviteeTimezone,
     })
   }
 
   confirmTimes = () => {
     var selection = this.state.selection
+    var timezone = this.state.timezone
+    var inviteeTimezone = this.state.inviteeTimezone
+    var table = this.state.table
     var newSelection = []
+    var newTable = []
+    selection.map(element => {
+      var newElement = convertBetweenTimezones(element, inviteeTimezone, timezone)
+      return newSelection.push(newElement.format("MMMM D, YYYY H:mm"))
+    })
+    table.map(row => {
+      var newRow = {}
+      Object.keys(row).forEach(key => {
+        newSelection.includes(key) ? newRow[key] = 1 : newRow[key] = 0
+      })
+      return newTable.push(newRow)
+    })
     var id = this.props.id
     var usersapi = backend_url + id
     var meetingsapi = backend_url + 'meeting'
     var inviteeSelection = this.state.inviteeSelection
-    selection.forEach(datetime => {
+    var newInviteeSelect = convertBetweenTimezones(inviteeSelection[0], inviteeTimezone, timezone)
+    inviteeSelection = []
+    inviteeSelection.push(newInviteeSelect.format("MMMM D, YYYY H:mm"))
+    var calStart = new Date(inviteeSelection[0])
+    var calEnd = new Date(calStart)
+    calEnd.setMinutes(calEnd.getMinutes() + parseInt(this.state.window))
+    selection = []
+    newSelection.forEach(datetime => {
       if(!inviteeSelection.includes(datetime)) {
-        newSelection.push(datetime)
+        selection.push(datetime)
       }
     })
     var body = {
       "keyval": {
         "state": {
-          "selection" : newSelection
+          "selection" : selection
         }
       }
     }
@@ -234,8 +308,8 @@ class InviteePage extends Component {
         inviteeName: this.state.inviteeName,
         inviteeEmail: this.state.inviteeEmail,
         inviteeNumber: this.state.inviteeNumber,
-        calStart: this.state.calStart,
-        calEnd: this.state.calEnd,
+        calStart: calStart,
+        calEnd: calEnd,
         inviteeTimezone: this.state.inviteeTimezone,
         timezone: this.state.timezone,
       }
