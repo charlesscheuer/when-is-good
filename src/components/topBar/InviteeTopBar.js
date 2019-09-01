@@ -6,7 +6,8 @@ const InviteeTopBar = props => {
     <div className="topbar">
       <div className="container">
         <div className="create">
-          <p>Confirm your availability</p>
+          <p>Please select a time</p>
+          <p>Available times are shown in green</p>
           <div className="create_timezone">
             <p className="create_timezone_label">
               What time zone would you like the times to be in?
