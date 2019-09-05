@@ -94,6 +94,7 @@
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+  z-index: 10;
 }
 
 .weekdays {
@@ -207,6 +208,9 @@
     border-radius: 0.4rem;
     border: none;
     outline: none;
+    &-disabled {
+      opacity: 0.1;
+    }
     &:active {
       border: none;
       outline: none;
@@ -266,10 +270,4 @@
       font-size: 1.5rem;
     }
   }
-}
-
-.sticks {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
 }

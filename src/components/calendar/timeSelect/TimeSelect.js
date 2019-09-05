@@ -1,155 +1,165 @@
-import React from 'react'
+import React from 'react';
 
 const displayHandler = (datetime, window, creatorTimezone, inviteeTimezone) => {
   if (window === 1) {
-    return datetime
+    return datetime;
   }
-  var dateTimeObj = new Date(datetime)
-  var hour = dateTimeObj.getHours()
-  var newhour = hour
-  var min = dateTimeObj.getMinutes()
-  var ampm = hour >= 12 ? 'pm' : 'am'
-  newhour = newhour % 12
-  newhour = newhour ? newhour : 12
-  var endTime = getEndTime(newhour, min, window)
-  var endHour = endTime[0]
-  var endMin = endTime[1]
-  var endampm = ampm
-  if(newhour === 11 && endHour === 12) {
-    endampm = (ampm === 'am')?'pm':'am'
+  var dateTimeObj = new Date(datetime);
+  var hour = dateTimeObj.getHours();
+  var newhour = hour;
+  var min = dateTimeObj.getMinutes();
+  var ampm = hour >= 12 ? 'pm' : 'am';
+  newhour = newhour % 12;
+  newhour = newhour ? newhour : 12;
+  var endTime = getEndTime(newhour, min, window);
+  var endHour = endTime[0];
+  var endMin = endTime[1];
+  var endampm = ampm;
+  if (newhour === 11 && endHour === 12) {
+    endampm = ampm === 'am' ? 'pm' : 'am';
   }
-  if(endHour === 13) endHour = 1
+  if (endHour === 13) endHour = 1;
   if (min === 0) {
-    if(endMin === 0) return `${newhour}${ampm} - ${endHour}${endampm}`
-    return `${newhour}${ampm} - ${endHour}:${endMin}${endampm}`
+    if (endMin === 0) return `${newhour}${ampm} - ${endHour}${endampm}`;
+    return `${newhour}${ampm} - ${endHour}:${endMin}${endampm}`;
   } else {
-    if(endMin === 0) return `${newhour}:${min}${ampm} - ${endHour}${endampm}`
-    return `${newhour}:${min}${ampm} - ${endHour}:${endMin}${endampm}`
+    if (endMin === 0) return `${newhour}:${min}${ampm} - ${endHour}${endampm}`;
+    return `${newhour}:${min}${ampm} - ${endHour}:${endMin}${endampm}`;
   }
-}
+};
 
 const getEndTime = (hour, min, window) => {
-  if(window === 60) return [hour+1, min]
-  if(min === 0) return [hour, window]
-  if(window === 15) {
-    if(min === 15 || min === 30) return [hour, min+window]
-    return [hour+1, 0]
+  if (window === 60) return [hour + 1, min];
+  if (min === 0) return [hour, window];
+  if (window === 15) {
+    if (min === 15 || min === 30) return [hour, min + window];
+    return [hour + 1, 0];
   }
-  if(window === 30) {
-    return [hour+1, 0]
+  if (window === 30) {
+    return [hour + 1, 0];
   }
-  if(window === 45) {
-    return [hour+1, 30]
+  if (window === 45) {
+    return [hour + 1, 30];
   }
-}
+};
 
 const displayTableHandler = (table, window, mobileTable, vw) => {
-  let displayTable = []
+  let displayTable = [];
   // FIXME: Refactor this code in the future. This logic is very ugly.
   var i = 0;
-  if(vw < 624) {
+  if (vw < 624) {
     for (let row of table) {
-      var displayRow = {}
-      var key = mobileTable[i]
-      var value = row[key]
-      var dateTimeObj = new Date(key)
-      var date = dateTimeObj.getDate()
+      var displayRow = {};
+      var key = mobileTable[i];
+      var value = row[key];
+      var dateTimeObj = new Date(key);
+      var date = dateTimeObj.getDate();
       if (window === 1) {
-        displayRow[date] = value
+        displayRow[date] = value;
       } else {
-        var min = dateTimeObj.getMinutes()
-        if (min % window === 0) displayRow[key] = value
+        var min = dateTimeObj.getMinutes();
+        if (min % window === 0) displayRow[key] = value;
       }
-      displayTable.push(displayRow)
+      displayTable.push(displayRow);
       if (window === 1) {
-        break
+        break;
       }
       i++;
     }
-  }
-  else {
+  } else {
     for (let row of table) {
-      displayRow = {}
+      displayRow = {};
       for (let key in row) {
-        value = row[key]
-        dateTimeObj = new Date(key)
-        date = dateTimeObj.getDate()
+        value = row[key];
+        dateTimeObj = new Date(key);
+        date = dateTimeObj.getDate();
         if (window === 1) {
-          displayRow[date] = value
+          displayRow[date] = value;
         } else {
-          min = dateTimeObj.getMinutes()
-          if (min % window === 0) displayRow[key] = value
+          min = dateTimeObj.getMinutes();
+          if (min % window === 0) displayRow[key] = value;
         }
       }
-      displayTable.push(displayRow)
+      displayTable.push(displayRow);
       if (window === 1) {
-        break
+        break;
       }
     }
   }
-  return displayTable
-}
+  return displayTable;
+};
 
-const onTimeSelectClassName = (val) => {
-  if (val === 1) return 'TimeSlot_time TimeSlot_time_selected'
-  else if(val === 0) return 'TimeSlot_time'
-  return 'TimeSlot_time TimeSlot_time_invitee_selected'
-}
+const onTimeSelectClassName = (val, isInviteePage) => {
+  if (val === 1) return 'TimeSlot_time TimeSlot_time_selected';
+  else if (val === 0)
+    return `TimeSlot_time ${isInviteePage && 'TimeSlot_time-disabled'}`;
+  return 'TimeSlot_time TimeSlot_time_invitee_selected';
+};
 
 const TimeSelect = props => {
-  let table = [...props.table]
-  let creatorTimezone = props.creatorTimezone
-  let inviteeTimezone = props.inviteeTimezone
-  let dates = [...props.dates].map(date => new Date(date).getDate())
-  let window = props.window
-  let mobileTable = props.mobileTable
-  let displayTable = displayTableHandler(table, window, mobileTable, props.vw)
+  let table = [...props.table];
+  let creatorTimezone = props.creatorTimezone;
+  let inviteeTimezone = props.inviteeTimezone;
+  let dates = [...props.dates].map(date => new Date(date).getDate());
+  let window = props.window;
+  let mobileTable = props.mobileTable;
+  let displayTable = displayTableHandler(table, window, mobileTable, props.vw);
   return (
     <div className="TimeSelect">
-        <div className="TimeSlot">
-          <div className="TimeSlot_col">
-            {displayTable.map((row, x) => {
-              if(Object.entries(row).length === 0) return (null)
-              return (
-                <div className="TimeSlot_col_row" key={x}>
-                  {dates.map((date, y) => {
-                    var datetime = ''
-                    if (Object.keys(row).length !== 0) {
-                      for(let dt of Object.keys(row)) {
-                        if(window === 1) {
-                          if(parseInt(dt) === date) {
-                            datetime = dt
-                            break
-                          }
-                        } else {
-                          if(new Date(dt).getDate() === date) {
-                            datetime = dt
-                            break
-                          }
+      <div className="TimeSlot">
+        <div className="TimeSlot_col">
+          {displayTable.map((row, x) => {
+            if (Object.entries(row).length === 0) return null;
+            return (
+              <div className="TimeSlot_col_row" key={x}>
+                {dates.map((date, y) => {
+                  var datetime = '';
+                  if (Object.keys(row).length !== 0) {
+                    for (let dt of Object.keys(row)) {
+                      if (window === 1) {
+                        if (parseInt(dt) === date) {
+                          datetime = dt;
+                          break;
+                        }
+                      } else {
+                        if (new Date(dt).getDate() === date) {
+                          datetime = dt;
+                          break;
                         }
                       }
-                      if(datetime === '') return(null)
-                      return (
-                        <button
-                          className={onTimeSelectClassName(row[datetime])}
-                          draggable="true"
-                          onClick={e => props.onTimeSelect(e, datetime, row[datetime])}
-                          key={x + y}
-                        >
-                          <p className="TimeSlot_time_value">
-                            {displayHandler(datetime, window, creatorTimezone, inviteeTimezone)}
-                          </p>
-                        </button>
-                      )} else return(null)
                     }
-                  )}
-                </div>
-              )
-            })}
-          </div>
+                    if (datetime === '') return null;
+                    return (
+                      <button
+                        className={onTimeSelectClassName(
+                          row[datetime],
+                          props.isInviteePage
+                        )}
+                        draggable="true"
+                        onClick={e =>
+                          props.onTimeSelect(e, datetime, row[datetime])
+                        }
+                        key={x + y}
+                      >
+                        <p className="TimeSlot_time_value">
+                          {displayHandler(
+                            datetime,
+                            window,
+                            creatorTimezone,
+                            inviteeTimezone
+                          )}
+                        </p>
+                      </button>
+                    );
+                  } else return null;
+                })}
+              </div>
+            );
+          })}
         </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default TimeSelect
+export default TimeSelect;
